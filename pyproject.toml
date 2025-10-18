@@ -1,0 +1,18 @@
+[project]
+name = "stop-azs"
+version = "0.1.0"
+description = "Tools for highlighting potentially suspicious escrow transactions."
+authors = [{name = "Stop AZS Maintainers"}]
+readme = "README.md"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"
