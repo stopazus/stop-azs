@@ -1,0 +1,7 @@
+reference,sender,receiver,amount,currency,date,invoice_number,destination_country,notes
+TX-0001,Alpha Holdings LLC,Global Escrow Services,680000,USD,2023-07-06,INV-4821,GB,Invoice disputed by originator
+TX-0002,Beta Ridge Partners,Global Escrow Services,520000,USD,2023-07-10,INV-4821,GB,Same invoice reference as TX-0001
+TX-0003,Delta Sunrise Ventures,Global Escrow Services,130000,USD,2023-07-12,INV-4821,GB,Multiple senders consolidating funds
+TX-0004,Riverbend Advisors,Global Escrow Services,22000,USD,2023-07-15,INV-9002,US,Below threshold example
+TX-0005,Granite Peak Advisors,Helios Consultants Ltd,85000,USD,2023-07-18,,AE,No invoice metadata but high value
+TX-0006,Blue Harbor Trading,Helios Consultants Ltd,91000,USD,2023-07-20,,AE,Repeated receiver relationship
