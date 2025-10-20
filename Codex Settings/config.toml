@@ -1,0 +1,69 @@
+# Codex Suspicious Activity Report configuration
+
+[filing_information]
+filing_type = "Initial"
+filing_date = 2025-09-11
+amendment_type = "None"
+prior_document_control_number = ""
+contact_office = "N & S Holding LLC - AML Surveillance Unit"
+contact_phone = "786-707-7111"
+contact_email = "office@nsholding.us"
+
+[filer_information]
+name = "N & S Holding LLC"
+EIN = ""
+
+[filer_information.address]
+address_line1 = "2640 Hollywood Blvd"
+city = "Hollywood"
+state = "FL"
+zip = "33020"
+country = "US"
+
+[filer_information.sam]
+uei = "QD5XW4H6MNX8"
+cage = "87AY0"
+
+[[subjects]]
+entity_type = "Business"
+name = "YBH Holdings LLC"
+account = { account_number = "", financial_institution = "" }
+
+[[subjects]]
+entity_type = "Business"
+name = "Eisenstein Buyers"
+account = { account_number = "", financial_institution = "" }
+
+[[subjects]]
+entity_type = "Business"
+name = "Zeig IOTA Escrow"
+account = { account_number = "", financial_institution = "" }
+
+[[transactions]]
+date = 2023-02-09
+notes = "Routing inconsistent with escrow instructions; suspected layering/structuring."
+uetr = "PENDING"
+beneficiaries = [
+  "YBH Holdings LLC",
+  "Eisenstein Buyers",
+  "Layered Offshore Accounts"
+]
+pass_through_accounts = [
+  "#2304977980",
+  "#2000043165557"
+]
+amount = { currency = "USD", value = "PENDING" }
+originating_account = { name = "Zeig IOTA Escrow" }
+
+[suspicious_activity]
+activities = [
+  "Wire fraud - escrow diversion",
+  "Money laundering - layering",
+  "Structuring"
+]
+locations = ["1040 Hsia Bitoon"]
+narrative = "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Funds originated from Zeig IOTA Escrow, routed through pass-through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. Dollar amounts and UETR identifiers pending subpoena from Banesco USA."
+
+[[attachments]]
+file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
+description = "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
