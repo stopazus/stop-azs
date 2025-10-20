@@ -1,0 +1,96 @@
+{
+  "entity": "N & S Holding LLC",
+  "uei": "QD5XW4H6MNX8",
+  "cage": "87AY0",
+  "secrets_ref": "use .env or a vault; do not paste secrets in chat",
+  "connectors": {
+    "sanctions": {
+      "world_check": {
+        "base_url": "https://api.world-check.com/",
+        "api_key_env": "WORLDCHECK_API_KEY",
+        "enabled": false
+      },
+      "dow_jones_rc": {
+        "base_url": "https://api.dowjones.com/risk/",
+        "api_key_env": "DJRC_API_KEY",
+        "enabled": false
+      },
+      "sayari": {
+        "base_url": "https://api.sayari.com/",
+        "api_key_env": "SAYARI_TOKEN",
+        "enabled": false
+      },
+      "orbis_bvd": {
+        "base_url": "https://api.bvdinfo.com/",
+        "api_key_env": "ORBIS_TOKEN",
+        "enabled": false
+      }
+    },
+    "ucc_lien": {
+      "csc_global": {
+        "base_url": "https://api.cscglobal.com/ucc/",
+        "api_key_env": "CSC_API_KEY",
+        "enabled": false
+      },
+      "wolters_kluwer_lien_solutions": {
+        "base_url": "https://api.liensolutions.com/",
+        "api_key_env": "WKLS_API_KEY",
+        "enabled": false
+      },
+      "fl_state_portal": {
+        "method": "web_portal",
+        "notes": "Manual or approved integrations; fees may apply.",
+        "enabled": false
+      }
+    },
+    "property_title": {
+      "first_american_datatree": {
+        "base_url": "https://api.datatree.com/",
+        "api_key_env": "DATATREE_KEY",
+        "enabled": false
+      },
+      "corelogic_attom": {
+        "base_url": "https://api.attomdata.com/",
+        "api_key_env": "ATTOM_KEY",
+        "enabled": false
+      },
+      "county_recorders": {
+        "broward": {
+          "method": "subscription/alerts",
+          "enabled": false
+        },
+        "miami_dade": {
+          "method": "subscription/alerts",
+          "enabled": false
+        },
+        "palm_beach": {
+          "method": "subscription/alerts",
+          "enabled": false
+        }
+      }
+    },
+    "payments": {
+      "bank_webhooks": {
+        "description": "ACH/wire/Fedwire/FedNow events from partner bank",
+        "endpoint_env": "BANK_WEBHOOK_URL",
+        "token_env": "BANK_WEBHOOK_TOKEN",
+        "enabled": false
+      },
+      "masav_zahav": {
+        "description": "Events via Israeli partner bank",
+        "contact": "Bank integration team",
+        "enabled": false
+      },
+      "email_ingest": {
+        "imap_host_env": "ALERTS_IMAP_HOST",
+        "imap_user_env": "ALERTS_IMAP_USER",
+        "imap_pass_env": "ALERTS_IMAP_PASS",
+        "allowed_senders": [
+          "alerts@bank.com",
+          "noreply@vendor.com"
+        ],
+        "enabled": false
+      }
+    }
+  }
+}
