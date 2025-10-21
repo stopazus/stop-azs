@@ -1,36 +1,38 @@
-# Suspicious Escrow Activity Overview
+# Draft SAR Reference — IC3 Submission 7065f60922b948a59af3a8654edb16dd
 
-This repository stores neutral reference material derived from a draft Suspicious Activity Report (SAR) concerning an alleged diversion of escrowed funds associated with IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`. The notes below restate the reporting institution's narrative for investigative coordination and do not represent confirmed findings.
+This repository holds a neutral synopsis of a draft Suspicious Activity Report (SAR) tied to the alleged diversion of escrowed funds. The information below mirrors the reporting institution's narrative for coordination between investigative teams. It should not be treated as a finding of fact or proof of misconduct.
 
 ## Filing Snapshot
-- **Report type:** Initial Suspicious Activity Report (FinCEN schema v1.5)
-- **Submission date:** 11 September 2025
-- **Submitting institution:** N & S Holding LLC — AML Surveillance Unit (786-707-7111, office@nsholding.us)
-- **Attachment cited:** `Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf`
-- **External reference:** FBI IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`
+| Field | Detail |
+| --- | --- |
+| Report type | Initial Suspicious Activity Report (FinCEN schema v1.5) |
+| Submission date | 11 September 2025 |
+| Reporting institution | N & S Holding LLC — AML Surveillance Unit (786-707-7111, office@nsholding.us) |
+| External reference | FBI IC3 Submission ID `7065f60922b948a59af3a8654edb16dd` |
+| Referenced attachment | `Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf` |
 
-## Parties Mentioned in the Draft SAR
+## Parties Cited
 | Entity | Reported role | Noted details |
 | --- | --- | --- |
-| **Zeig IOTA Escrow** | Alleged originating escrow account. | Operated by attorney Justin E. Zeig; routing institution confirmation pending subpoena production.
-| **YBH Holdings LLC** | Receiving entity. | Linked to a real-estate management group; beneficial ownership unresolved.
-| **Eisenstein Buyers** | Receiving entity. | Described as receiving a portion of the disputed proceeds.
-| **Layered offshore accounts** | Downstream recipients. | Identified generically; exact jurisdictions pending mutual legal assistance outreach.
-| **N & S Holding LLC** | Reporting party. | Based at 2640 Hollywood Blvd, Hollywood, FL 33020.
+| Zeig IOTA Escrow | Alleged originating escrow account | Managed by attorney Justin E. Zeig; routing confirmation pending subpoena production |
+| YBH Holdings LLC | Receiving entity | Connected to a real-estate management enterprise; beneficial ownership unresolved |
+| Eisenstein Buyers | Receiving entity | Described as obtaining a portion of the disputed proceeds |
+| Layered offshore accounts | Downstream recipients | Identified generically; jurisdictions pending Mutual Legal Assistance Treaty (MLAT) outreach |
+| N & S Holding LLC | Reporting party | Headquarters: 2640 Hollywood Blvd, Hollywood, FL 33020 |
 
-## Reported Transaction Flow — 9 February 2023
-1. Funds were reportedly disbursed from the Zeig IOTA escrow account contrary to authorized instructions.
-2. Transfers passed through intermediary accounts `#2304977980` and `#2000043165557` before distribution.
-3. YBH Holdings LLC, Eisenstein Buyers, and unidentified offshore accounts were described as beneficiaries.
-4. The reporting institution highlighted the pattern as inconsistent with normal escrow operations and potentially indicative of layering or structuring.
-5. Exact dollar values and the Universal End-to-End Transaction Reference (UETR) were outstanding pending subpoena responses from Banesco USA.
+## Transaction Narrative — 9 February 2023
+1. Funds were reportedly released from the Zeig IOTA escrow account contrary to authorized instructions.
+2. Intermediary accounts `#2304977980` and `#2000043165557` allegedly received and routed the transfers.
+3. YBH Holdings LLC, Eisenstein Buyers, and unidentified offshore accounts were named as beneficiaries of the distributions.
+4. The reporting institution flagged the routing pattern as inconsistent with standard escrow controls and possibly indicative of layering or structuring.
+5. Exact transaction values and the Universal End-to-End Transaction Reference (UETR) remain outstanding pending subpoena responses from Banesco USA.
 
-## Suggested Follow-Up Actions
-- Monitor subpoena returns from Banesco USA and any correspondent banks for detailed transaction records.
-- Verify corporate formation and beneficial ownership information for YBH Holdings LLC and Eisenstein Buyers.
-- Reconcile the described routing activity against standard escrow controls to identify potential internal control breakdowns.
-- Draft Mutual Legal Assistance Treaty (MLAT) requests once involved offshore jurisdictions are confirmed.
-- Maintain an evidence log that aligns with the annex referenced in the cited SAR attachment.
+## Open Items for Investigators
+- Review subpoena returns from Banesco USA and any correspondent banks for detailed transaction and routing records.
+- Validate corporate formation and beneficial ownership information for YBH Holdings LLC and Eisenstein Buyers.
+- Compare the described transaction path against internal escrow procedures to identify potential control gaps.
+- Prepare MLAT requests once offshore jurisdictions linked to the downstream accounts are confirmed.
+- Maintain an evidence log aligned with the annex referenced in the SAR attachment.
 
 ## Agency Points of Contact
 - **FBI – Internet Crime Complaint Center (IC3)**, Recovery Asset Team (RAT) — reference IC3 Submission ID `7065f60922b948a59af3a8654edb16dd` when coordinating.
@@ -38,4 +40,4 @@ This repository stores neutral reference material derived from a draft Suspiciou
 - **IRS – Criminal Investigation (IRS-CI)**, Fraud / Money Laundering referral desk.
 
 ## Disclaimer
-All descriptions originate from the reporting institution's draft SAR. Inclusion of any entity or individual reflects allegations that have not been adjudicated. Determinations of fact should rely on the outcomes of regulatory or judicial processes.
+All descriptions originate from the reporting institution's draft SAR. Mention of any individual or entity reflects unproven allegations. Determinations of fact must rely on the outcomes of regulatory, investigative, or judicial processes.
