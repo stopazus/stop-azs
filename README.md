@@ -1,42 +1,42 @@
 # Suspicious Escrow Transactions Investigation
 
-## Background
-Investigators traced approximately $7 million in victim funds through an attorney escrow account managed by Justin E. Zeig. Victims were instructed to wire money referencing fabricated invoices, and an IC3 complaint (Submission ID 7065f60922b948a59af3a8654edb16dd) was filed. One identified transfer, Wire Ref #ZLG-070623-01, illustrates how funds were diverted from the intended beneficiaries and moved abroad via shell entities.
+This repository tracks publicly reported allegations surrounding the handling of funds within the Zeig IOTA escrow structure. Information below summarizes the narrative contained in the "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd" attachment referenced in a draft Suspicious Activity Report (SAR). Nothing here should be treated as adjudicated fact; allegations remain subject to confirmation through formal investigative processes.
 
-In early 2023, Zeig allegedly abused a City National Bank (CNB) IOTA escrow account (CNB #2304977980) to launder funds. Large deposits were rapidly withdrawn, resulting in a zero balance after each transaction. This pattern is consistent with the layering stage of money laundering, where complex transfers obscure the origin of funds.
+## Filing Snapshot
+- **Filing type:** Initial SAR (version 1.5 schema)
+- **Filing date:** 11 September 2025
+- **Submitting office:** N & S Holding LLC – AML Surveillance Unit (786-707-7111 / office@nsholding.us)
+- **IC3 reference:** Submission ID 7065f60922b948a59af3a8654edb16dd
+- **Attachment:** `Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf`
 
-## Key Entities
-- **Justin E. Zeig** – Attorney controlling the CNB escrow account; disbarred in late 2024 for escrow misconduct and involved in foreclosure litigation.
-- **YBH Holdings 2948 LLC** – Florida LLC managed by Hasia Bitton, linked to approximately $7 million transferred via Bank Hapoalim (Israel).
-- **Yossef Ben-Hamo** – Israeli national identified as co-manager/beneficial owner within the YBH Holdings network.
-- **BR Shell LLC (UK)** – UK-based shell entity used as an intermediary for moving funds offshore.
-- **Victims** – Over 600 victims, including N & S Holding LLC (Sharon Topaz’s firm), which never received escrow funds owed to it.
+## Parties of Interest
+| Entity | Role as Described in SAR | Notes |
+| --- | --- | --- |
+| **Zeig IOTA Escrow** | Originating escrow account allegedly routing victim funds. | Operated by attorney Justin E. Zeig; specific banking institution not confirmed in filing. |
+| **YBH Holdings LLC** | Listed beneficiary. | Linked to management group associated with real estate transactions; detailed ownership pending subpoena. |
+| **Eisenstein Buyers** | Listed beneficiary. | Business entity receiving proceeds in the flagged transaction. |
+| **Layered Offshore Accounts** | Listed beneficiary. | Described generically; suggests further layering activity outside the U.S. |
+| **N & S Holding LLC** | Filing entity and reported victim. | Operating out of 2640 Hollywood Blvd, Hollywood, FL 33020 (USA). |
 
-## Escrow Ledger Findings (CNB #2304977980)
-Forensic review identified five significant 2023 transactions. Each deposit was matched by an immediate withdrawal of the exact amount, indicating the account functioned as a pass-through vehicle for illicit layering.
+## Transaction Narrative (2023-02-09)
+- **Amount:** Pending confirmation (bank subpoena outstanding with Banesco USA).
+- **Routing pattern:**
+  1. Funds originated from an account titled **Zeig IOTA Escrow**.
+  2. Transfers passed through intermediary accounts `#2304977980` and `#2000043165557`.
+  3. Proceeds dispersed to **YBH Holdings LLC**, **Eisenstein Buyers**, and unspecified **layered offshore accounts**.
+- **Notes from SAR:** Routing is inconsistent with escrow instructions and is suspected to support layering/structuring typologies. A Universal End-to-End Transaction Reference (UETR) is pending. Investigators noted that dollar values and UETR details will be provided once subpoena responses are returned.
 
-| Date (2023) | Deposit | Withdrawal | Routing Notes | Related Evidence/Case |
-|-------------|---------|------------|---------------|------------------------|
-| Jan 12      | $1,200,000 | $1,200,000 | Routed through YBH Holdings 2948 LLC to Bank Hapoalim (IL). | Included in IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. |
-| Mar 03      | $950,000 | $950,000 | Diverted to BR Shell LLC (UK) via correspondent banking. | Referenced in FBI SAR Annex, Section 3. |
-| Jul 06      | $1,500,000 | $1,500,000 | Wire Ref #ZLG-070623-01; funds cycled through multiple offshore accounts. | Triggered IRS-CI review of shell company network. |
-| Sep 19      | $1,400,000 | $1,400,000 | Split into multiple wires to nominee-controlled accounts in the Caribbean. | Connected to FinCEN advisory filing 2023-09. |
-| Nov 02      | $1,350,000 | $1,350,000 | Withdrawn via rapid ACH transfers to domestic fronts before being sent abroad. | Cited in foreclosure litigation against Zeig. |
+## Alleged Suspicious Activity Types
+- Wire fraud tied to escrow diversion.
+- Money laundering with an emphasis on layering methodologies.
+- Structuring behavior to obscure fund origin and final beneficiaries.
 
-## Legal and Regulatory Actions
-- **FinCEN** – Received Suspicious Activity Reports (SAR) detailing the rapid in-and-out transfers and shell entity involvement.
-- **IRS Criminal Investigation (IRS-CI)** – Conducted forensic tracing of funds through 13 companies and 18 accounts.
-- **FBI** – Investigated the multi-jurisdictional fraud, linking the escrow misuse to a broader money laundering scheme.
-- **State Bar Proceedings** – Resulted in Justin E. Zeig’s disbarment in late 2024 for escrow account misconduct.
-- **Civil Litigation** – Victims, including N & S Holding LLC, pursued legal remedies for unrecovered funds and related damages.
+## Investigative Considerations
+1. **Document requests:** Ensure subpoenas to Banesco USA and any correspondent institutions are tracked for timely fulfillment.
+2. **Beneficiary verification:** Validate corporate formation data, beneficial ownership, and account relationships for YBH Holdings LLC and Eisenstein Buyers.
+3. **Escrow controls review:** Compare alleged transaction routing with standard escrow disbursement instructions to identify potential control failures.
+4. **Cross-border assistance:** Prepare Mutual Legal Assistance Treaty (MLAT) requests for any jurisdictions linked to the "layered offshore accounts" once identified.
+5. **Evidence management:** Archive responses, banking records, and investigative analyses in the annex referenced in the SAR attachment.
 
-## Summary of Findings
-- The CNB escrow account showed consistent pass-through behavior consistent with layering in money laundering.
-- Shell entities and offshore accounts (notably YBH Holdings 2948 LLC and BR Shell LLC) were instrumental in obscuring fund origins.
-- Regulatory and law enforcement bodies coordinated to address the $5.4 million+ moved through 13 companies and 18 accounts between January 2023 and November 2024.
-
-## Next Steps for Investigators
-1. Expand subpoena coverage to counterparties interacting with the CNB escrow account.
-2. Pursue mutual legal assistance treaties (MLATs) to trace funds moved through overseas financial institutions.
-3. Coordinate with victim entities to document losses and support asset recovery efforts.
-4. Continue monitoring related shell companies and nominee accounts for ongoing suspicious activity.
+## Legal Disclaimer
+This repository relays allegations contained in a draft SAR submission for investigative coordination. The presence of an entity or individual within this document does not imply guilt or legal liability. Conclusions should be drawn only after regulators and courts complete their processes.
