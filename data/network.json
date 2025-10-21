@@ -16,6 +16,7 @@
     },
     "filer_information": {
       "name": "N & S Holding LLC",
+      "ein": null,
       "address": {
         "line1": "2640 Hollywood Blvd",
         "city": "Hollywood",

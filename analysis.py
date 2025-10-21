@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 DATA_PATH = Path(__file__).parent / "data" / "network.json"
 
@@ -120,6 +120,83 @@ def format_transaction(tx: Transaction) -> str:
     return "; ".join(pieces)
 
 
+def describe_account_gaps(account_info: Mapping[str, Any]) -> Tuple[str, Optional[str]]:
+    """Return account description and any gap note."""
+
+    account_number = account_info.get("number") or account_info.get("account_number")
+    financial_institution = account_info.get("financial_institution")
+    bits: List[str] = []
+    if account_number:
+        bits.append(f"account {account_number}")
+    if financial_institution:
+        bits.append(f"institution {financial_institution}")
+    descriptor = ", ".join(bits)
+    if descriptor:
+        gap_note: Optional[str] = None
+    else:
+        gap_note = "account details pending subpoena"
+    return descriptor, gap_note
+
+
+def collect_pending_items(
+    data: Mapping[str, Any],
+    recorded: Sequence[Transaction],
+    pending: Sequence[Transaction],
+    sar_transactions: Sequence[Transaction],
+) -> List[str]:
+    """Identify outstanding information gaps for follow-up."""
+
+    pending_items: List[str] = []
+
+    sar_filing = data.get("sar_filing", {})
+    if isinstance(sar_filing, Mapping):
+        filer_information = sar_filing.get("filer_information", {})
+        if isinstance(filer_information, Mapping):
+            ein = filer_information.get("ein")
+            if not ein:
+                pending_items.append(
+                    "Filer EIN confirmation outstanding (blank in SAR metadata)."
+                )
+
+        subjects = sar_filing.get("subjects", [])
+        if isinstance(subjects, Sequence) and not isinstance(subjects, (str, bytes)):
+            for subject in subjects:
+                if not isinstance(subject, Mapping):
+                    continue
+                name = subject.get("name") or "Unnamed subject"
+                account_info = subject.get("account")
+                if isinstance(account_info, Mapping):
+                    _, gap_note = describe_account_gaps(account_info)
+                    if gap_note:
+                        pending_items.append(
+                            f"Account identifiers for {name} are {gap_note}."
+                        )
+
+    def note_transaction(tx: Transaction, source: str) -> None:
+        if tx.amount is None:
+            pending_items.append(
+                f"Amount for {source} transaction '{tx.tx_id}' remains pending subpoena."
+            )
+        if not tx.uet_r or tx.uet_r.upper() == "PENDING":
+            pending_items.append(
+                f"UETR for {source} transaction '{tx.tx_id}' still awaiting bank response."
+            )
+
+    for tx in pending:
+        note_transaction(tx, "escrow trail")
+
+    for tx in sar_transactions:
+        note_transaction(tx, "SAR follow-up")
+
+    for tx in recorded:
+        if tx.currency is None:
+            pending_items.append(
+                f"Currency designation missing for recorded transaction '{tx.tx_id}'."
+            )
+
+    return sorted(set(pending_items))
+
+
 def summarise() -> str:
     data = load_data()
     trail: Mapping[str, Any] = data.get("transaction_trail", {})
@@ -166,6 +243,7 @@ def summarise() -> str:
             lines.append("  Escrow account: " + ", ".join(details))
 
     sar_filing = data.get("sar_filing")
+    sar_transactions: List[Transaction] = []
     if isinstance(sar_filing, Mapping):
         filing_information = sar_filing.get("filing_information", {})
         if isinstance(filing_information, Mapping):
@@ -188,7 +266,8 @@ def summarise() -> str:
             name = filer_information.get("name")
             address = filer_information.get("address")
             sam = filer_information.get("sam")
-            if name or address or sam:
+            ein_value = filer_information.get("ein")
+            if name or address or sam or ein_value is not None:
                 lines.append("")
                 lines.append("Filer details:")
                 if name:
@@ -216,6 +295,12 @@ def summarise() -> str:
                         if cage:
                             details.append(f"CAGE {cage}")
                         lines.append(f"  SAM registrations: {', '.join(details)}")
+                if ein_value:
+                    lines.append(f"  EIN: {ein_value}")
+                elif ein_value == "":
+                    lines.append("  EIN: not provided")
+                elif ein_value is None:
+                    lines.append("  EIN: pending confirmation")
 
         subjects = sar_filing.get("subjects", [])
         if isinstance(subjects, Sequence) and not isinstance(subjects, (str, bytes)):
@@ -232,17 +317,11 @@ def summarise() -> str:
                     descriptor.append(f"type: {entity_type}")
                 account_info = subject.get("account")
                 if isinstance(account_info, Mapping):
-                    account_number = account_info.get("number") or account_info.get(
-                        "account_number"
-                    )
-                    financial_institution = account_info.get("financial_institution")
-                    account_bits: List[str] = []
-                    if account_number:
-                        account_bits.append(f"account {account_number}")
-                    if financial_institution:
-                        account_bits.append(f"institution {financial_institution}")
-                    if account_bits:
-                        descriptor.append(", ".join(account_bits))
+                    account_descriptor, gap_note = describe_account_gaps(account_info)
+                    if account_descriptor:
+                        descriptor.append(account_descriptor)
+                    if gap_note:
+                        descriptor.append(gap_note)
                 subject_lines.append("    - " + "; ".join(descriptor))
             if subject_lines:
                 lines.append("")
@@ -301,6 +380,13 @@ def summarise() -> str:
         lines.extend(["", "Pending or subpoena-dependent transactions:"])
         for tx in pending:
             lines.append(f"  - {format_transaction(tx)}")
+
+    pending_items = collect_pending_items(data, recorded, pending, sar_transactions)
+    if pending_items:
+        lines.append("")
+        lines.append("Outstanding information items:")
+        for item in pending_items:
+            lines.append(f"  - {item}")
 
     entities = data.get("entities", {})
     if entities:
