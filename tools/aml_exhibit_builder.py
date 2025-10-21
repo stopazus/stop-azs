@@ -13,6 +13,7 @@ import argparse
 import csv
 import json
 import re
+import sys
 from collections import OrderedDict
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
@@ -236,8 +237,16 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--sar-xml",
+        help=(
+            "Inline SAR XML payload to embed directly. Use with caution for large files."
+        ),
+    )
+    parser.add_argument(
         "--sar-xml-file",
-        help="Path to a SAR XML payload to embed as a fenced code block.",
+        help=(
+            "Path to a SAR XML payload to embed as a fenced code block. Use '-' to read from stdin."
+        ),
     )
     parser.add_argument(
         "--format",
@@ -357,11 +366,31 @@ def _parse_attachments(raw_attachments: Iterable[str]) -> List[Attachment]:
     return attachments
 
 
-def _load_sar_xml(path_str: Optional[str]) -> Optional[str]:
+def _load_sar_xml(
+    inline_payload: Optional[str], path_str: Optional[str]
+) -> Optional[str]:
+    """Return SAR XML payload from inline text or the provided file path."""
+
+    if inline_payload and path_str:
+        raise ValueError("Specify either --sar-xml or --sar-xml-file, not both.")
+
+    if inline_payload:
+        return inline_payload
+
     if not path_str:
         return None
+
+    if path_str == "-":
+        # Read from stdin when the user explicitly opts in.
+        return sys.stdin.read()
+
     path = Path(path_str)
-    return path.read_text(encoding="utf-8")
+    try:
+        return path.read_text(encoding="utf-8")
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(
+            f"SAR XML file not found: {path_str}. Provide a valid path or use --sar-xml."
+        ) from exc
 
 
 def build_packet(args: argparse.Namespace) -> ExhibitPacket:
@@ -414,7 +443,7 @@ def build_packet(args: argparse.Namespace) -> ExhibitPacket:
         certification=certification_obj,
         additional_sections=_parse_additional_sections(args.additional_section),
         attachments=_parse_attachments(args.attachment),
-        sar_xml=_load_sar_xml(args.sar_xml_file),
+        sar_xml=_load_sar_xml(args.sar_xml, args.sar_xml_file),
     )
 
 
