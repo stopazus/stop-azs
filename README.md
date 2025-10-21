@@ -1,42 +1,41 @@
-# Suspicious Escrow Transactions Investigation
+# Suspicious Escrow Activity Summary
 
-This repository tracks publicly reported allegations surrounding the handling of funds within the Zeig IOTA escrow structure. Information below summarizes the narrative contained in the "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd" attachment referenced in a draft Suspicious Activity Report (SAR). Nothing here should be treated as adjudicated fact; allegations remain subject to confirmation through formal investigative processes.
+This repository retains working notes related to allegations that funds held within the Zeig IOTA escrow arrangement were diverted without authorization. The information below consolidates details referenced in the draft Suspicious Activity Report (SAR) tied to IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`. All items remain investigative leads only and should not be treated as adjudicated fact.
 
 ## Filing Snapshot
-- **Filing type:** Initial SAR (version 1.5 schema)
+- **Report type:** Initial Suspicious Activity Report (FinCEN schema v1.5)
 - **Filing date:** 11 September 2025
-- **Submitting office:** N & S Holding LLC – AML Surveillance Unit (786-707-7111 / office@nsholding.us)
-- **IC3 reference:** Submission ID 7065f60922b948a59af3a8654edb16dd
-- **Attachment:** `Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf`
+- **Submitting institution:** N & S Holding LLC — AML Surveillance Unit (786-707-7111, office@nsholding.us)
+- **Attachment referenced:** `Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf`
+- **External reference:** FBI IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`
 
-## Parties of Interest
-| Entity | Role as Described in SAR | Notes |
+## Key Entities Referenced
+| Entity | Role in filing | Notes |
 | --- | --- | --- |
-| **Zeig IOTA Escrow** | Originating escrow account allegedly routing victim funds. | Operated by attorney Justin E. Zeig; specific banking institution not confirmed in filing. |
-| **YBH Holdings LLC** | Listed beneficiary. | Linked to management group associated with real estate transactions; detailed ownership pending subpoena. |
-| **Eisenstein Buyers** | Listed beneficiary. | Business entity receiving proceeds in the flagged transaction. |
-| **Layered Offshore Accounts** | Listed beneficiary. | Described generically; suggests further layering activity outside the U.S. |
-| **N & S Holding LLC** | Filing entity and reported victim. | Operating out of 2640 Hollywood Blvd, Hollywood, FL 33020 (USA). |
+| **Zeig IOTA Escrow** | Alleged origin account for victim funds. | Operated by attorney Justin E. Zeig; routing institution confirmation pending subpoena.
+| **YBH Holdings LLC** | Named beneficiary. | Connected to management group involved in real-estate deals; beneficial ownership unresolved.
+| **Eisenstein Buyers** | Named beneficiary. | Entity reportedly receiving part of the diverted proceeds.
+| **Layered Offshore Accounts** | Additional beneficiaries. | Described generically; suggests further layering outside the United States.
+| **N & S Holding LLC** | Reporting victim. | Based at 2640 Hollywood Blvd, Hollywood, FL 33020.
 
-## Transaction Narrative (2023-02-09)
-- **Amount:** Pending confirmation (bank subpoena outstanding with Banesco USA).
-- **Routing pattern:**
-  1. Funds originated from an account titled **Zeig IOTA Escrow**.
-  2. Transfers passed through intermediary accounts `#2304977980` and `#2000043165557`.
-  3. Proceeds dispersed to **YBH Holdings LLC**, **Eisenstein Buyers**, and unspecified **layered offshore accounts**.
-- **Notes from SAR:** Routing is inconsistent with escrow instructions and is suspected to support layering/structuring typologies. A Universal End-to-End Transaction Reference (UETR) is pending. Investigators noted that dollar values and UETR details will be provided once subpoena responses are returned.
+## Transaction Narrative (9 February 2023)
+1. Funds allegedly originated in a Zeig IOTA escrow account.
+2. Transfers transited intermediary accounts `#2304977980` and `#2000043165557`.
+3. Proceeds were distributed to YBH Holdings LLC, Eisenstein Buyers, and unidentified offshore accounts.
+4. Investigators noted the pattern conflicts with authorized escrow instructions and may indicate layering or structuring typologies.
+5. Dollar amounts and the Universal End-to-End Transaction Reference (UETR) are awaiting subpoena responses from Banesco USA.
 
-## Alleged Suspicious Activity Types
-- Wire fraud tied to escrow diversion.
-- Money laundering with an emphasis on layering methodologies.
-- Structuring behavior to obscure fund origin and final beneficiaries.
+## Investigative Follow-Up
+- Track subpoena returns from Banesco USA and any correspondent banks for transaction-level records.
+- Validate corporate formation and beneficial ownership for YBH Holdings LLC and Eisenstein Buyers.
+- Compare the observed routing with standard escrow controls to isolate potential internal control failures.
+- Prepare Mutual Legal Assistance Treaty (MLAT) requests once jurisdictions tied to the offshore accounts are identified.
+- Maintain an evidence log aligned with the annex referenced in the SAR attachment.
 
-## Investigative Considerations
-1. **Document requests:** Ensure subpoenas to Banesco USA and any correspondent institutions are tracked for timely fulfillment.
-2. **Beneficiary verification:** Validate corporate formation data, beneficial ownership, and account relationships for YBH Holdings LLC and Eisenstein Buyers.
-3. **Escrow controls review:** Compare alleged transaction routing with standard escrow disbursement instructions to identify potential control failures.
-4. **Cross-border assistance:** Prepare Mutual Legal Assistance Treaty (MLAT) requests for any jurisdictions linked to the "layered offshore accounts" once identified.
-5. **Evidence management:** Archive responses, banking records, and investigative analyses in the annex referenced in the SAR attachment.
+## Points of Contact
+- **FBI – Internet Crime Complaint Center (IC3)**, Recovery Asset Team (RAT) — Reference IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`.
+- **FinCEN – BSA E-Filing**, Suspicious Activity Report (SAR) program office.
+- **IRS – Criminal Investigation (IRS-CI)**, Fraud / Money Laundering referral desk.
 
 ## Legal Disclaimer
-This repository relays allegations contained in a draft SAR submission for investigative coordination. The presence of an entity or individual within this document does not imply guilt or legal liability. Conclusions should be drawn only after regulators and courts complete their processes.
+Inclusion of an entity or individual in this summary reflects allegations reported in a draft SAR. Guilt or liability has not been determined. Conclusions should be drawn only after regulatory and judicial processes are completed.
