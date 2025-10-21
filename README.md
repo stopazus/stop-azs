@@ -1,6 +1,12 @@
 # Draft SAR Reference — IC3 Submission 7065f60922b948a59af3a8654edb16dd
 
-This repository holds a neutral synopsis of a draft Suspicious Activity Report (SAR) tied to the alleged diversion of escrowed funds. The information below mirrors the reporting institution's narrative for coordination between investigative teams. It should not be treated as a finding of fact or proof of misconduct.
+This repository holds a neutral synopsis of a draft Suspicious Activity Report (SAR) tied to the alleged diversion of escrowed funds. The information below mirrors the reporting institution's narrative so investigative teams can quickly reference the same facts. It should not be treated as a finding of fact or proof of misconduct.
+
+## At-a-Glance Summary
+- **Allegation**: Escrow funds released to unauthorized recipients via intermediary accounts on 9 February 2023.
+- **Status**: Draft SAR awaiting corroboration from subpoena responses and inter-agency outreach.
+- **Primary risk indicators**: Potential layering/structuring, unresolved beneficial ownership, and offshore routing with incomplete jurisdictional data.
+- **Immediate need**: Coordinate with Banesco USA, correspondent banks, and offshore partners to validate transaction details and freeze residual proceeds where possible.
 
 ## Filing Snapshot
 | Field | Detail |
