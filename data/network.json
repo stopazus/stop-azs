@@ -285,12 +285,36 @@
     }
   ],
   "attachments": [
-    {"id": "A", "file": "IC3 Complaint.pdf"},
-    {"id": "A-1", "file": "Exhibit_A1_Trust_Fund_Misappropriation_Summary.pdf"},
-    {"id": "B", "file": "Important – Closing Instructions.pdf"},
-    {"id": "C", "file": "ADVICE OF DEBIT - BANK CONFIDENTIAL.pdf"},
-    {"id": "D", "file": "Layering_Activity.pdf"},
-    {"id": "E", "file": "Legal Claims Summary.pdf"},
+    {
+      "id": "A",
+      "file": "IC3 Complaint.pdf",
+      "description": "Filed IC3 complaint detailing the diverted escrow funds and requested recovery actions."
+    },
+    {
+      "id": "A-1",
+      "file": "Exhibit_A1_Trust_Fund_Misappropriation_Summary.pdf",
+      "description": "Breakdown of trust fund misappropriation amounts tied to the 2023-01-11 wire."
+    },
+    {
+      "id": "B",
+      "file": "Important – Closing Instructions.pdf",
+      "description": "Closing instructions directing payment of sale proceeds to N & S Holding LLC."
+    },
+    {
+      "id": "C",
+      "file": "ADVICE OF DEBIT - BANK CONFIDENTIAL.pdf",
+      "description": "Bank debit advice confirming the Banesco USA wire to Zeig Law Firm PLLC IOTA."
+    },
+    {
+      "id": "D",
+      "file": "Layering_Activity.pdf",
+      "description": "Diagram of suspected layering transfers through related entities and offshore accounts."
+    },
+    {
+      "id": "E",
+      "file": "Legal Claims Summary.pdf",
+      "description": "Summary of legal claims pursued by N & S Holding LLC regarding the diverted proceeds."
+    },
     {
       "id": "Annex",
       "file": "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf",

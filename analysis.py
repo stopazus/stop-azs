@@ -194,6 +194,68 @@ def collect_pending_items(
                 f"Currency designation missing for recorded transaction '{tx.tx_id}'."
             )
 
+    entities = data.get("entities", {})
+    if isinstance(entities, Mapping):
+        for category, entries in entities.items():
+            if not isinstance(entries, Sequence) or isinstance(entries, (str, bytes)):
+                continue
+            for entry in entries:
+                if not isinstance(entry, Mapping):
+                    continue
+                name = entry.get("name") or "Unnamed entity"
+                role = entry.get("role")
+                jurisdiction = entry.get("jurisdiction")
+                if not role:
+                    pending_items.append(
+                        f"Role details outstanding for {name} in entity category '{category}'."
+                    )
+                if not jurisdiction:
+                    pending_items.append(
+                        f"Jurisdiction confirmation pending for {name} in entity category '{category}'."
+                    )
+
+    properties = data.get("properties", [])
+    if isinstance(properties, Sequence) and not isinstance(properties, (str, bytes)):
+        for property_entry in properties:
+            if not isinstance(property_entry, Mapping):
+                continue
+            address = property_entry.get("address") or "Unnamed property"
+            status = property_entry.get("status")
+            if isinstance(status, str) and "unverified" in status.lower():
+                pending_items.append(
+                    f"Property '{address}' flagged '{status}' awaiting corroboration."
+                )
+
+    attachments = data.get("attachments", [])
+    if isinstance(attachments, Sequence) and not isinstance(attachments, (str, bytes)):
+        for attachment in attachments:
+            if not isinstance(attachment, Mapping):
+                continue
+            description = attachment.get("description")
+            if description:
+                continue
+            attachment_id = attachment.get("id") or attachment.get("file") or "Unnamed attachment"
+            pending_items.append(
+                f"Attachment '{attachment_id}' needs a descriptive summary for investigative indexing."
+            )
+
+    contacts = data.get("law_enforcement_contacts", [])
+    if isinstance(contacts, Sequence) and not isinstance(contacts, (str, bytes)):
+        for contact in contacts:
+            if not isinstance(contact, Mapping):
+                continue
+            agency = contact.get("agency") or "Unknown agency"
+            reference = contact.get("reference")
+            requested_action = contact.get("requested_action")
+            if not reference:
+                pending_items.append(
+                    f"Reference identifier pending for law-enforcement contact '{agency}'."
+                )
+            if not requested_action:
+                pending_items.append(
+                    f"Requested action detail outstanding for law-enforcement contact '{agency}'."
+                )
+
     return sorted(set(pending_items))
 
 

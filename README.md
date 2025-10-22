@@ -16,7 +16,11 @@ Firm PLLC IOTA account at City National Bank of Florida.
 - `analysis.py` – helper script that loads the dataset and prints a
   briefing-ready synopsis covering the FinCEN filing details, the
   recorded wire, subpoena-dependent activity, data gaps that still need
-  subpoenas, associated entities, indicators, and requested actions.
+  subpoenas, associated entities, indicators, and requested actions. It
+  also calls out missing jurisdiction or role information for any
+  entities, properties that remain unverified, attachments without
+  descriptions, and law-enforcement contacts awaiting reference or
+  action details so investigators can chase those gaps.
 
 ## Usage
 
@@ -28,8 +32,9 @@ python analysis.py
 
 The script confirms the known $206,693.68 escrow diversion, outlines the
 FinCEN submission metadata, lists the pending subpoena-driven tracing
-items, enumerates unresolved data gaps (such as missing EIN or UETR
-values), summarizes the related entities and properties, surfaces the
-affidavit authority and compliance statements, and restates the
-red-flag indicators and law-enforcement requests included with the SAR
-narrative.
+items, enumerates unresolved data gaps (such as missing EIN, UETR,
+entity roles or jurisdictions, unverified properties, attachment
+descriptions, or law-enforcement reference numbers), summarizes the
+related entities and properties, surfaces the affidavit authority and
+compliance statements, and restates the red-flag indicators and
+law-enforcement requests included with the SAR narrative.
