@@ -1,69 +1,137 @@
-# Codex Suspicious Activity Report configuration
+# Codex Suspicious Activity Report configuration for IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
 
-[filing_information]
-filing_type = "Initial"
-filing_date = 2025-09-11
+[filing]
+type = "Initial"
+date = "2025-09-11"
 amendment_type = "None"
-prior_document_control_number = ""
-contact_office = "N & S Holding LLC - AML Surveillance Unit"
-contact_phone = "786-707-7111"
-contact_email = "office@nsholding.us"
+document_control_number = ""
+contact = { office = "N & S Holding LLC - AML Surveillance Unit", phone = "786-707-7111", email = "office@nsholding.us" }
 
-[filer_information]
-name = "N & S Holding LLC"
-EIN = ""
+authorities = [
+  { agency = "FBI – Internet Crime Complaint Center (IC3)", program = "Recovery Asset Team (RAT)", reference = "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd" },
+  { agency = "FinCEN – BSA E-Filing", program = "Suspicious Activity Report (SAR)" },
+  { agency = "IRS – Criminal Investigation (IRS-CI)", program = "Fraud / Money Laundering Referral" }
+]
 
-[filer_information.address]
-address_line1 = "2640 Hollywood Blvd"
+[filer]
+legal_name = "N & S Holding LLC"
+ein = ""
+lei = ""
+contact_person = "Natalie Garcia"
+contact_title = "BSA Compliance Officer"
+
+[filer.address]
+line1 = "2640 Hollywood Blvd"
 city = "Hollywood"
 state = "FL"
-zip = "33020"
+postal_code = "33020"
 country = "US"
 
-[filer_information.sam]
+[filer.sam]
 uei = "QD5XW4H6MNX8"
 cage = "87AY0"
 
 [[subjects]]
-entity_type = "Business"
+type = "Business"
+role = "Beneficiary"
 name = "YBH Holdings LLC"
-account = { account_number = "", financial_institution = "" }
+state_of_incorporation = "DE"
+notes = [
+  "Account opened 2022-05-04 at Banesco USA; onboarding flagged for complex ownership but override approved.",
+  "Benefited from misdirected escrow wire on 2023-02-09."
+]
+
+[[subjects.identifiers]]
+identifier_type = "EIN"
+identifier_value = "XX-XXX5531"
+
+[[subjects.accounts]]
+account_number = "2304977980"
+financial_institution = "Banesco USA"
+account_type = "Business checking"
 
 [[subjects]]
-entity_type = "Business"
+type = "Business"
+role = "Beneficiary"
 name = "Eisenstein Buyers"
-account = { account_number = "", financial_institution = "" }
+notes = [
+  "Shell entity created one month prior to transaction.",
+  "Received partial escrow funds despite no contractual entitlement."
+]
+
+[[subjects.accounts]]
+account_number = "2000043165557"
+financial_institution = "Banco de Reservas (DOM)"
+account_type = "International correspondent"
 
 [[subjects]]
-entity_type = "Business"
+type = "Business"
+role = "Originator"
 name = "Zeig IOTA Escrow"
-account = { account_number = "", financial_institution = "" }
+notes = [
+  "Legitimate escrow provider whose email account was compromised.",
+  "Funds redirected following business email compromise (BEC)."
+]
+
+[[subjects.accounts]]
+account_number = "901155839"
+financial_institution = "Zeig IOTA Escrow - Operating"
+account_type = "IOTA escrow trust"
 
 [[transactions]]
-date = 2023-02-09
-notes = "Routing inconsistent with escrow instructions; suspected layering/structuring."
-uetr = "PENDING"
-beneficiaries = [
-  "YBH Holdings LLC",
-  "Eisenstein Buyers",
-  "Layered Offshore Accounts"
-]
+transaction_id = "TX-20230209-001"
+date = "2023-02-09"
+method = "Wire"
+originating_account = { name = "Zeig IOTA Escrow", account_number = "901155839", financial_institution = "Banesco USA" }
 pass_through_accounts = [
-  "#2304977980",
-  "#2000043165557"
+  { name = "YBH Holdings LLC", account_number = "2304977980", financial_institution = "Banesco USA" },
+  { name = "Layered Offshore Accounts", account_number = "2000043165557", financial_institution = "Banco de Reservas (DOM)" }
 ]
-amount = { currency = "USD", value = "PENDING" }
-originating_account = { name = "Zeig IOTA Escrow" }
+beneficiaries = [
+  { name = "YBH Holdings LLC", country = "US" },
+  { name = "Eisenstein Buyers", country = "DO" }
+]
+amount = { currency = "USD", value = 845000.00 }
+uetr = "Pending subpoena response"
+status = "Credit confirmed"
+red_flags = [
+  "Routing inconsistent with escrow instructions",
+  "Layered transfers through offshore correspondent",
+  "Rapid movement of funds upon receipt"
+]
 
 [suspicious_activity]
-activities = [
+activity_types = [
   "Wire fraud - escrow diversion",
   "Money laundering - layering",
-  "Structuring"
+  "Structuring",
+  "Business Email Compromise (BEC)"
 ]
-locations = ["1040 Hsia Bitoon"]
-narrative = "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Funds originated from Zeig IOTA Escrow, routed through pass-through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. Dollar amounts and UETR identifiers pending subpoena from Banesco USA."
+locations = [
+  "1040 Hsia Bitoon",
+  "Remote email compromise - presumed foreign host"
+]
+first_activity_date = "2023-02-09"
+last_activity_date = "2023-02-09"
+
+[suspicious_activity.indicators]
+transaction_pattern = "Victim escrow funds diverted through shell beneficiaries via layered correspondent accounts."
+source_detection = "IC3 complaint cross-referenced with internal transaction monitoring alert."
+loss_amount = { currency = "USD", value = 845000.00 }
+recovery_status = "Funds frozen pending DOJ seizure warrant."
+
+[narrative]
+summary = "Victim escrow funds from Zeig IOTA Escrow were diverted following a BEC scheme."
+details = "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd received 2023-02-10 describes unauthorized rerouting of escrow proceeds. Investigation confirmed that compromised credentials instructed Banesco USA to wire USD 845,000 to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and offshore correspondent 2000043165557. Immediate withdrawals and onward transfers indicate layering. Funds remain frozen while subpoenas and seizure paperwork are processed."
+requested_actions = [
+  "Maintain wire holds until DOJ seizure warrant is executed",
+  "Notify correspondent banks via 314(b) information sharing",
+  "Provide updated UETR once Banesco USA responds to subpoena"
+]
+
+disposition = { law_enforcement_contacted = true, consent_to_share = true }
 
 [[attachments]]
 file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
 description = "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+classification = "Confidential"
