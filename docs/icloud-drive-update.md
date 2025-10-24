@@ -46,6 +46,17 @@ The `SHA256_Manifest_7065f609.xlsx` workbook (Sheet1) tracks seven artifacts tha
 
 Once the manifest is corrected, export a PDF snapshot and store both the XLSX and PDF versions in the case folder. Retain the original XLSX path in a `readme.txt` inside the evidence directory so future reviewers can locate the canonical spreadsheet quickly.
 
+### Optional automation: `fill_hash_manifest.py`
+
+The repository includes a helper script [`fill_hash_manifest.py`](../fill_hash_manifest.py) that reads `SHA256_Manifest_7065f609.xlsx`, calculates SHA-256 digests for any files listed in column A that exist beside the manifest, and fills the checksum and timestamp fields automatically.
+
+1. Install the lone dependency with `pip install openpyxl` if it is not already available.
+2. Place the script, the manifest, and all referenced evidence files in the same directory.
+3. Run `python fill_hash_manifest.py` to populate the missing hashes and timestamps. Rows with missing files are left untouched for manual follow-up.
+4. Re-open the manifest to confirm each row has the expected lowercase hash, a fresh UTC timestamp, and correct custodian assignments.
+
+Re-export the PDF snapshot after the automated pass, then proceed with the archival steps above.
+
 ## Outstanding Items
 
 - Confirm dollar amount and UETR identifier once Banesco USA responds to the subpoena.
