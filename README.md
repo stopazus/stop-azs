@@ -36,7 +36,7 @@ make all   # asks for confirmations at each step
 
 ## Latest SAR Filing Update
 - **Filing Type:** Initial (2025-09-11)
-- **Contacts:**
+- **Contacts (all parties have received the complete briefing):**
   - N & S Holding LLC – AML Surveillance Unit (Phone: 786-707-7111, Email: office@nsholding.us)
   - FBI – Internet Crime Complaint Center (IC3), Recovery Asset Team (RAT), Reference: IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
   - FinCEN – BSA E-Filing, Suspicious Activity Report (SAR) Program
