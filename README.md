@@ -36,11 +36,13 @@ make all   # asks for confirmations at each step
 
 ## Latest SAR Filing Update
 - **Filing Type:** Initial (2025-09-11)
-- **Contact:** N & S Holding LLC – AML Surveillance Unit
-  - Phone: 786-707-7111
-  - Email: office@nsholding.us
+- **Contacts:**
+  - N & S Holding LLC – AML Surveillance Unit (Phone: 786-707-7111, Email: office@nsholding.us)
+  - FBI – Internet Crime Complaint Center (IC3), Recovery Asset Team (RAT), Reference: IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
+  - FinCEN – BSA E-Filing, Suspicious Activity Report (SAR) Program
+  - IRS – Criminal Investigation (IRS-CI), Fraud / Money Laundering Referral Program
 - **Filer:** N & S Holding LLC, 2640 Hollywood Blvd, Hollywood, FL 33020, US
 - **Subjects:** YBH Holdings LLC; Eisenstein Buyers; Zeig IOTA Escrow
-- **Transaction (2023-02-09):** Funds originated from Zeig IOTA Escrow, passed through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. UETR and dollar amounts pending subpoena from Banesco USA.
+- **Transaction (2023-02-09):** Funds originated from Zeig IOTA Escrow, moved through accounts #2304977980 and #2000043165557, then dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. UETR and dollar amounts remain pending a subpoena from Banesco USA.
 - **Suspicious Activity:** Wire fraud (escrow diversion), money laundering (layering), structuring. Narrative references IC3 Submission ID 7065f60922b948a59af3a8654edb16dd.
 - **Attachment:** Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf (annex with transaction tables, flowchart, compliance recommendations, and embedded subpoena request)
