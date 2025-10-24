@@ -53,8 +53,15 @@
         "amount": "PENDING",
         "currency": "USD",
         "origin": "Zeig IOTA Escrow",
-        "pass_through_accounts": ["#2304977980", "#2000043165557"],
-        "beneficiaries": ["YBH Holdings LLC", "Eisenstein Buyers", "Layered Offshore Accounts"],
+        "pass_through_accounts": [
+          "#2304977980",
+          "#2000043165557"
+        ],
+        "beneficiaries": [
+          "YBH Holdings LLC",
+          "Eisenstein Buyers",
+          "Layered Offshore Accounts"
+        ],
         "notes": "Routing inconsistent with escrow instructions; suspected layering/structuring.",
         "status": "pending subpoena",
         "uetr": "PENDING"
@@ -66,7 +73,9 @@
         "Money laundering - layering",
         "Structuring"
       ],
-      "locations": ["1040 Hsia Bitoon"],
+      "locations": [
+        "1040 Hsia Bitoon"
+      ],
       "narrative": "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Funds originated from Zeig IOTA Escrow, routed through pass-through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. Dollar amounts and UETR identifiers pending subpoena from Banesco USA."
     },
     "attachments": [
@@ -104,8 +113,15 @@
         "amount": null,
         "currency": "USD",
         "origin": "Zeig IOTA Escrow",
-        "pass_through_accounts": ["#2304977980", "#2000043165557"],
-        "beneficiaries": ["YBH Holdings LLC", "Eisenstein Buyers", "Layered Offshore Accounts"],
+        "pass_through_accounts": [
+          "#2304977980",
+          "#2000043165557"
+        ],
+        "beneficiaries": [
+          "YBH Holdings LLC",
+          "Eisenstein Buyers",
+          "Layered Offshore Accounts"
+        ],
         "notes": "Routing inconsistent with escrow instructions; suspected layering/structuring. Dollar amounts and UETR identifiers pending subpoena from Banesco USA.",
         "status": "pending subpoena"
       }
@@ -207,15 +223,22 @@
     {
       "address": "3049 Perriwinkle Circle, Davie, FL 33328",
       "status": "record_title_confirmed_control_unverified",
-      "recorded_owners": ["Daniella Eisenstein", "Zachary Eisenstein"],
-      "alleged_control_entities": ["YBH Holdings 234 LLC"],
+      "recorded_owners": [
+        "Daniella Eisenstein",
+        "Zachary Eisenstein"
+      ],
+      "alleged_control_entities": [
+        "YBH Holdings 234 LLC"
+      ],
       "purchase_price": 395000.0,
       "notes": "Recorded owners per exhibit; control entity unverified"
     },
     {
       "address": "2733 NW 198th Terrace",
       "status": "unverified_address",
-      "recorded_owners": ["ZLG Holdings N.V."],
+      "recorded_owners": [
+        "ZLG Holdings N.V."
+      ],
       "purchase_price": 275000.0,
       "notes": "Address not found in exhibits; keep separate until corroborated"
     }
@@ -226,7 +249,7 @@
     "Lack of 1099-S issuance to true beneficiary of sale proceeds.",
     "Internal reference to a non-executed 'future transaction' used to justify diversion.",
     "Funds not returned or reconciled after request; absence of corrective disbursement.",
-    "Layering typology: escrow → attorney trust → related/shell entities → subsequent acquisition.",
+    "Layering typology: escrow \u2192 attorney trust \u2192 related/shell entities \u2192 subsequent acquisition.",
     "Round-dollar and structured transfers observed in related account activity (monitoring list).",
     "Active/inactive twin LLC patterns (YBH 2948/341) suggesting SPV rotation for title/finance."
   ],
@@ -253,11 +276,11 @@
       "Produce AI-assisted summaries and records suitable for SARs, UCC filings, and court exhibits."
     ],
     "statutes": [
-      "False Claims Act (31 U.S.C. §§ 3729, 3730)",
-      "Program Fraud Civil Remedies Act (31 U.S.C. § 3801)",
-      "Trafficking Victims Protection Act (22 U.S.C. § 7104)",
-      "ITAR/DDTC export authorizations (22 C.F.R. § 124.1(a))",
-      "Mandatory disclosures under 2 C.F.R. § 200.113 and policy requirements under § 200.300"
+      "False Claims Act (31 U.S.C. \u00a7\u00a7 3729, 3730)",
+      "Program Fraud Civil Remedies Act (31 U.S.C. \u00a7 3801)",
+      "Trafficking Victims Protection Act (22 U.S.C. \u00a7 7104)",
+      "ITAR/DDTC export authorizations (22 C.F.R. \u00a7 124.1(a))",
+      "Mandatory disclosures under 2 C.F.R. \u00a7 200.113 and policy requirements under \u00a7 200.300"
     ],
     "effective_period": {
       "start": "2025-04-19",
@@ -266,19 +289,19 @@
   },
   "law_enforcement_contacts": [
     {
-      "agency": "FBI – Internet Crime Complaint Center (IC3)",
+      "agency": "FBI \u2013 Internet Crime Complaint Center (IC3)",
       "program": "Recovery Asset Team (RAT)",
       "reference": "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd",
       "requested_action": "Initiate rapid asset freeze/trace; coordinate with receiving bank (City National Bank of Florida) and originating bank (Banesco USA) referencing 2023-01-11 $206,693.68 wire and OBI '22S-213 SELLER PROCEEDS 2763 NW 196 TERR'."
     },
     {
-      "agency": "FinCEN – BSA E-Filing",
+      "agency": "FinCEN \u2013 BSA E-Filing",
       "program": "Suspicious Activity Report (SAR)",
       "reference": "This dataset reflects the SAR narrative supplement and exhibits.",
       "requested_action": "Flag related parties and accounts; share with appropriate task force partners under 314(b)/(a) as applicable."
     },
     {
-      "agency": "IRS – Criminal Investigation (IRS-CI)",
+      "agency": "IRS \u2013 Criminal Investigation (IRS-CI)",
       "program": "Fraud / Money Laundering Referral",
       "reference": "Related 3949-A supplement planned; cross-reference to IC3 Submission ID above.",
       "requested_action": "Parallel financial tracing for potential tax evasion, unreported proceeds, and nominee structures."
@@ -297,7 +320,7 @@
     },
     {
       "id": "B",
-      "file": "Important – Closing Instructions.pdf",
+      "file": "Important \u2013 Closing Instructions.pdf",
       "description": "Closing instructions directing payment of sale proceeds to N & S Holding LLC."
     },
     {
@@ -320,5 +343,54 @@
       "file": "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf",
       "description": "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
     }
-  ]
+  ],
+  "information_sink": {
+    "verified": [
+      {
+        "category": "Escrow diversion wire",
+        "details": "2023-01-11 $206,693.68 wire from Banesco USA (Nu World Title of Sunset LLC) to Zeig Law Firm PLLC IOTA confirmed via bank debit advice and closing instructions.",
+        "sources": [
+          "Attachment C",
+          "Attachment B"
+        ]
+      },
+      {
+        "category": "IC3 and SAR alignment",
+        "details": "IC3 tracking ID 7065f60922b948a59af3a8654edb16dd matches the SAR narrative supplement and annex attachment.",
+        "sources": [
+          "IC3 submission",
+          "Attachment Annex"
+        ]
+      },
+      {
+        "category": "Affidavit authority",
+        "details": "Sharon Topaz empowered as Managing Partner for N & S Holding LLC with UEI QD5XW4H6MNX8 and CAGE 87AY0 per affidavit.",
+        "sources": [
+          "Affidavit of Authorized Representative"
+        ]
+      }
+    ],
+    "missing": [
+      {
+        "category": "Filer EIN",
+        "details": "Employer Identification Number for N & S Holding LLC was not provided in SAR metadata.",
+        "dependency": "Awaiting corporate tax confirmation or IRS correspondence."
+      },
+      {
+        "category": "UETR identifiers",
+        "details": "Unique end-to-end reference for 2023-02-09 subpoena transactions remains pending.",
+        "dependency": "Banesco USA subpoena response and SWIFT confirmation."
+      },
+      {
+        "category": "Beneficiary account identifiers",
+        "details": "Account numbers for YBH Holdings LLC, Eisenstein Buyers, and Zeig IOTA escrow subjects absent from subpoena packet.",
+        "dependency": "Bank responses or trust account ledgers."
+      },
+      {
+        "category": "Control verification",
+        "details": "Control entity for 3049 Perriwinkle Circle and address verification for 2733 NW 198th Terrace unresolved.",
+        "dependency": "Title updates and property record searches."
+      }
+    ]
+  }
 }

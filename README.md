@@ -20,7 +20,10 @@ Firm PLLC IOTA account at City National Bank of Florida.
   also calls out missing jurisdiction or role information for any
   entities, properties that remain unverified, attachments without
   descriptions, and law-enforcement contacts awaiting reference or
-  action details so investigators can chase those gaps.
+  action details so investigators can chase those gaps. Verified
+  checkpoints and explicitly logged information gaps from the
+  information sink section are surfaced so teams can see what is backed
+  by evidence versus still pending.
 
 ## Usage
 
@@ -36,5 +39,7 @@ items, enumerates unresolved data gaps (such as missing EIN, UETR,
 entity roles or jurisdictions, unverified properties, attachment
 descriptions, or law-enforcement reference numbers), summarizes the
 related entities and properties, surfaces the affidavit authority and
-compliance statements, and restates the red-flag indicators and
-law-enforcement requests included with the SAR narrative.
+compliance statements, restates the red-flag indicators and
+law-enforcement requests included with the SAR narrative, and highlights
+the verified checkpoints alongside the explicitly documented
+information gaps captured in the dataset.

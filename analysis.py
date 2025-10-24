@@ -450,6 +450,51 @@ def summarise() -> str:
         for item in pending_items:
             lines.append(f"  - {item}")
 
+    information_sink = data.get("information_sink")
+    if isinstance(information_sink, Mapping):
+        verified_items = information_sink.get("verified", [])
+        missing_items = information_sink.get("missing", [])
+
+        if isinstance(verified_items, Sequence) and not isinstance(verified_items, (str, bytes)):
+            verified_lines: List[str] = []
+            for item in verified_items:
+                if not isinstance(item, Mapping):
+                    continue
+                category = item.get("category") or "Verified detail"
+                details = item.get("details")
+                sources = item.get("sources")
+                line = f"  - {category}"
+                if details:
+                    line += f": {details}"
+                verified_lines.append(line)
+                if isinstance(sources, Sequence) and not isinstance(sources, (str, bytes)):
+                    formatted_sources = ", ".join(str(source) for source in sources if source)
+                    if formatted_sources:
+                        verified_lines.append(f"      Sources: {formatted_sources}")
+            if verified_lines:
+                lines.append("")
+                lines.append("Verified information checkpoints:")
+                lines.extend(verified_lines)
+
+        if isinstance(missing_items, Sequence) and not isinstance(missing_items, (str, bytes)):
+            missing_lines: List[str] = []
+            for item in missing_items:
+                if not isinstance(item, Mapping):
+                    continue
+                category = item.get("category") or "Missing detail"
+                details = item.get("details")
+                dependency = item.get("dependency")
+                line = f"  - {category}"
+                if details:
+                    line += f": {details}"
+                missing_lines.append(line)
+                if dependency:
+                    missing_lines.append(f"      Dependency: {dependency}")
+            if missing_lines:
+                lines.append("")
+                lines.append("Documented information gaps:")
+                lines.extend(missing_lines)
+
     entities = data.get("entities", {})
     if entities:
         lines.append("")
