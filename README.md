@@ -42,4 +42,6 @@ related entities and properties, surfaces the affidavit authority and
 compliance statements, restates the red-flag indicators and
 law-enforcement requests included with the SAR narrative, and highlights
 the verified checkpoints alongside the explicitly documented
-information gaps captured in the dataset.
+information gaps captured in the dataset. Outstanding gap entries call
+out when the missing detail already appears in the information sink so
+teams can connect follow-up work to the logged dependencies.

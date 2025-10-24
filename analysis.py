@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Set, Tuple
 
 DATA_PATH = Path(__file__).parent / "data" / "network.json"
 
@@ -143,10 +143,20 @@ def collect_pending_items(
     recorded: Sequence[Transaction],
     pending: Sequence[Transaction],
     sar_transactions: Sequence[Transaction],
+    documented_categories: Optional[Set[str]] = None,
 ) -> List[str]:
     """Identify outstanding information gaps for follow-up."""
 
     pending_items: List[str] = []
+
+    def record_gap(message: str, category: Optional[str] = None) -> None:
+        if (
+            documented_categories
+            and category
+            and category in documented_categories
+        ):
+            message = f"{message} (documented in information sink)"
+        pending_items.append(message)
 
     sar_filing = data.get("sar_filing", {})
     if isinstance(sar_filing, Mapping):
@@ -154,8 +164,9 @@ def collect_pending_items(
         if isinstance(filer_information, Mapping):
             ein = filer_information.get("ein")
             if not ein:
-                pending_items.append(
-                    "Filer EIN confirmation outstanding (blank in SAR metadata)."
+                record_gap(
+                    "Filer EIN confirmation outstanding (blank in SAR metadata).",
+                    category="Filer EIN",
                 )
 
         subjects = sar_filing.get("subjects", [])
@@ -168,18 +179,20 @@ def collect_pending_items(
                 if isinstance(account_info, Mapping):
                     _, gap_note = describe_account_gaps(account_info)
                     if gap_note:
-                        pending_items.append(
-                            f"Account identifiers for {name} are {gap_note}."
+                        record_gap(
+                            f"Account identifiers for {name} are {gap_note}.",
+                            category="Beneficiary account identifiers",
                         )
 
     def note_transaction(tx: Transaction, source: str) -> None:
         if tx.amount is None:
-            pending_items.append(
+            record_gap(
                 f"Amount for {source} transaction '{tx.tx_id}' remains pending subpoena."
             )
         if not tx.uet_r or tx.uet_r.upper() == "PENDING":
-            pending_items.append(
-                f"UETR for {source} transaction '{tx.tx_id}' still awaiting bank response."
+            record_gap(
+                f"UETR for {source} transaction '{tx.tx_id}' still awaiting bank response.",
+                category="UETR identifiers",
             )
 
     for tx in pending:
@@ -190,7 +203,7 @@ def collect_pending_items(
 
     for tx in recorded:
         if tx.currency is None:
-            pending_items.append(
+            record_gap(
                 f"Currency designation missing for recorded transaction '{tx.tx_id}'."
             )
 
@@ -206,11 +219,11 @@ def collect_pending_items(
                 role = entry.get("role")
                 jurisdiction = entry.get("jurisdiction")
                 if not role:
-                    pending_items.append(
+                    record_gap(
                         f"Role details outstanding for {name} in entity category '{category}'."
                     )
                 if not jurisdiction:
-                    pending_items.append(
+                    record_gap(
                         f"Jurisdiction confirmation pending for {name} in entity category '{category}'."
                     )
 
@@ -222,8 +235,9 @@ def collect_pending_items(
             address = property_entry.get("address") or "Unnamed property"
             status = property_entry.get("status")
             if isinstance(status, str) and "unverified" in status.lower():
-                pending_items.append(
-                    f"Property '{address}' flagged '{status}' awaiting corroboration."
+                record_gap(
+                    f"Property '{address}' flagged '{status}' awaiting corroboration.",
+                    category="Control verification",
                 )
 
     attachments = data.get("attachments", [])
@@ -235,7 +249,7 @@ def collect_pending_items(
             if description:
                 continue
             attachment_id = attachment.get("id") or attachment.get("file") or "Unnamed attachment"
-            pending_items.append(
+            record_gap(
                 f"Attachment '{attachment_id}' needs a descriptive summary for investigative indexing."
             )
 
@@ -248,11 +262,11 @@ def collect_pending_items(
             reference = contact.get("reference")
             requested_action = contact.get("requested_action")
             if not reference:
-                pending_items.append(
+                record_gap(
                     f"Reference identifier pending for law-enforcement contact '{agency}'."
                 )
             if not requested_action:
-                pending_items.append(
+                record_gap(
                     f"Requested action detail outstanding for law-enforcement contact '{agency}'."
                 )
 
@@ -443,14 +457,33 @@ def summarise() -> str:
         for tx in pending:
             lines.append(f"  - {format_transaction(tx)}")
 
-    pending_items = collect_pending_items(data, recorded, pending, sar_transactions)
+    information_sink = data.get("information_sink")
+    documented_categories: Optional[Set[str]] = None
+    if isinstance(information_sink, Mapping):
+        missing_items = information_sink.get("missing", [])
+        if isinstance(missing_items, Sequence) and not isinstance(missing_items, (str, bytes)):
+            categories: Set[str] = set()
+            for item in missing_items:
+                if isinstance(item, Mapping):
+                    category = item.get("category")
+                    if isinstance(category, str) and category:
+                        categories.add(category)
+            if categories:
+                documented_categories = categories
+
+    pending_items = collect_pending_items(
+        data,
+        recorded,
+        pending,
+        sar_transactions,
+        documented_categories=documented_categories,
+    )
     if pending_items:
         lines.append("")
         lines.append("Outstanding information items:")
         for item in pending_items:
             lines.append(f"  - {item}")
 
-    information_sink = data.get("information_sink")
     if isinstance(information_sink, Mapping):
         verified_items = information_sink.get("verified", [])
         missing_items = information_sink.get("missing", [])
