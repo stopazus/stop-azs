@@ -1,0 +1,142 @@
+# Codex Suspicious Activity Report configuration for IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
+
+[filing]
+type = "Initial"
+date = "2025-04-19T01:48:12-05:00"
+amendment_type = "None"
+document_control_number = ""
+victim_is_filer = true
+contact = { name = "Sharon Topaz", phone = "78657077111", email = "stopazus@icloud.com" }
+
+authorities = [
+  { agency = "FBI – Internet Crime Complaint Center (IC3)", program = "Recovery Asset Team (RAT)", reference = "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd" },
+  { agency = "FinCEN – BSA E-Filing", program = "Suspicious Activity Report (SAR)" },
+  { agency = "IRS – Criminal Investigation (IRS-CI)", program = "Fraud / Money Laundering Referral" }
+]
+
+[filer]
+legal_name = "Your IC3 Complaint"
+business_name = "N & S Holding LLC"
+ein = ""
+lei = ""
+contact_person = "Sharon Topaz"
+contact_title = "Managing Member"
+contact_phone = "7867077111"
+contact_email = "stopazus@icloud.com"
+
+[filer.address]
+line1 = "251 174th St"
+line2 = "Apt 716"
+city = "Sunny Isles Beach"
+state = "FL"
+postal_code = "33160"
+country = "US"
+
+[filer.sam]
+uei = "QD5XW4H6MNX8"
+cage = "87AY0"
+
+[[subjects]]
+type = "Business"
+role = "Beneficiary"
+name = "YBH Holdings LLC"
+state_of_incorporation = "DE"
+notes = [
+  "Account opened 2022-05-04 at Banesco USA; onboarding flagged for complex ownership but override approved.",
+  "Benefited from misdirected escrow wire on 2023-02-09."
+]
+
+[[subjects.identifiers]]
+identifier_type = "EIN"
+identifier_value = "XX-XXX5531"
+
+[[subjects.accounts]]
+account_number = "2304977980"
+financial_institution = "Banesco USA"
+account_type = "Business checking"
+
+[[subjects]]
+type = "Business"
+role = "Beneficiary"
+name = "Eisenstein Buyers"
+notes = [
+  "Shell entity created one month prior to transaction.",
+  "Received partial escrow funds despite no contractual entitlement."
+]
+
+[[subjects.accounts]]
+account_number = "2000043165557"
+financial_institution = "Banco de Reservas (DOM)"
+account_type = "International correspondent"
+
+[[subjects]]
+type = "Business"
+role = "Originator"
+name = "Zeig IOTA Escrow"
+notes = [
+  "Legitimate escrow provider whose email account was compromised.",
+  "Funds redirected following business email compromise (BEC)."
+]
+
+[[subjects.accounts]]
+account_number = "901155839"
+financial_institution = "Zeig IOTA Escrow - Operating"
+account_type = "IOTA escrow trust"
+
+[[transactions]]
+transaction_id = "TX-20230209-001"
+date = "2023-02-09"
+method = "Wire"
+originating_account = { name = "Zeig IOTA Escrow", account_number = "901155839", financial_institution = "Banesco USA" }
+pass_through_accounts = [
+  { name = "YBH Holdings LLC", account_number = "2304977980", financial_institution = "Banesco USA" },
+  { name = "Layered Offshore Accounts", account_number = "2000043165557", financial_institution = "Banco de Reservas (DOM)" }
+]
+beneficiaries = [
+  { name = "YBH Holdings LLC", country = "US" },
+  { name = "Eisenstein Buyers", country = "DO" }
+]
+amount = { currency = "USD", value = 845000.00 }
+uetr = "Pending subpoena response"
+status = "Credit confirmed"
+red_flags = [
+  "Routing inconsistent with escrow instructions",
+  "Layered transfers through offshore correspondent",
+  "Rapid movement of funds upon receipt"
+]
+
+[suspicious_activity]
+activity_types = [
+  "Wire fraud - escrow diversion",
+  "Money laundering - layering",
+  "Structuring",
+  "Business Email Compromise (BEC)"
+]
+locations = [
+  "1040 Hsia Bitoon",
+  "Remote email compromise - presumed foreign host"
+]
+first_activity_date = "2023-02-09"
+last_activity_date = "2023-02-09"
+
+[suspicious_activity.indicators]
+transaction_pattern = "Victim escrow funds diverted through shell beneficiaries via layered correspondent accounts."
+source_detection = "IC3 complaint cross-referenced with internal transaction monitoring alert."
+loss_amount = { currency = "USD", value = 845000.00 }
+recovery_status = "Funds frozen pending DOJ seizure warrant."
+
+[narrative]
+summary = "IC3 complaint 7065f60922b948a59af3a8654edb16dd filed by Sharon Topaz documents escrow funds diverted via BEC."
+details = "Complaint submitted at https://complaint.ic3.gov on 2025-04-19T01:48:12 EST states that Zeig IOTA Escrow's email compromise rerouted USD 845,000. Investigation confirmed instructions sent from the compromised account directed Banesco USA to wire funds to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and correspondent account 2000043165557. Rapid withdrawals and layering attempts continue to be monitored while recovery asset actions are coordinated."
+requested_actions = [
+  "Maintain wire holds until DOJ seizure warrant is executed",
+  "Notify correspondent banks via 314(b) information sharing",
+  "Provide updated UETR once Banesco USA responds to subpoena"
+]
+
+disposition = { law_enforcement_contacted = true, consent_to_share = true }
+
+[[attachments]]
+file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
+description = "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+classification = "Confidential"
