@@ -2,10 +2,11 @@
 
 [filing]
 type = "Initial"
-date = "2025-09-11"
+date = "2025-04-19T01:48:12-05:00"
 amendment_type = "None"
 document_control_number = ""
-contact = { office = "N & S Holding LLC - AML Surveillance Unit", phone = "786-707-7111", email = "office@nsholding.us" }
+victim_is_filer = true
+contact = { name = "Sharon Topaz", phone = "78657077111", email = "stopazus@icloud.com" }
 
 authorities = [
   { agency = "FBI – Internet Crime Complaint Center (IC3)", program = "Recovery Asset Team (RAT)", reference = "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd" },
@@ -14,17 +15,21 @@ authorities = [
 ]
 
 [filer]
-legal_name = "Sharon Topaz"
+legal_name = "Your IC3 Complaint"
+business_name = "N & S Holding LLC"
 ein = ""
 lei = ""
-contact_person = "Natalie Garcia"
-contact_title = "BSA Compliance Officer"
+contact_person = "Sharon Topaz"
+contact_title = "Managing Member"
+contact_phone = "7867077111"
+contact_email = "stopazus@icloud.com"
 
 [filer.address]
-line1 = "2640 Hollywood Blvd"
-city = "Hollywood"
+line1 = "251 174th St"
+line2 = "Apt 716"
+city = "Sunny Isles Beach"
 state = "FL"
-postal_code = "33020"
+postal_code = "33160"
 country = "US"
 
 [filer.sam]
@@ -121,8 +126,8 @@ loss_amount = { currency = "USD", value = 845000.00 }
 recovery_status = "Funds frozen pending DOJ seizure warrant."
 
 [narrative]
-summary = "Victim escrow funds from Zeig IOTA Escrow were diverted following a BEC scheme."
-details = "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd received 2023-02-10 describes unauthorized rerouting of escrow proceeds. Investigation confirmed that compromised credentials instructed Banesco USA to wire USD 845,000 to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and offshore correspondent 2000043165557. Immediate withdrawals and onward transfers indicate layering. Funds remain frozen while subpoenas and seizure paperwork are processed."
+summary = "IC3 complaint 7065f60922b948a59af3a8654edb16dd filed by Sharon Topaz documents escrow funds diverted via BEC."
+details = "Complaint submitted at https://complaint.ic3.gov on 2025-04-19T01:48:12 EST states that Zeig IOTA Escrow's email compromise rerouted USD 845,000. Investigation confirmed instructions sent from the compromised account directed Banesco USA to wire funds to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and correspondent account 2000043165557. Rapid withdrawals and layering attempts continue to be monitored while recovery asset actions are coordinated."
 requested_actions = [
   "Maintain wire holds until DOJ seizure warrant is executed",
   "Notify correspondent banks via 314(b) information sharing",
