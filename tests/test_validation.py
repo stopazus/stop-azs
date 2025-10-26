@@ -152,3 +152,23 @@ def test_empty_file(tmp_path: Path) -> None:
     issues = validator.validate_file(empty_path)
     codes = {issue.code for issue in issues}
     assert "empty_file" in codes
+
+
+def test_icloud_placeholder_file(tmp_path: Path) -> None:
+    placeholder_path = tmp_path / "pending.xml.icloud"
+    placeholder_path.write_text("placeholder", encoding="utf-8")
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(placeholder_path)
+    codes = {issue.code for issue in issues}
+    assert "icloud_placeholder" in codes
+
+
+def test_invalid_encoding_file(tmp_path: Path) -> None:
+    binary_path = tmp_path / "binary.xml"
+    binary_path.write_bytes(b"\xff\xfe\x00\x00")
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(binary_path)
+    codes = {issue.code for issue in issues}
+    assert "invalid_encoding" in codes

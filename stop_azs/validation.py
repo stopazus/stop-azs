@@ -307,8 +307,29 @@ class SarValidator:
 
     def _read_xml(self, path: Path) -> tuple[Optional[str], List[ValidationIssue]]:
         issues: List[ValidationIssue] = []
+        if path.suffix.lower() == ".icloud":
+            issues.append(
+                ValidationIssue(
+                    code="icloud_placeholder",
+                    message="File is an iCloud placeholder stub; download the original before validation.",
+                    severity="error",
+                    context=str(path),
+                )
+            )
+            return None, issues
+
         try:
             content = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError as exc:
+            issues.append(
+                ValidationIssue(
+                    code="invalid_encoding",
+                    message=f"File is not valid UTF-8 text: {exc}",
+                    severity="error",
+                    context=str(path),
+                )
+            )
+            return None, issues
         except OSError as exc:
             issues.append(
                 ValidationIssue(
