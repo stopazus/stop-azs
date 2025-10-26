@@ -94,10 +94,21 @@ def _collect_text_list(elements: Iterable[ET.Element]) -> List[str]:
     return values
 
 
+class _SafeTreeBuilder(ET.TreeBuilder):
+    """Tree builder that rejects DTD declarations and entity expansions."""
+
+    def doctype(self, name, pubid, system):  # pragma: no cover - behaviour verified via parse_sar
+        raise ValueError("DTD processing is disabled for SAR XML input")
+
+    def entity(self, name):  # pragma: no cover - behaviour verified via parse_sar
+        raise ValueError("Entity expansions are disabled for SAR XML input")
+
+
 class _SafeXMLParser(ET.XMLParser):
     """XML parser that disables entity expansion and DTD processing."""
 
     def __init__(self, *args, **kwargs):
+        kwargs.setdefault("target", _SafeTreeBuilder())
         super().__init__(*args, **kwargs)
         parser = getattr(self, "parser", None)
         if parser is not None:
@@ -105,12 +116,6 @@ class _SafeXMLParser(ET.XMLParser):
                 parser.UseForeignDTD(False)
             except AttributeError:  # pragma: no cover - platform specific
                 pass
-
-    def doctype(self, name, pubid, system):  # pragma: no cover - behaviour verified via parse_sar
-        raise ValueError("DTD processing is disabled for SAR XML input")
-
-    def entity(self, name):  # pragma: no cover - behaviour verified via parse_sar
-        raise ValueError("Entity expansions are disabled for SAR XML input")
 
 
 def _safe_fromstring(xml_content: str) -> ET.Element:
@@ -122,9 +127,6 @@ def _safe_fromstring(xml_content: str) -> ET.Element:
 
     if _DefusedET is not None:
         return _DefusedET.fromstring(xml_content)
-
-    if "<!DOCTYPE" in xml_content.upper():
-        raise ValueError("DTD declarations are not permitted in SAR XML input")
 
     parser = _SafeXMLParser()
     return ET.fromstring(xml_content, parser=parser)
