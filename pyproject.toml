@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stop-azs"
+version = "0.1.0"
+description = "Validate Suspicious Activity Report XML filings for data quality issues"
+authors = [{ name = "Stop AZS" }]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.4",
+]
+
+[project.scripts]
+stop-azs = "stop_azs.cli:main"
