@@ -92,5 +92,23 @@
         "enabled": false
       }
     }
-  }
+  },
+  "escalation_contacts": [
+    {
+      "agency": "FBI",
+      "office": "Internet Crime Complaint Center (IC3)",
+      "program": "Recovery Asset Team (RAT)",
+      "reference": "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd"
+    },
+    {
+      "agency": "FinCEN",
+      "office": "BSA E-Filing",
+      "program": "Suspicious Activity Report (SAR)"
+    },
+    {
+      "agency": "IRS",
+      "office": "Criminal Investigation (IRS-CI)",
+      "program": "Fraud / Money Laundering Referral"
+    }
+  ]
 }
