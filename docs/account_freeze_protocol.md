@@ -1,5 +1,8 @@
 # Immediate Account Freeze Protocol
 
+> **Live tracker:** Status, owners, and deadlines for each action item are maintained in `analysis.md`
+> (Zeig Escrow Recovery — Living Response Dossier). Update that document after every step below.
+
 ## 1. Rapid Evidence Packet (Within 30 Minutes)
 - **Compile transaction identifiers:** Gather wire confirmations, SWIFT MT103 messages, UETR numbers, routing/transit numbers, and ledger screenshots showing the diversion path from City National Bank (CNB) account 2304977980 through pass-through account 2000043165557.
 - **Victim affidavits:** Obtain signed statements from authorized representatives of N & S Holding LLC affirming lack of authorization for the disputed transfers.
