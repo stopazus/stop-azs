@@ -1,7 +1,7 @@
-Date,Transaction_ID,Transaction_Type,Amount_USD,Counterparty,Counterparty_Role,Routing_Method,Evidence_Reference,Notes
-2023-01-10,Example-001,Deposit,1250000,Entity-A,Investor Escrow,Incoming wire from domestic bank,BankStmt-001,Initial placement of funds
-2023-01-10,Example-002,Withdrawal,1250000,Entity-B,Layering Shell,Outgoing international transfer,WireConf-002,Same-day withdrawal via intermediary
-2023-02-14,Example-003,Deposit,950000,Entity-C,Corporate Client,Domestic wire,BankStmt-015,Structured deposit flagged by compliance
-2023-02-14,Example-004,Withdrawal,950000,Entity-D,Money Service Business,Domestic ACH,WireConf-016,Funds routed through money service operator
-2023-03-05,Example-005,Deposit,675000,Entity-E,Investor Escrow,Incoming wire,BankStmt-031,Linked to victim complaint case ID-20230305
-2023-03-06,Example-006,Withdrawal,675000,Entity-F,Layering Shell,International wire,WireConf-032,Transfer to offshore financial center
+Date,Transaction_ID,Transaction_Type,Amount_USD,Counterparty,Counterparty_Role,Routing_Method,Evidence_Reference,Notes,Agency_Notified,Referral_ID,Follow_Up_Action,Follow_Up_Date
+2023-01-10,Example-001,Deposit,1250000,Entity-A,Investor Escrow,Incoming wire from domestic bank,BankStmt-001,Initial placement of funds,FBI IC3,RAT-Request-001,Await confirmation of hold request,2023-01-12
+2023-01-10,Example-002,Withdrawal,1250000,Entity-B,Layering Shell,Outgoing international transfer,WireConf-002,Same-day withdrawal via intermediary,FinCEN SAR,SAR-20230110-01,Submit supplemental SAR narrative,2023-01-15
+2023-02-14,Example-003,Deposit,950000,Entity-C,Corporate Client,Domestic wire,BankStmt-015,Structured deposit flagged by compliance,IRS-CI Referral,IRS-CI-Ref-20230214,Transmit financial statement package,2023-02-20
+2023-02-14,Example-004,Withdrawal,950000,Entity-D,Money Service Business,Domestic ACH,WireConf-016,Funds routed through money service operator,FBI IC3,RAT-Request-002,Request trace on intermediary account,2023-02-18
+2023-03-05,Example-005,Deposit,675000,Entity-E,Investor Escrow,Incoming wire,BankStmt-031,Linked to victim complaint case ID-20230305,FinCEN SAR,SAR-20230305-02,Confirm SAR acknowledgement,2023-03-10
+2023-03-06,Example-006,Withdrawal,675000,Entity-F,Layering Shell,International wire,WireConf-032,Transfer to offshore financial center,IRS-CI Referral,IRS-CI-Ref-20230306,Coordinate joint interview schedule,2023-03-14

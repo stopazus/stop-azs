@@ -21,7 +21,7 @@ Document the transactional pattern that raised red flags. A typical narrative mi
 2. Routing pathways used to layer or obscure funds (e.g., pass-through shell entities, offshore transfers, money service businesses).
 3. Supporting evidence from bank statements, wire confirmations, or third-party ledgers.
 
-Where possible, pair the narrative with tabular data (see the CSV template in `data/ledger_analysis_template.csv`).
+Where possible, pair the narrative with tabular data (see the CSV template in `data/ledger_analysis_template.csv`) and mirror the agency notification fields so referrals and follow-up tasks can be reconciled across workstreams.
 
 ## 3. Entity Mapping
 
@@ -42,7 +42,16 @@ Summarise actions taken or recommended, such as:
 - Regulatory referrals to agencies like FinCEN, IRS-CI, FBI, or state financial regulators.
 - Asset tracing and recovery efforts across domestic and international jurisdictions.
 
-Include docket numbers, filing dates, and outcomes when available.
+Include docket numbers, filing dates, and outcomes when available. Maintain a running list of liaison details so that outreach can be
+documented consistently:
+
+| Agency | Program | Primary Reference | Notes |
+| --- | --- | --- | --- |
+| FBI – Internet Crime Complaint Center (IC3) | Recovery Asset Team (RAT) | IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd | Track recovery coordination requests and trace responses. |
+| FinCEN – BSA E-Filing | Suspicious Activity Report (SAR) | Record SAR confirmation numbers | Tie back to narrative and ledger entries cited in the filing. |
+| IRS – Criminal Investigation (IRS-CI) | Fraud / Money Laundering Referral | Document referral package ID and case agent | Align with tax and forfeiture strategies. |
+
+Update the table as additional agencies engage or new identifiers are assigned.
 
 ## 5. Evidence Log and References
 
