@@ -57,8 +57,11 @@ class SarValidator:
         ns = self._namespace(root)
 
         issues.extend(self._check_filing_information(root, ns))
-        issues.extend(self._check_transactions(root, ns))
-        issues.extend(self._check_uetr(root, ns))
+        transactions_container = root.find(".//ns:Transactions", ns)
+        transactions = root.findall(".//ns:Transaction", ns)
+
+        issues.extend(self._check_transactions(transactions_container, transactions, ns))
+        issues.extend(self._check_uetr(transactions, ns))
 
         return issues
 
@@ -96,9 +99,38 @@ class SarValidator:
             )
         return issues
 
-    def _check_transactions(self, root: ET.Element, ns: dict) -> Iterable[ValidationIssue]:
+    def _check_transactions(
+        self,
+        transactions_container: Optional[ET.Element],
+        transactions: List[ET.Element],
+        ns: dict,
+    ) -> Iterable[ValidationIssue]:
         issues: List[ValidationIssue] = []
-        for txn in root.findall(".//ns:Transaction", ns):
+
+        if transactions_container is None:
+            issues.append(
+                ValidationIssue(
+                    code="missing_transactions_section",
+                    message="Transactions element is missing from the filing.",
+                    severity="error",
+                    context="Transactions",
+                )
+            )
+            return issues
+
+        if not transactions:
+            issues.append(
+                ValidationIssue(
+                    code="missing_transaction_entries",
+                    message="Transactions element does not contain any Transaction entries.",
+                    severity="error",
+                    context="Transactions",
+                )
+            )
+            return issues
+
+        for index, txn in enumerate(transactions, start=1):
+            txn_context = f"Transactions/Transaction[{index}]"
             date_text = self._find_text(txn, "ns:Date", ns)
             if date_text:
                 parsed = self._parse_iso_date(date_text)
@@ -108,7 +140,7 @@ class SarValidator:
                             code="invalid_transaction_date",
                             message=f"Transaction date '{date_text}' is not a valid ISO-8601 date.",
                             severity="error",
-                            context="Transactions/Transaction/Date",
+                            context=f"{txn_context}/Date",
                         )
                     )
                 elif parsed > self.today:
@@ -117,9 +149,18 @@ class SarValidator:
                             code="future_transaction_date",
                             message=f"Transaction date {date_text} occurs in the future relative to today ({self.today.isoformat()}).",
                             severity="warning",
-                            context="Transactions/Transaction/Date",
+                            context=f"{txn_context}/Date",
                         )
                     )
+            else:
+                issues.append(
+                    ValidationIssue(
+                        code="missing_transaction_date",
+                        message="Transaction is missing Date element or value.",
+                        severity="error",
+                        context=f"{txn_context}/Date",
+                    )
+                )
             amount_element = txn.find("ns:Amount", ns)
             if amount_element is not None:
                 amount_text = (amount_element.text or "").strip()
@@ -129,7 +170,7 @@ class SarValidator:
                             code="missing_amount",
                             message="Transaction amount is missing a value.",
                             severity="error",
-                            context="Transactions/Transaction/Amount",
+                            context=f"{txn_context}/Amount",
                         )
                     )
                 elif amount_text.lower() in PLACEHOLDER_VALUES:
@@ -138,7 +179,7 @@ class SarValidator:
                             code="placeholder_amount",
                             message=f"Transaction amount contains placeholder value '{amount_text}'.",
                             severity="error",
-                            context="Transactions/Transaction/Amount",
+                            context=f"{txn_context}/Amount",
                         )
                     )
                 else:
@@ -148,7 +189,7 @@ class SarValidator:
                                 code="invalid_amount",
                                 message=f"Transaction amount '{amount_text}' is not a valid positive decimal.",
                                 severity="error",
-                                context="Transactions/Transaction/Amount",
+                                context=f"{txn_context}/Amount",
                             )
                         )
             else:
@@ -157,15 +198,27 @@ class SarValidator:
                         code="missing_amount_element",
                         message="Transaction is missing Amount element.",
                         severity="error",
-                        context="Transactions/Transaction",
+                        context=txn_context,
                     )
                 )
         return issues
 
-    def _check_uetr(self, root: ET.Element, ns: dict) -> Iterable[ValidationIssue]:
+    def _check_uetr(self, transactions: List[ET.Element], ns: dict) -> Iterable[ValidationIssue]:
         issues: List[ValidationIssue] = []
         uetr_pattern = re.compile(r"^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$")
-        for node in root.findall(".//ns:UETR", ns):
+        for index, txn in enumerate(transactions, start=1):
+            context = f"Transactions/Transaction[{index}]/UETR"
+            node = txn.find("ns:UETR", ns)
+            if node is None:
+                issues.append(
+                    ValidationIssue(
+                        code="missing_uetr_element",
+                        message="Transaction is missing UETR element.",
+                        severity="error",
+                        context=context,
+                    )
+                )
+                continue
             value = (node.text or "").strip()
             if not value:
                 issues.append(
@@ -173,7 +226,7 @@ class SarValidator:
                         code="missing_uetr",
                         message="Transaction UETR is empty.",
                         severity="error",
-                        context="Transactions/Transaction/UETR",
+                        context=context,
                     )
                 )
             elif value.lower() in PLACEHOLDER_VALUES:
@@ -182,7 +235,7 @@ class SarValidator:
                         code="placeholder_uetr",
                         message=f"Transaction UETR contains placeholder value '{value}'.",
                         severity="error",
-                        context="Transactions/Transaction/UETR",
+                        context=context,
                     )
                 )
             elif not uetr_pattern.match(value):
@@ -191,7 +244,7 @@ class SarValidator:
                         code="invalid_uetr_format",
                         message="Transaction UETR must follow the 8-4-4-4-12 GUID pattern.",
                         severity="warning",
-                        context="Transactions/Transaction/UETR",
+                        context=context,
                     )
                 )
         return issues

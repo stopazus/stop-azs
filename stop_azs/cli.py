@@ -75,7 +75,10 @@ def _print_report(
             print("  No issues found.")
             continue
         for issue in issues:
-            print(f"  - [{issue.severity.upper()}] {issue.message} ({issue.code})")
+            detail = f"  - [{issue.severity.upper()}] {issue.message} ({issue.code})"
+            if issue.context:
+                detail += f" [{issue.context}]"
+            print(detail)
 
     print("\nSummary")
     print("-" * 7)

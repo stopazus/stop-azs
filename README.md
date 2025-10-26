@@ -2,7 +2,19 @@
 
 Command-line utility for validating Suspicious Activity Report (SAR) XML filings. The
 validator focuses on catching common data-quality problems such as malformed XML,
-placeholder values, and future-dated filings.
+placeholder values, future-dated filings, and missing required details.
+
+### Validation coverage
+
+The validator currently checks for the following issues:
+
+* XML parsing failures.
+* Missing filing dates or dates that are invalid/future-dated.
+* Missing transaction sections or entries.
+* Missing transaction dates, amounts, or UETR identifiers.
+* Placeholder or empty transaction values.
+* Transaction amounts that are not positive decimals.
+* UETRs that do not match the `8-4-4-4-12` GUID pattern.
 
 ## Installation
 

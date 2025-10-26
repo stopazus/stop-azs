@@ -72,3 +72,45 @@ def test_valid_amount_and_uetr(tmp_path: Path) -> None:
     validator = SarValidator(today=date(2024, 1, 1))
     issues = validator.validate_file(path)
     assert issues == []
+
+
+def test_missing_transactions_and_required_fields(tmp_path: Path) -> None:
+    path = write_tmp_file(
+        tmp_path,
+        """
+        <SAR xmlns="http://www.fincen.gov/base">
+          <FilingInformation>
+            <FilingDate>2023-04-01</FilingDate>
+          </FilingInformation>
+        </SAR>
+        """,
+    )
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(path)
+    codes = {issue.code for issue in issues}
+    assert "missing_transactions_section" in codes
+
+
+def test_missing_transaction_entry_details(tmp_path: Path) -> None:
+    path = write_tmp_file(
+        tmp_path,
+        """
+        <SAR xmlns="http://www.fincen.gov/base">
+          <FilingInformation>
+            <FilingDate>2023-04-01</FilingDate>
+          </FilingInformation>
+          <Transactions>
+            <Transaction>
+              <Amount currency="USD">100.00</Amount>
+            </Transaction>
+          </Transactions>
+        </SAR>
+        """,
+    )
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(path)
+    codes = {issue.code for issue in issues}
+    assert "missing_transaction_date" in codes
+    assert "missing_uetr_element" in codes
