@@ -38,9 +38,11 @@ The script will emit:
 4. Property ledger, including verified and unverified addresses.
 5. Attachment catalogue with descriptions for each exhibit.
 6. Law-enforcement contacts and requested actions.
-7. Outstanding gaps, annotated when a dependency already lives in the
+7. Bank-response directives that describe how to push institutions for
+   complete customer records.
+8. Outstanding gaps, annotated when a dependency already lives in the
    information sink.
-8. Verified checkpoints sourced from the `information_sink` section to
+9. Verified checkpoints sourced from the `information_sink` section to
    highlight evidence-backed statements.
 
 ## 4. Interpreting the output
@@ -52,6 +54,10 @@ The script will emit:
   numbers, property verification, and attachment metadata. When a gap is
   already noted in the information sink, the message is labelled so
   investigators can reuse the documented dependency.
+- **Bank follow-up directives** outline which institutions to press and
+  the categories of records to demand. Use these prompts to keep
+  requesting information until every customer involved in the diversion
+  is documented.
 - **Information sink** entries enumerate which items are verified, which
   are awaiting subpoenas, and which require additional confirmation from
   counterparties.
@@ -96,7 +102,24 @@ Include the 2023-01-11 wire (Banesco USA → City National Bank of
 Florida, $206,693.68, OBI `22S-213 SELLER PROCEEDS 2763 NW 196 TERR`) in
 all correspondence to expedite asset-freeze coordination.
 
-## 8. Adding new guidance
+## 8. Bank response procedures
+
+The `bank_follow_up` block in `data/network.json` captures standing
+instructions whenever Banesco USA or City National Bank of Florida
+replies. Always request:
+
+- Comprehensive transaction histories for every customer tied to the
+  diverted escrow period, not just the flagged accounts.
+- KYC files, signature cards, disbursement authorizations, and compliance
+  review notes for all related customers.
+- SWIFT/ACH logs, client ledgers, and any narrative fields explaining how
+  funds were applied or redistributed.
+
+If the institution omits any identifiers or supporting documents, issue
+follow-up questions that enumerate the missing fields and keep the case
+log updated until the response is complete.
+
+## 9. Adding new guidance
 
 When additional investigative procedures or partner requirements emerge,
 append them to this file with a new numbered section so that all

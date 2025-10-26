@@ -12,7 +12,8 @@ Firm PLLC IOTA account at City National Bank of Florida.
 - `data/network.json` – structured representation of the IC3 submission,
   the confirmed wire details, entities, properties, red-flag indicators,
   the affidavit of authorized representative, law-enforcement
-  touchpoints, and exhibit references.
+  touchpoints, exhibit references, and bank-response follow-up
+  directives.
 - `analysis.py` – helper script that loads the dataset and prints a
   briefing-ready synopsis covering the FinCEN filing details, the
   recorded wire, subpoena-dependent activity, data gaps that still need
@@ -37,11 +38,13 @@ The script confirms the known $206,693.68 escrow diversion, outlines the
 FinCEN submission metadata, lists the pending subpoena-driven tracing
 items, enumerates unresolved data gaps (such as missing EIN, UETR,
 entity roles or jurisdictions, unverified properties, attachment
-descriptions, or law-enforcement reference numbers), summarizes the
-related entities and properties, surfaces the affidavit authority and
-compliance statements, restates the red-flag indicators and
-law-enforcement requests included with the SAR narrative, and highlights
-the verified checkpoints alongside the explicitly documented
-information gaps captured in the dataset. Outstanding gap entries call
-out when the missing detail already appears in the information sink so
-teams can connect follow-up work to the logged dependencies.
+descriptions, law-enforcement reference numbers, or banking response
+fields), summarizes the related entities and properties, surfaces the
+affidavit authority and compliance statements, restates the red-flag
+indicators and law-enforcement requests included with the SAR narrative,
+prints the bank-response follow-up directives so analysts keep pressing
+for customer-level information, and highlights the verified checkpoints
+alongside the explicitly documented information gaps captured in the
+dataset. Outstanding gap entries call out when the missing detail
+already appears in the information sink so teams can connect follow-up
+work to the logged dependencies.

@@ -642,6 +642,46 @@ def summarise() -> str:
             if requested:
                 lines.append(f"      Requested action: {requested}")
 
+    bank_follow_up = data.get("bank_follow_up")
+    if isinstance(bank_follow_up, Mapping) and bank_follow_up:
+        instructions = bank_follow_up.get("instructions")
+        if isinstance(instructions, Sequence) and not isinstance(instructions, (str, bytes)):
+            instruction_lines = [str(item) for item in instructions if item]
+        else:
+            instruction_lines = []
+        institutions = bank_follow_up.get("institutions")
+        reminder = bank_follow_up.get("reminder")
+
+        if instruction_lines or (isinstance(institutions, Sequence) and not isinstance(institutions, (str, bytes))) or reminder:
+            lines.append("")
+            lines.append("Bank response follow-up directives:")
+
+            for instruction in instruction_lines:
+                lines.append(f"  - {instruction}")
+
+            if isinstance(institutions, Sequence) and not isinstance(institutions, (str, bytes)):
+                for institution in institutions:
+                    if not isinstance(institution, Mapping):
+                        continue
+                    name = institution.get("name") or "Unnamed institution"
+                    lines.append(f"  Institution: {name}")
+                    focus_accounts = institution.get("focus_accounts")
+                    if isinstance(focus_accounts, Sequence) and not isinstance(focus_accounts, (str, bytes)):
+                        accounts = ", ".join(str(account) for account in focus_accounts if account)
+                        if accounts:
+                            lines.append(f"    Focus accounts: {accounts}")
+                    questions = institution.get("questions")
+                    if isinstance(questions, Sequence) and not isinstance(questions, (str, bytes)):
+                        for question in questions:
+                            if question:
+                                lines.append(f"    Question: {question}")
+                    escalation_note = institution.get("escalation_note")
+                    if escalation_note:
+                        lines.append(f"    Escalation: {escalation_note}")
+
+            if reminder:
+                lines.append(f"  Reminder: {reminder}")
+
     attachments = data.get("attachments", [])
     if attachments:
         lines.append("")

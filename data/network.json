@@ -307,6 +307,38 @@
       "requested_action": "Parallel financial tracing for potential tax evasion, unreported proceeds, and nominee structures."
     }
   ],
+  "bank_follow_up": {
+    "instructions": [
+      "When Banesco USA or City National Bank of Florida responds, request complete transaction histories for every customer tied to the diverted escrow proceeds, not only the identified escrow accounts.",
+      "Seek customer due diligence files, signature cards, authorized signers, disbursement approvals, and any internal compliance alerts associated with those customers.",
+      "If any identifiers, amounts, or narrative fields are missing from the response, issue immediate follow-up questions that enumerate the outstanding data points."
+    ],
+    "institutions": [
+      {
+        "name": "Banesco USA",
+        "focus_accounts": [
+          "D/XXXXXX6842 (Nu World Title of Sunset LLC escrow)"
+        ],
+        "questions": [
+          "Provide all incoming and outgoing transfers for customers connected to Florida Land Trust No. 2763-196 for the 90 days surrounding 2023-01-11.",
+          "Share KYC, beneficial ownership, and compliance review notes for Nu World Title of Sunset LLC and any affiliated escrow accounts."
+        ],
+        "escalation_note": "Escalate to compliance if KYC packages or account statements are withheld."
+      },
+      {
+        "name": "City National Bank of Florida",
+        "focus_accounts": [
+          "Account #2304977980 (Zeig Law Firm PLLC IOTA escrow)"
+        ],
+        "questions": [
+          "Request complete client ledgers identifying all beneficiaries of the IOTA account for the month of January 2023.",
+          "Obtain SWIFT/ACH logs for funds leaving the IOTA account that relate to the diverted escrow amount and any connected customers."
+        ],
+        "escalation_note": "If client ledger entries omit counterparties, insist on supplemental reporting before closing the inquiry."
+      }
+    ],
+    "reminder": "Continue questioning until bank responses provide every requested data point; document each follow-up in the case log."
+  },
   "attachments": [
     {
       "id": "A",
@@ -384,7 +416,7 @@
       {
         "category": "Beneficiary account identifiers",
         "details": "Account numbers for YBH Holdings LLC, Eisenstein Buyers, and Zeig IOTA escrow subjects absent from subpoena packet.",
-        "dependency": "Bank responses or trust account ledgers."
+        "dependency": "Bank responses or trust account ledgers; continue questioning institutions until identifiers, owners, and authorization records are complete."
       },
       {
         "category": "Control verification",
