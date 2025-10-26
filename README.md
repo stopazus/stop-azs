@@ -1,1 +1,108 @@
 # stop-azs
+
+## Provided Information
+
+### SAR Submission Details
+```
+<SAR xmlns="http://www.fincen.gov/base" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.5">
+<FilingInformation>
+<FilingType>Initial</FilingType>
+<FilingDate>2025-09-11</FilingDate>
+<AmendmentType>None</AmendmentType>
+<PriorDocumentControlNumber/>
+<ContactOffice>N & S Holding LLC - AML Surveillance Unit</ContactOffice>
+<ContactPhone>786-707-7111</ContactPhone>
+<ContactEmail>office@nsholding.us</ContactEmail>
+</FilingInformation>
+<FilerInformation>
+<FilerName>N & S Holding LLC</FilerName>
+<FilerEIN/>
+<FilerAddress>
+<AddressLine1>2640 Hollywood Blvd</AddressLine1>
+<City>Hollywood</City>
+<State>FL</State>
+<ZIP>33020</ZIP>
+<Country>US</Country>
+</FilerAddress>
+<SAM>
+<UEI>QD5XW4H6MNX8</UEI>
+<CAGE>87AY0</CAGE>
+</SAM>
+</FilerInformation>
+<Subjects>
+<Subject>
+<EntityType>Business</EntityType>
+<Name>YBH Holdings LLC</Name>
+<Account>
+<AccountNumber/>
+<FinancialInstitution/>
+</Account>
+</Subject>
+<Subject>
+<EntityType>Business</EntityType>
+<Name>Eisenstein Buyers</Name>
+<Account>
+<AccountNumber/>
+<FinancialInstitution/>
+</Account>
+</Subject>
+<Subject>
+<EntityType>Business</EntityType>
+<Name>Zeig IOTA Escrow</Name>
+<Account>
+<AccountNumber/>
+<FinancialInstitution/>
+</Account>
+</Subject>
+</Subjects>
+<Transactions>
+<Transaction>
+<Date>2023-02-09</Date>
+<Amount currency="USD">PENDING</Amount>
+<OriginatingAccount>
+<Name>Zeig IOTA Escrow</Name>
+</OriginatingAccount>
+<PassThroughAccounts>
+<Account>#2304977980</Account>
+<Account>#2000043165557</Account>
+</PassThroughAccounts>
+<Beneficiaries>
+<Beneficiary>YBH Holdings LLC</Beneficiary>
+<Beneficiary>Eisenstein Buyers</Beneficiary>
+<Beneficiary>Layered Offshore Accounts</Beneficiary>
+</Beneficiaries>
+<UETR>PENDING</UETR>
+<Notes>Routing inconsistent with escrow instructions; suspected layering/structuring.</Notes>
+</Transaction>
+</Transactions>
+<SuspiciousActivity>
+<Activities>
+<Activity>Wire fraud - escrow diversion</Activity>
+<Activity>Money laundering - layering</Activity>
+<Activity>Structuring</Activity>
+</Activities>
+<Locations>
+<KnownAddress>1040 Hsia Bitoon</KnownAddress>
+</Locations>
+<Narrative> IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Funds originated from Zeig IOTA Escrow, routed through pass-through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. Dollar amounts and UETR identifiers pending subpoena from Banesco USA. </Narrative>
+</SuspiciousActivity>
+<Attachments>
+<Attachment>
+<FileName>Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf</FileName>
+<Description>Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request.</Description>
+</Attachment>
+</Attachments>
+</SAR
+```
+
+### Command Script
+```
+#!/usr/bin/env bash
+set -euo pipefail
+python3 one_click_pipeline.py       --excel "Unified_Submission_Log.xlsx"       --pdf_epa "Compliance_Ready_Env_Filing_Template.pdf"       --pdf_mee "China_MEE_Compliance_Template.pdf"       --out_inject "unified_outputs_plus"       --do_footer       --do_pdfa       --pdfa_out "unified_outputs_pdfa"       --do_redact       --boxes "[]"       --esign_out "mail_drafts"       --esign_to "legal@example.com,compliance@example.com"
+```
+
+### Visual References
+![Analysis screenshot](analysis.png)
+![Default judgment demand screenshot](default_judgment_enforcement_demand.png)
+![Motion for default judgment screenshot](motion_default_judgment.png)
