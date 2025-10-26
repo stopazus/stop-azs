@@ -86,3 +86,10 @@ def test_parse_sar_extracts_core_fields(sample_xml: Path) -> None:
 
     # The dataclasses should be JSON serialisable via ``to_dict``.
     json.dumps(data.to_dict())
+
+
+def test_parse_sar_rejects_dtd_payloads() -> None:
+    malicious = """<!DOCTYPE lolz [<!ENTITY lol "lol">]><SAR xmlns="http://www.fincen.gov/base"></SAR>"""
+
+    with pytest.raises(ValueError):
+        parse_sar(malicious)

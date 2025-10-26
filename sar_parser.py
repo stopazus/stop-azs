@@ -20,6 +20,11 @@ import json
 import sys
 import xml.etree.ElementTree as ET
 
+try:  # pragma: no cover - optional dependency path
+    from defusedxml import ElementTree as _DefusedET
+except ImportError:  # pragma: no cover - exercised in unit tests
+    _DefusedET = None
+
 # The FinCEN SAR files use the base namespace as the default namespace.  We map
 # it to the short prefix "f" so XPath expressions stay readable.
 _NAMESPACE = {"f": "http://www.fincen.gov/base"}
@@ -89,6 +94,42 @@ def _collect_text_list(elements: Iterable[ET.Element]) -> List[str]:
     return values
 
 
+class _SafeXMLParser(ET.XMLParser):
+    """XML parser that disables entity expansion and DTD processing."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        parser = getattr(self, "parser", None)
+        if parser is not None:
+            try:
+                parser.UseForeignDTD(False)
+            except AttributeError:  # pragma: no cover - platform specific
+                pass
+
+    def doctype(self, name, pubid, system):  # pragma: no cover - behaviour verified via parse_sar
+        raise ValueError("DTD processing is disabled for SAR XML input")
+
+    def entity(self, name):  # pragma: no cover - behaviour verified via parse_sar
+        raise ValueError("Entity expansions are disabled for SAR XML input")
+
+
+def _safe_fromstring(xml_content: str) -> ET.Element:
+    """Parse XML content using a hardened parser.
+
+    ``defusedxml`` is preferred when available; otherwise, we fall back to a
+    local parser that rejects DTD declarations and disables entity expansion.
+    """
+
+    if _DefusedET is not None:
+        return _DefusedET.fromstring(xml_content)
+
+    if "<!DOCTYPE" in xml_content.upper():
+        raise ValueError("DTD declarations are not permitted in SAR XML input")
+
+    parser = _SafeXMLParser()
+    return ET.fromstring(xml_content, parser=parser)
+
+
 def parse_sar(xml_content: str) -> SARData:
     """Parse the provided SAR XML content into :class:`SARData`.
 
@@ -103,7 +144,7 @@ def parse_sar(xml_content: str) -> SARData:
         Structured representation of the key SAR components.
     """
 
-    root = ET.fromstring(xml_content)
+    root = _safe_fromstring(xml_content)
 
     filing_info = root.find("f:FilingInformation", _NAMESPACE)
     filer_info = root.find("f:FilerInformation", _NAMESPACE)
