@@ -16,17 +16,15 @@
 - Beneficiary vetting relied on attorney attestations without independent verification or dual approval.
 
 ## 4. Legal and Regulatory Actions
-Summarise actions taken or recommended, such as:
-
-- Civil litigation (e.g., foreclosure actions, receiverships).
-- Professional discipline (e.g., bar association proceedings against attorneys handling escrow funds).
-- Regulatory referrals to agencies like FinCEN, IRS-CI, FBI, or state financial regulators.
-- Asset tracing and recovery efforts across domestic and international jurisdictions.
-
-Include docket numbers, filing dates, and outcomes when available.
+- **Bank Emergency Freeze:** CNB fraud and legal teams notified on 2024-07-01 with demand for immediate holds on the Zeig IOTA escrow and related pass-through beneficiaries pursuant to Florida Bar Rule 5-1.1 trust-account safeguards.
+- **IC3 Recovery Asset Team:** RAT escalation submitted under IC3 Submission ID 7065f60922b948a59af3a8654edb16dd to trigger Financial Fraud Kill Chain notices to CNB and downstream banks.
+- **FinCEN SAR Update:** Urgent SAR amendment filed 2024-07-01 requesting 314(b) outreach covering YBH Holdings LLC, Eisenstein Buyers, and offshore affiliates.
+- **IRS-CI Referral:** Fraud/money laundering referral transmitted 2024-07-02 requesting preservation letters and interagency coordination for seizure authority.
+- **Pending TRO:** Draft ex parte temporary restraining order and writ of garnishment prepared for filing in Broward County Circuit Court to freeze identified accounts and authorize receiver appointment.
 
 ## 5. Recommended Next Steps
 1. Obtain subpoena returns from Banesco USA to confirm final dollar amounts and UETR identifiers.
 2. Coordinate with federal task force partners to trace layered offshore disbursements tied to Zeig-controlled entities.
 3. File civil actions to freeze and recover escrow funds, naming YBH Holdings LLC, Eisenstein Buyers, and related shell structures.
 4. Initiate attorney discipline referral against Justin Zeig with the Florida Bar citing escrow misuse and suspected laundering.
+5. Follow the Immediate Account Freeze Protocol to maintain interagency momentum and document freeze confirmations.
