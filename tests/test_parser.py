@@ -91,5 +91,5 @@ def test_parse_sar_extracts_core_fields(sample_xml: Path) -> None:
 def test_parse_sar_rejects_dtd_payloads() -> None:
     malicious = """<!DOCTYPE lolz [<!ENTITY lol "lol">]><SAR xmlns="http://www.fincen.gov/base"></SAR>"""
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="SAR XML parsing blocked by security policy"):
         parse_sar(malicious)

@@ -22,8 +22,10 @@ import xml.etree.ElementTree as ET
 
 try:  # pragma: no cover - optional dependency path
     from defusedxml import ElementTree as _DefusedET
+    from defusedxml.common import DefusedXmlException as _DefusedXmlException
 except ImportError:  # pragma: no cover - exercised in unit tests
     _DefusedET = None
+    _DefusedXmlException = ()
 
 # The FinCEN SAR files use the base namespace as the default namespace.  We map
 # it to the short prefix "f" so XPath expressions stay readable.
@@ -126,10 +128,18 @@ def _safe_fromstring(xml_content: str) -> ET.Element:
     """
 
     if _DefusedET is not None:
-        return _DefusedET.fromstring(xml_content)
+        try:
+            return _DefusedET.fromstring(xml_content)
+        except Exception as exc:  # pragma: no cover - behaviour validated in tests
+            if _DefusedXmlException and isinstance(exc, _DefusedXmlException):
+                raise ValueError("SAR XML parsing blocked by security policy") from exc
+            raise
 
     parser = _SafeXMLParser()
-    return ET.fromstring(xml_content, parser=parser)
+    try:
+        return ET.fromstring(xml_content, parser=parser)
+    except ValueError as exc:
+        raise ValueError("SAR XML parsing blocked by security policy") from exc
 
 
 def parse_sar(xml_content: str) -> SARData:
