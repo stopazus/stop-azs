@@ -12,6 +12,8 @@ The validator currently checks for the following issues:
 * Missing filing dates or dates that are invalid/future-dated.
 * Missing transaction sections or entries.
 * Missing transaction dates, amounts, or UETR identifiers.
+* Duplicate UETR identifiers across transactions.
+* Empty or unreadable SAR filings.
 * Placeholder or empty transaction values.
 * Transaction amounts that are not positive decimals.
 * UETRs that do not match the `8-4-4-4-12` GUID pattern.

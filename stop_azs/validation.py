@@ -41,8 +41,13 @@ class SarValidator:
         """Validate a SAR file and return a list of issues."""
         issues: List[ValidationIssue] = []
 
+        content, read_issues = self._read_xml(path)
+        issues.extend(read_issues)
+        if content is None:
+            return self._dedupe_issues(issues)
+
         try:
-            tree = ET.parse(path)
+            root = ET.fromstring(content)
         except ET.ParseError as exc:
             issues.append(
                 ValidationIssue(
@@ -51,9 +56,8 @@ class SarValidator:
                     severity="error",
                 )
             )
-            return issues
+            return self._dedupe_issues(issues)
 
-        root = tree.getroot()
         ns = self._namespace(root)
 
         issues.extend(self._check_filing_information(root, ns))
@@ -62,8 +66,9 @@ class SarValidator:
 
         issues.extend(self._check_transactions(transactions_container, transactions, ns))
         issues.extend(self._check_uetr(transactions, ns))
+        issues.extend(self._check_duplicate_uetr(transactions, ns))
 
-        return issues
+        return self._dedupe_issues(issues)
 
     def _check_filing_information(self, root: ET.Element, ns: dict) -> Iterable[ValidationIssue]:
         issues: List[ValidationIssue] = []
@@ -249,6 +254,32 @@ class SarValidator:
                 )
         return issues
 
+    def _check_duplicate_uetr(self, transactions: List[ET.Element], ns: dict) -> Iterable[ValidationIssue]:
+        issues: List[ValidationIssue] = []
+        seen: dict[str, int] = {}
+        for index, txn in enumerate(transactions, start=1):
+            value = self._find_text(txn, "ns:UETR", ns)
+            if not value:
+                continue
+            normalized = value.lower()
+            if normalized in PLACEHOLDER_VALUES:
+                continue
+            if normalized in seen:
+                first_index = seen[normalized]
+                issues.append(
+                    ValidationIssue(
+                        code="duplicate_uetr",
+                        message=(
+                            f"Transaction UETR '{value}' duplicates value from Transaction[{first_index}]."
+                        ),
+                        severity="error",
+                        context=f"Transactions/Transaction[{index}]/UETR",
+                    )
+                )
+            else:
+                seen[normalized] = index
+        return issues
+
     def _find_text(self, element: ET.Element, path: str, ns: dict) -> Optional[str]:
         found = element.find(path, ns)
         if found is None or found.text is None:
@@ -273,6 +304,45 @@ class SarValidator:
             uri = root.tag[1 : root.tag.index("}")]
             return {"ns": uri}
         return {}
+
+    def _read_xml(self, path: Path) -> tuple[Optional[str], List[ValidationIssue]]:
+        issues: List[ValidationIssue] = []
+        try:
+            content = path.read_text(encoding="utf-8")
+        except OSError as exc:
+            issues.append(
+                ValidationIssue(
+                    code="read_error",
+                    message=f"Unable to read file: {exc}",
+                    severity="error",
+                    context=str(path),
+                )
+            )
+            return None, issues
+
+        if not content.strip():
+            issues.append(
+                ValidationIssue(
+                    code="empty_file",
+                    message="SAR file is empty.",
+                    severity="error",
+                    context=str(path),
+                )
+            )
+            return None, issues
+
+        return content, issues
+
+    def _dedupe_issues(self, issues: Iterable[ValidationIssue]) -> List[ValidationIssue]:
+        deduped: List[ValidationIssue] = []
+        seen = set()
+        for issue in issues:
+            key = (issue.code, issue.context, issue.message, issue.severity)
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(issue)
+        return deduped
 
 
 def validate_file(path: Path, *, today: Optional[date] = None) -> List[ValidationIssue]:

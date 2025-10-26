@@ -114,3 +114,41 @@ def test_missing_transaction_entry_details(tmp_path: Path) -> None:
     codes = {issue.code for issue in issues}
     assert "missing_transaction_date" in codes
     assert "missing_uetr_element" in codes
+
+
+def test_duplicate_uetr_detection(tmp_path: Path) -> None:
+    path = write_tmp_file(
+        tmp_path,
+        """
+        <SAR xmlns="http://www.fincen.gov/base">
+          <FilingInformation>
+            <FilingDate>2023-04-01</FilingDate>
+          </FilingInformation>
+          <Transactions>
+            <Transaction>
+              <Date>2023-02-01</Date>
+              <Amount currency="USD">100.00</Amount>
+              <UETR>123E4567-E89B-12D3-A456-426614174000</UETR>
+            </Transaction>
+            <Transaction>
+              <Date>2023-02-03</Date>
+              <Amount currency="USD">50.00</Amount>
+              <UETR>123e4567-e89b-12d3-a456-426614174000</UETR>
+            </Transaction>
+          </Transactions>
+        </SAR>
+        """,
+    )
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(path)
+    codes = {issue.code for issue in issues}
+    assert "duplicate_uetr" in codes
+
+
+def test_empty_file(tmp_path: Path) -> None:
+    empty_path = write_tmp_file(tmp_path, "", name="empty.xml")
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(empty_path)
+    codes = {issue.code for issue in issues}
+    assert "empty_file" in codes
