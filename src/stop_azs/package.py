@@ -121,15 +121,18 @@ DEFAULT_AGENCIES: tuple[AgencyContact, ...] = (
     AgencyContact(
         agency="FBI – Internet Crime Complaint Center (IC3)",
         program="Recovery Asset Team (RAT)",
+        director="Unit Chief, Recovery Asset Team",
         reference="IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd",
     ),
     AgencyContact(
         agency="FinCEN – BSA E‑Filing",
         program="Suspicious Activity Report (SAR)",
+        director="BSA E-Filing Program Director",
     ),
     AgencyContact(
         agency="IRS – Criminal Investigation (IRS‑CI)",
         program="Fraud / Money Laundering Referral",
+        director="Chief, IRS Criminal Investigation",
     ),
 )
 
@@ -156,7 +159,11 @@ def _write_summary(
     summary_lines.append("## Included Agencies")
     summary_lines.append("")
     for agency in agencies:
-        summary_lines.append(f"- {agency.agency} — {agency.program}")
+        details = f"- {agency.agency} — {agency.program}"
+        extras: list[str] = [f"Base Code: {agency.base_code()}"]
+        if agency.director:
+            extras.insert(0, f"Director: {agency.director}")
+        summary_lines.append(f"{details} ({'; '.join(extras)})")
     summary_lines.append("")
 
     case_dir.mkdir(parents=True, exist_ok=True)

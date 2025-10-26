@@ -41,6 +41,24 @@ def test_normalize_submission_path_accepts_posix_relative(tmp_path: Path) -> Non
     assert normalized == tmp_path / "packages"
 
 
+def test_agency_contact_handles_director_and_base_code() -> None:
+    contact = AgencyContact(
+        agency="Ægency", program="123", director="Director Name", reference="Ref"
+    )
+
+    block = contact.formatted_block()
+    assert "**Director:** Director Name" in block
+    assert "**Base Code:**" in block
+    code = contact.base_code()
+    assert len(code) == 5
+    assert code.isupper()
+
+
+def test_default_agencies_include_directors() -> None:
+    for agency in DEFAULT_AGENCIES:
+        assert agency.director is not None
+
+
 @pytest.mark.parametrize(
     "raw_path",
     [
@@ -70,6 +88,9 @@ def test_create_submission_package_builds_structure(tmp_path: Path) -> None:
     for agency in DEFAULT_AGENCIES:
         expected_line = f"- {agency.agency} — {agency.program}"
         assert expected_line in summary_text
+        if agency.director:
+            assert agency.director in summary_text
+        assert agency.base_code() in summary_text
 
     for agency in DEFAULT_AGENCIES:
         agency_dir = package_path / agency.slug()
@@ -79,6 +100,9 @@ def test_create_submission_package_builds_structure(tmp_path: Path) -> None:
         assert agency.agency in contents
         if agency.reference:
             assert agency.reference in contents
+        if agency.director:
+            assert f"**Director:** {agency.director}" in contents
+        assert f"**Base Code:** {agency.base_code()}" in contents
         for key, value in metadata.items():
             assert f"**{key}:** {value}" in contents
 

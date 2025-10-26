@@ -15,6 +15,7 @@ class AgencyContact:
 
     agency: str
     program: str
+    director: str | None = None
     reference: str | None = None
 
     def slug(self) -> str:
@@ -32,7 +33,22 @@ class AgencyContact:
     def formatted_block(self) -> str:
         """Render the contact details as a Markdown block."""
 
-        lines = [f"**Agency:** {self.agency}", f"**Program:** {self.program}"]
+        lines = [
+            f"**Agency:** {self.agency}",
+            f"**Program:** {self.program}",
+            f"**Base Code:** {self.base_code()}",
+        ]
+        if self.director:
+            lines.append(f"**Director:** {self.director}")
         if self.reference:
             lines.append(f"**Reference:** {self.reference}")
         return "\n".join(lines)
+
+    def base_code(self) -> str:
+        """Return a five-character mnemonic derived from the agency and program."""
+
+        letters = [ch for ch in self.slug() if ch.isalpha()]
+        if not letters:
+            return "AGNCY"
+        base = "".join(letters)[:5].upper()
+        return base.ljust(5, "X")

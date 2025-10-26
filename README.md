@@ -22,8 +22,13 @@ print(package_root)
 ```
 
 Each agency receives a dedicated folder containing a Markdown brief with the
-provided metadata and a reminder to attach supporting documentation.
+provided metadata, the agency's leadership contact, and a five-character base
+code that can be used when coordinating across systems. Attach supporting
+documentation, timelines, and communications that the agency will need to take
+action on the case.
 
 The path helpers also accept POSIX-style paths and relative folders, ensuring
 that packages are created in the expected location regardless of the calling
-platform.
+platform. You can customise agencies by instantiating :class:`stop_azs.AgencyContact`
+with the ``director`` attribute populated; the ``base_code()`` helper returns a
+five-character mnemonic derived from the agency and program names.
