@@ -4,7 +4,6 @@
 - **File Name:** `Electronic_Dispatch_Packet_2025-10-11_vFinal.zip`
 - **Date Generated:** October 12, 2025
 - **Prepared By:** N & S Holding LLC – AML Surveillance Unit
-- **Contact:** [office@nsholding.us](mailto:office@nsholding.us) | +1 (786) 707-7111
 
 ## SHA-256 Checksum
 ```
@@ -22,6 +21,11 @@ sha256sum Electronic_Dispatch_Packet_2025-10-11_vFinal.zip
 ```
 
 Matching results confirm the dispatch packet submitted to DOJ, FinCEN, IRS-CI, and FBI IC3 is authentic and unaltered.
+
+## Agency Contacts
+- **FBI – Internet Crime Complaint Center (IC3)**, Recovery Asset Team (RAT) – Reference: IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`
+- **FinCEN – BSA E-Filing**, Suspicious Activity Report (SAR)
+- **IRS – Criminal Investigation (IRS-CI)**, Fraud / Money Laundering Referral
 
 ## Digital Signature Placeholder
 ```
