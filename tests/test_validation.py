@@ -172,3 +172,22 @@ def test_invalid_encoding_file(tmp_path: Path) -> None:
     issues = validator.validate_file(binary_path)
     codes = {issue.code for issue in issues}
     assert "invalid_encoding" in codes
+
+
+def test_google_drive_placeholder_file(tmp_path: Path) -> None:
+    placeholder_path = tmp_path / "filing.xml"
+    placeholder_path.write_text(
+        """
+        {
+          "url": "https://docs.google.com/document/d/placeholder/edit",
+          "resource_id": "document:placeholder",
+          "mimeType": "application/vnd.google-apps.document"
+        }
+        """,
+        encoding="utf-8",
+    )
+
+    validator = SarValidator(today=date(2024, 1, 1))
+    issues = validator.validate_file(placeholder_path)
+    codes = {issue.code for issue in issues}
+    assert "google_drive_placeholder" in codes

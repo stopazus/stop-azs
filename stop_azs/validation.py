@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
+import json
 from pathlib import Path
 from typing import Iterable, List, Optional
 import re
@@ -352,6 +353,19 @@ class SarValidator:
             )
             return None, issues
 
+        if self._looks_like_google_drive_placeholder(content):
+            issues.append(
+                ValidationIssue(
+                    code="google_drive_placeholder",
+                    message=(
+                        "File is a Google Drive shortcut or placeholder; download the original before validation."
+                    ),
+                    severity="error",
+                    context=str(path),
+                )
+            )
+            return None, issues
+
         return content, issues
 
     def _dedupe_issues(self, issues: Iterable[ValidationIssue]) -> List[ValidationIssue]:
@@ -364,6 +378,32 @@ class SarValidator:
             seen.add(key)
             deduped.append(issue)
         return deduped
+
+    def _looks_like_google_drive_placeholder(self, content: str) -> bool:
+        stripped = content.lstrip()
+        if not stripped.startswith("{"):
+            return False
+        try:
+            data = json.loads(stripped)
+        except json.JSONDecodeError:
+            return False
+
+        url = str(data.get("url", "")).lower()
+        resource_id = data.get("resource_id") or data.get("resourceId")
+        mime_type = str(
+            data.get("mimeType")
+            or data.get("mime_type")
+            or data.get("mime-type")
+            or ""
+        )
+
+        if resource_id and ("docs.google.com" in url or "drive.google.com" in url):
+            return True
+
+        if mime_type.startswith("application/vnd.google-apps"):
+            return True
+
+        return False
 
 
 def validate_file(path: Path, *, today: Optional[date] = None) -> List[ValidationIssue]:
