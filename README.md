@@ -1,19 +1,10 @@
 # stop-azs
 
-This repository provides resources for documenting and reviewing suspicious escrow account activity. The materials were drafted with
-multi-agency recovery and enforcement workflows in mind, including cooperation with:
-
-- FBI – Internet Crime Complaint Center (IC3) / Recovery Asset Team (RAT)
-- FinCEN – BSA E-Filing Suspicious Activity Report (SAR)
-- IRS – Criminal Investigation (IRS-CI) Fraud and Money Laundering Referral program
+This repository provides clean templates for documenting and reviewing suspicious escrow account activity. Populate each template with verified facts gathered through lawful investigative methods.
 
 ## Contents
 
-- `docs/escrow_transaction_review.md` – A narrative template for compiling an investigative memorandum, including background
-  context, ledger analysis, entity mapping, legal actions, regulator/law-enforcement coordination, and next steps.
-- `data/ledger_analysis_template.csv` – A tabular structure for capturing deposits, withdrawals, counterparties, routing
-  methods, and evidentiary references during a forensic review, along with agency referral tracking fields.
+- `docs/escrow_transaction_review.md` – Narrative outline for compiling an investigative memorandum, including background context, ledger highlights, entity mapping, legal actions, coordination notes, and next steps.
+- `data/ledger_analysis_template.csv` – Tabular structure for capturing transactional details, counterparty information, routing methods, evidence references, and follow-up tasks.
 
-Use these templates as starting points, replacing the illustrative material with verified information gathered through lawful
-investigative methods. Update the documents as facts evolve so that coordination notes, referral identifiers, and evidence links
-remain accurate for all partner agencies.
+Review and tailor the materials so they reflect the specific matter under investigation. Remove any unused sections before sharing with stakeholders.

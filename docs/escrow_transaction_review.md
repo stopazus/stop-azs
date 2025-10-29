@@ -1,83 +1,78 @@
 # Suspicious Escrow Transaction Review
 
-This document outlines a structured approach for summarising suspicious escrow account activity and the associated legal or compliance actions that may follow. It is designed as a template for investigators compiling analyses for regulators, prosecutors, or internal risk teams.
+This template provides a structured outline for summarising suspicious escrow account activity and related legal or compliance actions. Replace the placeholder guidance with verified facts supported by appropriate evidence.
 
-> **Disclaimer:** This template is intended for illustrative and educational purposes. It should be populated with verified facts and evidentiary material obtained through lawful investigative methods.
+> **Disclaimer:** This template is intended for illustrative and educational purposes. Populate it only with information obtained through lawful investigative methods.
 
 ## 1. Background and Overview
 
-Use this section to capture the key context for the investigation, including:
+Describe the matter under review, including:
 
 - Timeline of relevant events.
-- Description of the escrow or trust account at issue (institution, account type, and controlling party).
-- Known victim profiles and how funds were introduced into the account.
-- Summary of complaints or referrals (e.g., IC3 submissions, suspicious activity reports).
+- Description of the escrow or trust account (institution, account type, controlling party).
+- Known victims or complainants and how funds were introduced into the account.
+- Summary of complaints, referrals, or internal alerts that initiated the investigation.
 
 ## 2. Escrow Account Ledger Findings
 
-Document the transactional pattern that raised red flags. A typical narrative might include:
+Summarise the transactional activity that raised concerns. Suggested elements:
 
-1. Identification of round-tripping behaviour where deposits and withdrawals of equal amounts occur in rapid succession.
-2. Routing pathways used to layer or obscure funds (e.g., pass-through shell entities, offshore transfers, money service businesses).
-3. Supporting evidence from bank statements, wire confirmations, or third-party ledgers.
+1. Notable deposit and withdrawal patterns (e.g., rapid pass-through activity, structuring, round-tripping).
+2. Routing pathways used to layer or obscure funds.
+3. Supporting evidence such as bank statements, wire confirmations, or third-party ledgers.
 
-Where possible, pair the narrative with tabular data (see the CSV template in `data/ledger_analysis_template.csv`) and mirror the agency notification fields so referrals and follow-up tasks can be reconciled across workstreams.
+Reference any tabular analyses maintained in `data/ledger_analysis_template.csv` so the narrative aligns with the underlying data set.
 
 ## 3. Entity Mapping
 
-Provide a high-level overview of entities and individuals connected to the transactions. Suggested subsections:
+Provide an overview of entities and individuals connected to the transactions. Suggested subsections:
 
-- **Shell companies or pass-through accounts**: Include jurisdiction, registration details, and relationship to the main investigation.
-- **Financial institutions**: List correspondent banks and intermediary accounts involved in the flow of funds.
-- **Key individuals**: Document roles (e.g., signatories, beneficial owners) and any known professional or familial relationships.
+- **Companies or accounts:** Include jurisdiction, registration details, and relationship to the investigation.
+- **Financial institutions:** List correspondent banks and intermediary accounts involved in the flow of funds.
+- **Key individuals:** Document roles (e.g., signatories, beneficial owners) and any known professional or familial relationships.
 
-Always corroborate identity information with public records, subpoenas, or reliable investigative intelligence before inclusion.
+Verify identity information through reliable sources before including it in the memorandum.
 
 ## 4. Legal and Regulatory Actions
 
-Summarise actions taken or recommended, such as:
+Outline actions taken or recommended, such as:
 
-- Civil litigation (e.g., foreclosure actions, receiverships).
-- Professional discipline (e.g., bar association proceedings against attorneys handling trust accounts).
-- Regulatory referrals to agencies like FinCEN, IRS-CI, FBI, or state financial regulators.
-- Asset tracing and recovery efforts across domestic and international jurisdictions.
+- Civil litigation or administrative actions.
+- Professional discipline.
+- Regulatory or law-enforcement referrals.
+- Asset tracing and recovery efforts.
 
-Include docket numbers, filing dates, and outcomes when available. Maintain a running list of liaison details so that outreach can be
-documented consistently:
+Maintain a liaison contact table so outreach and follow-up efforts remain organised:
 
-| Agency | Program | Primary Reference | Notes |
+| Agency / Team | Primary Contact | Reference Number | Notes |
 | --- | --- | --- | --- |
-| FBI – Internet Crime Complaint Center (IC3) | Recovery Asset Team (RAT) | IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd | Track recovery coordination requests and trace responses. |
-| FinCEN – BSA E-Filing | Suspicious Activity Report (SAR) | Record SAR confirmation numbers | Tie back to narrative and ledger entries cited in the filing. |
-| IRS – Criminal Investigation (IRS-CI) | Fraud / Money Laundering Referral | Document referral package ID and case agent | Align with tax and forfeiture strategies. |
+|  |  |  |  |
 
-Update the table as additional agencies engage or new identifiers are assigned.
+Update the table as additional stakeholders engage or new identifiers are assigned.
 
 ## 5. Evidence Log and References
 
-Create a detailed index of supporting documents, including:
+Create an index of supporting documents, including:
 
-- Bank statements and wire transfer receipts.
-- Corporate filings for implicated entities.
+- Bank statements and wire transfer records.
+- Corporate filings or ownership documentation.
 - Affidavits, complaints, or indictments.
 - Cross-references to investigative notes or case management systems.
 
 ## 6. Next Steps Checklist
 
-Use this checklist to track outstanding tasks:
+Track outstanding tasks with a simple checklist:
 
 - [ ] Confirm completeness of ledger records for the relevant date range.
-- [ ] Reconcile deposits and withdrawals against victim loss statements.
+- [ ] Reconcile deposits and withdrawals against victim or client loss statements.
 - [ ] Verify the chain of custody for evidentiary documents.
-- [ ] Coordinate with legal counsel on potential restraining orders or asset freezes.
-- [ ] Prepare briefing materials for regulatory or law-enforcement partners.
+- [ ] Coordinate with legal counsel regarding potential asset restraints.
+- [ ] Prepare briefing materials for relevant stakeholders.
 
 ## Appendix A. Transaction Summary Table Template
 
-| Date       | Transaction ID | Type       | Amount (USD) | Counterparty Role | Routing Notes                          | Evidence Reference |
-|------------|----------------|------------|--------------|-------------------|----------------------------------------|--------------------|
-| 2023-01-10 | Example-001    | Deposit    | 1,250,000    | Investor Escrow   | Funds entered trust account            | BankStmt-001       |
-| 2023-01-10 | Example-002    | Withdrawal | 1,250,000    | Shell Entity      | Rapid withdrawal via offshore transfer | WireConf-002       |
+| Date | Transaction ID | Type | Amount (USD) | Counterparty Role | Routing Notes | Evidence Reference |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |
 
-Replace the example entries with factual records as they are confirmed during the investigation.
-
+Replace the placeholder row with matter-specific data once available.
