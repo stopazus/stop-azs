@@ -40,8 +40,9 @@ Estimated IRS-linked penalties, fines, and interest:
 - **Combined IRS-Linked Exposure Estimate:** $100,950.00
 
 ## 6. Claimant Information
-Property sold: 3049 Perriwinkle Circle, Davie, FL 33328 (Florida Land Trust No. 2763-196).
+Property sold: 2763 NW 196 Terrace, Miami Gardens, FL 33056 (Florida Land Trust No. 2763-196).
 
+- Seller: Land Trust Service Corporation, as Trustee(s) of Trust No. 2763-196 dated April 3, 2017.
 - Escrow proceeds were expected to be delivered to N & S Holding LLC.
 - Instead, escrow agents and buyers diverted funds into personal and shell accounts.
 
