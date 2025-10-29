@@ -5,3 +5,8 @@ for detailed background on the trust account activity, summaries of the shell en
 captured case metadata, identified red flags, and an expanded forensic ledger exhibit (as of 24
 August 2025) that provides a master casebook index of the pass-through transactions and related
 legal and regulatory actions.
+
+## Testing
+
+The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
+collected tests, confirming that no executable checks are defined yet.
