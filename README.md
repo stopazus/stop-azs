@@ -46,3 +46,13 @@ make all   # asks for confirmations at each step
 - **Transaction (2023-02-09):** Funds originated from Zeig IOTA Escrow, moved through accounts #2304977980 and #2000043165557, then dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. UETR and dollar amounts remain pending a subpoena from Banesco USA.
 - **Suspicious Activity:** Wire fraud (escrow diversion), money laundering (layering), structuring. Narrative references IC3 Submission ID 7065f60922b948a59af3a8654edb16dd.
 - **Attachment:** Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf (annex with transaction tables, flowchart, compliance recommendations, and embedded subpoena request)
+
+## Statement of Damages Overview
+See [`STATEMENT OF DAMAGES.MD`](STATEMENT%20OF%20DAMAGES.MD) for the full claim narrative. Key figures include:
+
+- **Unauthorized escrow diversion:** $256,693.68 in funds moved without proper instruction.
+- **Treble damages exposure:** $1,026,774.72 under Fla. Stat. §772.11, based on tripling the diverted escrow amount.
+- **Additional penalties estimate:** $100,950.00 in IRS-linked fines and interest tied to reporting failures.
+- **Total known diverted funds:** Approximately $617,693.68 traced across Zeig PLLC IOTA escrow, Hasia Bitton, and YBH Holdings accounts.
+
+The statement also documents breach findings against Zeig Law Firm PLLC, enumerates fraud indicators (including spoofed instructions and unreported transfers), and asserts liens over all traced assets and related trust interests.
