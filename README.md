@@ -48,3 +48,19 @@ alongside the explicitly documented information gaps captured in the
 dataset. Outstanding gap entries call out when the missing detail
 already appears in the information sink so teams can connect follow-up
 work to the logged dependencies.
+
+## Current commit summary
+
+- Captured the subpoena-dependent routing trails, verified checkpoints,
+  and information-sink dependencies directly in `analysis.py` so the
+  generated briefing flags both evidence-backed statements and missing
+  details.
+- Extended `data/network.json` with bank-response directives, verified
+  checkpoints, and explicit information gaps to drive the helper output.
+- Added the `README_EXTRA.md` operational guide with end-to-end
+  procedures for analysts pressing financial institutions for customer
+  data and documenting follow-up steps.
+
+### Validation
+
+- `python analysis.py`
