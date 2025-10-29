@@ -48,14 +48,15 @@ Once the manifest is corrected, export a PDF snapshot and store both the XLSX an
 
 ### Optional automation: `fill_hash_manifest.py`
 
-The repository includes a helper script [`fill_hash_manifest.py`](../fill_hash_manifest.py) that reads `SHA256_Manifest_7065f609.xlsx`, calculates SHA-256 digests for any files listed in column A that exist beside the manifest, and fills the checksum and timestamp fields automatically.
+The repository includes a helper script [`fill_hash_manifest.py`](../fill_hash_manifest.py) that reads `SHA256_Manifest_7065f609.xlsx`, calculates SHA-256 digests for any files listed in column A that exist beside the manifest (or within a specified evidence directory), and fills the checksum and timestamp fields automatically.
 
 1. Install the lone dependency with `pip install openpyxl` if it is not already available.
-2. Place the script, the manifest, and all referenced evidence files in the same directory.
-3. Run `python fill_hash_manifest.py` to populate the missing hashes and timestamps. Rows with missing files are left untouched for manual follow-up.
-4. Re-open the manifest to confirm each row has the expected lowercase hash, a fresh UTC timestamp, and correct custodian assignments.
+2. Place the script, the manifest, and all referenced evidence files in the same directory, or provide `--manifest` and `--evidence-dir` arguments pointing to the appropriate paths.
+3. Run `python fill_hash_manifest.py` to populate missing hashes and timestamps. Existing checksum values are preserved unless you pass `--force`.
+4. Add `--verification-method "SHA-256 via script"` (or similar) to pre-fill the `verification_method` column when blank.
+5. Re-open the manifest to confirm each row has the expected lowercase hash, a fresh UTC timestamp, and correct custodian assignments.
 
-Re-export the PDF snapshot after the automated pass, then proceed with the archival steps above.
+Re-export the PDF snapshot after the automated pass, then proceed with the archival steps above. The script prints a summary that identifies rows skipped due to existing checksums and any files that could not be located.
 
 ## Outstanding Items
 
