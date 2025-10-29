@@ -3,6 +3,9 @@
 ## Features
 - Normalizes Azure resource configurations into a consistent structure for auditing.
 
+## Testing
+- Install project dependencies if necessary, then run `pytest` from the repository root to execute the automated test suite.
+
 ## SAR Case Packet Workflow
 Run all commands from the repository root unless otherwise noted.
 
