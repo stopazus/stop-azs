@@ -11,4 +11,12 @@ The requested operational steps cannot be performed within this project environm
 
 If you need to perform any of the actions described above, contact your institution's compliance leadership or operations command center for the approved procedure. They can confirm the correct workflow, required documentation, and responsible teams for execution.
 
+For authorized personnel preparing to handle a government-facing cybersecurity or compliance request, make sure you have:
+
+- A validated case or incident identifier from the institution's case-management system.
+- Written approval (for example, from compliance leadership or the designated escalation authority) confirming you are the assigned handler.
+- Access to the sanctioned tooling required for the request, such as secure messaging gateways, subpoena response portals, or DOJ/FinCEN communication channels.
+- The institution's playbook or standard operating procedure for the specific action, including any regional regulatory citations that apply.
+- A clear audit trail covering who initiated the request, who approved it, and when activities are performed.
+
 Similarly, running tests against third-party compliance systems such as the SAM.gov API cannot be carried out from this codebase. Those activities must remain within sanctioned institutional workflows to ensure security and regulatory adherence.
