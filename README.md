@@ -16,8 +16,8 @@ To restore the missing Filipino information in the STS submission search documen
 2. A validation checklist that shows how the localized content should appear in the search results.
 3. Any public references or ticket numbers that can be cited without exposing restricted material.
 
-Once the above items are available, they can be added to this repository in a new Markdown file (for example,
-`docs/sts_submission_filipino.md`). Please avoid uploading restricted or personally identifiable information.
+Once the above items are available, add them to [`docs/sts_submission_filipino.md`](docs/sts_submission_filipino.md). The
+previous working copy lived in “Share Drive One,” but only sanitized content should be committed here.
 
 ## Contributing Notes
 * Keep all contributions free of confidential data.
