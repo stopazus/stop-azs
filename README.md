@@ -20,13 +20,20 @@ The module can be used either as a library or as a small command line tool:
 # verify the hosted ATLAS.yaml can be reached
 python -m stop_azs.atlas --check
 
+# point to an alternative location (for example, a mirrored OneDrive share)
+python -m stop_azs.atlas --check --source "https://example.com/custom/ATLAS.yaml"
+
 # download and summarise the dataset
 python -m stop_azs.atlas
+
+# download from an alternate source
+python -m stop_azs.atlas --source /path/to/local/ATLAS.yaml
 ```
 
 The `--check` flag performs a lightweight HEAD request so you can ensure outbound connectivity before
 attempting a download. Running without flags downloads the latest ATLAS dataset and prints the number of
-techniques that map to each tactic. In code you can use the module like so:
+techniques that map to each tactic. Use the `--source` option to read from a local file or alternate URL
+if you maintain your own mirror. In code you can use the module like so:
 
 ```python
 from stop_azs import (

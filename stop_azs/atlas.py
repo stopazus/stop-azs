@@ -252,6 +252,13 @@ def _main() -> None:  # pragma: no cover - exercised via CLI invocation
         help="verify the ATLAS dataset can be reached before downloading",
     )
     parser.add_argument(
+        "--source",
+        default=DEFAULT_ATLAS_DATA_URL,
+        help=(
+            "path or URL to the ATLAS dataset (default: official MITRE location)"
+        ),
+    )
+    parser.add_argument(
         "--timeout",
         type=float,
         default=10.0,
@@ -261,13 +268,13 @@ def _main() -> None:  # pragma: no cover - exercised via CLI invocation
 
     try:
         if args.check:
-            check_atlas_connection(timeout=args.timeout)
+            check_atlas_connection(args.source, timeout=args.timeout)
             print(
-                f"Successfully reached {DEFAULT_ATLAS_DATA_URL} with timeout {args.timeout}s"
+                f"Successfully reached {args.source} with timeout {args.timeout}s"
             )
             return
 
-        data = load_atlas_data()
+        data = load_atlas_data(args.source)
         matrix = select_matrix(data)
         grouped = group_techniques_by_tactic(matrix)
         summary = summarise_matrix(grouped)

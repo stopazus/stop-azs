@@ -121,6 +121,20 @@ def test_check_atlas_connection_uses_head(monkeypatch):
     assert request.get_method() == "HEAD"
 
 
+def test_check_atlas_connection_supports_custom_url(monkeypatch):
+    captured: dict[str, object] = {}
+
+    def fake_urlopen(request, timeout):
+        captured["url"] = request.get_full_url()
+        return DummyResponse(status=200)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    custom_url = "https://contoso.sharepoint.com/:u:/r/custom/ATLAS.yaml"
+    assert check_atlas_connection(url=custom_url) is True
+    assert captured["url"] == custom_url
+
+
 def test_check_atlas_connection_handles_http_error(monkeypatch):
     def fake_urlopen(request, timeout):
         return DummyResponse(status=500)
