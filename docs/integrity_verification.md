@@ -1,40 +1,30 @@
-# Electronic Dispatch Packet Integrity Verification
+SHA-256 INTEGRITY VERIFICATION SHEET
+==========================================
 
-## Summary
-- **File Name:** `Electronic_Dispatch_Packet_2025-10-11_vFinal` (OneDrive form reload; distributed as `.zip`)
-- **Date Generated:** October 12, 2025
-- **Prepared By:** N & S Holding LLC – AML Surveillance Unit
+File Name: Electronic_Dispatch_Packet_2025-10-11_vFinal.zip (reloaded from OneDrive form)
+Date Generated: October 12, 2025
+Prepared by: N & S Holding LLC – AML Surveillance Unit
+Contact: office@nsholding.us | +1 (786) 707-7111
 
-## SHA-256 Checksum
-```
+SHA-256 Hash Value:
 0f09f799f932eacece3ca23627fe1c32c4fe84658ad8f7396f3c90f7f9d52f78
-```
 
-To confirm authenticity, run either command below and compare the output with the checksum above:
+Verification Method:
+This checksum verifies the authenticity and integrity of the final electronic dispatch packet submitted to DOJ, FinCEN, IRS-CI, and FBI IC3.
+To confirm authenticity, run either of the following commands:
 
-```powershell
-certutil -hashfile Electronic_Dispatch_Packet_2025-10-11_vFinal.zip SHA256
-```
+    certutil -hashfile Electronic_Dispatch_Packet_2025-10-11_vFinal.zip SHA256
+or
+    sha256sum Electronic_Dispatch_Packet_2025-10-11_vFinal.zip
 
-```bash
-sha256sum Electronic_Dispatch_Packet_2025-10-11_vFinal.zip
-```
+If the output matches the above hash value, the submission is confirmed as authentic and unaltered.
 
-Matching results confirm the dispatch packet submitted to DOJ, FinCEN, IRS-CI, and FBI IC3 is authentic and unaltered.
-
-## Agency Contacts
-- **FBI – Internet Crime Complaint Center (IC3)**, Recovery Asset Team (RAT) – Reference: IC3 Submission ID `7065f60922b948a59af3a8654edb16dd`
-- **FinCEN – BSA E-Filing**, Suspicious Activity Report (SAR)
-- **IRS – Criminal Investigation (IRS-CI)**, Fraud / Money Laundering Referral
-
-## Digital Signature Placeholder
-```
+Digital Signature Placeholder:
 /s/ Sharon Topaz
 Manager & Authorized Representative
 N & S Holding LLC
-```
 
-## Suspicious Activity Report (SAR)
+Suspicious Activity Report (SAR) Excerpt:
 The SAR excerpt provided by the AML Surveillance Unit is captured below for internal reference.
 
 ```xml
@@ -130,4 +120,3 @@ The SAR excerpt provided by the AML Surveillance Unit is captured below for inte
   </Attachments>
 </SAR>
 ```
-
