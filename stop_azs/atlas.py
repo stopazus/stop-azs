@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from collections import OrderedDict
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, Any, Iterable, Mapping
+from typing import IO, Any
 import re
 import urllib.request
 
@@ -137,7 +138,7 @@ def select_matrix(data: Mapping[str, Any], matrix_id: str = "ATLAS") -> Mapping[
     """Select a matrix from the parsed ATLAS YAML data."""
 
     matrices = data.get("matrices")
-    if not isinstance(matrices, Iterable):
+    if not isinstance(matrices, Iterable) or isinstance(matrices, (str, bytes)):
         raise AtlasDataError("ATLAS data does not contain a 'matrices' collection")
     for matrix in matrices:
         if isinstance(matrix, Mapping) and matrix.get("id") == matrix_id:
@@ -151,18 +152,24 @@ def group_techniques_by_tactic(
     """Group techniques by tactic while preserving order from the source."""
 
     tactic_lookup: "OrderedDict[str, str]" = OrderedDict()
-    for tactic in matrix.get("tactics", []):
-        if isinstance(tactic, Mapping):
-            tactic_id = tactic.get("id")
-            tactic_name = tactic.get("name")
-            if isinstance(tactic_id, str) and isinstance(tactic_name, str):
-                tactic_lookup[tactic_id] = tactic_name
+    raw_tactics = matrix.get("tactics", [])
+    if isinstance(raw_tactics, Iterable) and not isinstance(
+        raw_tactics, (str, bytes)
+    ):
+        for tactic in raw_tactics:
+            if isinstance(tactic, Mapping):
+                tactic_id = tactic.get("id")
+                tactic_name = tactic.get("name")
+                if isinstance(tactic_id, str) and isinstance(tactic_name, str):
+                    tactic_lookup[tactic_id] = tactic_name
 
-    techniques = [
-        tech
-        for tech in matrix.get("techniques", [])
-        if isinstance(tech, Mapping)
-    ]
+    raw_techniques = matrix.get("techniques", [])
+    if isinstance(raw_techniques, Iterable) and not isinstance(
+        raw_techniques, (str, bytes)
+    ):
+        techniques = [tech for tech in raw_techniques if isinstance(tech, Mapping)]
+    else:
+        techniques = []
     technique_lookup: dict[str, Mapping[str, Any]] = {
         str(tech.get("id")): tech for tech in techniques if isinstance(tech.get("id"), str)
     }

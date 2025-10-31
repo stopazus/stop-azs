@@ -92,6 +92,22 @@ def test_grouping_can_exclude_subtechniques(sample_data):
     assert [tech.id for tech in grouped["First"]] == ["TECH1", "TECH2"]
 
 
+def test_grouping_handles_missing_collections():
+    matrix = {
+        "id": "ATLAS",
+        "tactics": None,
+        "techniques": None,
+    }
+
+    grouped = group_techniques_by_tactic(matrix)
+    assert grouped == OrderedDict()
+
+
+def test_select_matrix_rejects_invalid_collection():
+    with pytest.raises(AtlasDataError):
+        select_matrix({"matrices": "invalid"})
+
+
 def test_summarise_matrix_counts(sample_data):
     matrix = select_matrix(sample_data)
     grouped = group_techniques_by_tactic(matrix)
