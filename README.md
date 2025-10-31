@@ -33,7 +33,9 @@ python -m stop_azs.atlas --source /path/to/local/ATLAS.yaml
 The `--check` flag performs a lightweight HEAD request so you can ensure outbound connectivity before
 attempting a download. Running without flags downloads the latest ATLAS dataset and prints the number of
 techniques that map to each tactic. Use the `--source` option to read from a local file or alternate URL
-if you maintain your own mirror. In code you can use the module like so:
+if you maintain your own mirror. HTTP requests include a pip-style `User-Agent` header so mirrors such as
+OneDrive serve the raw YAML instead of redirecting to an HTML landing page. In code you can use the module
+like so:
 
 ```python
 from stop_azs import (

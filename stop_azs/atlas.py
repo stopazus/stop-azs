@@ -19,6 +19,14 @@ DEFAULT_ATLAS_DATA_URL = (
 )
 
 
+_DEFAULT_HTTP_HEADERS = {
+    # Mimic pip's user agent style so mirrors like OneDrive serve the raw file
+    # instead of an HTML landing page.
+    "User-agent": "pip/25.2 stop-azs atlas client",
+    "Accept": "application/yaml, text/yaml, text/plain, */*;q=0.1",
+}
+
+
 class AtlasDataError(RuntimeError):
     """Raised when ATLAS data cannot be parsed."""
 
@@ -104,7 +112,14 @@ def _probe_url(
     method: str,
     headers: Mapping[str, str] | None = None,
 ) -> None:
-    request = urllib.request.Request(url, method=method, headers=dict(headers or {}))
+    request_headers = dict(_DEFAULT_HTTP_HEADERS)
+    if headers:
+        request_headers.update(headers)
+    request = urllib.request.Request(
+        url,
+        method=method,
+        headers=request_headers,
+    )
     with urllib.request.urlopen(request, timeout=timeout) as response:  # type: ignore[no-untyped-call]
         status = getattr(response, "status", None)
         if status is None:
@@ -119,8 +134,9 @@ def _probe_url(
 
 
 def _read_from_url(url: str) -> str:
+    request = urllib.request.Request(url, headers=dict(_DEFAULT_HTTP_HEADERS))
     try:
-        with urllib.request.urlopen(url) as response:  # type: ignore[no-untyped-call]
+        with urllib.request.urlopen(request) as response:  # type: ignore[no-untyped-call]
             raw = response.read()
     except OSError as exc:  # pragma: no cover - network errors handled elsewhere
         raise AtlasDataError(f"Could not download ATLAS data: {exc}") from exc

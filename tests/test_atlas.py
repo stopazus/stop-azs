@@ -30,6 +30,15 @@ class DummyResponse:
         return self.status
 
 
+class DummyDownloadResponse(DummyResponse):
+    def __init__(self, data: bytes, status: int | None = 200):
+        super().__init__(status=status)
+        self._data = data
+
+    def read(self) -> bytes:
+        return self._data
+
+
 @pytest.fixture
 def sample_data() -> dict:
     return {
@@ -142,6 +151,7 @@ def test_check_atlas_connection_supports_custom_url(monkeypatch):
 
     def fake_urlopen(request, timeout):
         captured["url"] = request.get_full_url()
+        captured["user_agent"] = request.get_header("User-agent")
         return DummyResponse(status=200)
 
     monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
@@ -149,6 +159,7 @@ def test_check_atlas_connection_supports_custom_url(monkeypatch):
     custom_url = "https://contoso.sharepoint.com/:u:/r/custom/ATLAS.yaml"
     assert check_atlas_connection(url=custom_url) is True
     assert captured["url"] == custom_url
+    assert "pip/" in captured["user_agent"]
 
 
 def test_check_atlas_connection_handles_http_error(monkeypatch):
@@ -190,3 +201,18 @@ def test_check_atlas_connection_falls_back_when_head_not_allowed(monkeypatch):
     assert get_request.get_method() == "GET"
     assert get_request.get_header("Range") == "bytes=0-0"
     assert get_timeout == 2.5
+
+
+def test_load_atlas_data_sets_user_agent(monkeypatch):
+    captured_request: dict[str, object] = {}
+
+    def fake_urlopen(request):
+        captured_request["user_agent"] = request.get_header("User-agent")
+        payload = b"matrices: []\n"
+        return DummyDownloadResponse(payload)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    data = load_atlas_data("https://example.com/atlas.yaml")
+    assert data == {"matrices": []}
+    assert "pip/" in captured_request["user_agent"]
