@@ -12,6 +12,10 @@ Install the Python dependencies:
 pip install -r requirements.txt
 ```
 
+If the dependencies are missing the module will raise a helpful
+`ModuleNotFoundError` pointing back to this command so you can install
+PyYAML before running the utilities.
+
 ## Usage
 
 The module can be used either as a library or as a small command line tool:

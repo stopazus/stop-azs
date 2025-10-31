@@ -7,10 +7,20 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import IO, Any
+import importlib.util
 import re
 import urllib.request
 
 from urllib.error import HTTPError, URLError
+
+
+_MISSING_PYYAML_MESSAGE = (
+    "PyYAML is required to use stop_azs.atlas. "
+    "Install the dependencies with `pip install -r requirements.txt`."
+)
+
+if importlib.util.find_spec("yaml") is None:  # pragma: no cover - exercised via tests
+    raise ModuleNotFoundError(_MISSING_PYYAML_MESSAGE)
 
 import yaml
 
