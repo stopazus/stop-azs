@@ -17,15 +17,27 @@ pip install -r requirements.txt
 The module can be used either as a library or as a small command line tool:
 
 ```bash
+# verify the hosted ATLAS.yaml can be reached
+python -m stop_azs.atlas --check
+
+# download and summarise the dataset
 python -m stop_azs.atlas
 ```
 
-This downloads the latest ATLAS dataset and prints the number of techniques that map to each tactic. In code you can use the
-module like so:
+The `--check` flag performs a lightweight HEAD request so you can ensure outbound connectivity before
+attempting a download. Running without flags downloads the latest ATLAS dataset and prints the number of
+techniques that map to each tactic. In code you can use the module like so:
 
 ```python
-from stop_azs import load_atlas_data, select_matrix, group_techniques_by_tactic, summarise_matrix
+from stop_azs import (
+    check_atlas_connection,
+    load_atlas_data,
+    select_matrix,
+    group_techniques_by_tactic,
+    summarise_matrix,
+)
 
+check_atlas_connection()
 data = load_atlas_data()
 matrix = select_matrix(data)
 grouped = group_techniques_by_tactic(matrix)

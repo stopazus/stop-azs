@@ -9,6 +9,8 @@ from typing import IO, Any, Iterable, Mapping
 import re
 import urllib.request
 
+from urllib.error import HTTPError, URLError
+
 import yaml
 
 DEFAULT_ATLAS_DATA_URL = (
@@ -64,6 +66,55 @@ def load_atlas_data(source: str | Path | IO[str] | IO[bytes] | None = None) -> M
     if not isinstance(data, Mapping):
         raise AtlasDataError("ATLAS data must decode to a mapping")
     return data
+
+
+def check_atlas_connection(
+    url: str = DEFAULT_ATLAS_DATA_URL, *, timeout: float = 10.0
+) -> bool:
+    """Verify that the ATLAS dataset can be reached over HTTP."""
+
+    try:
+        _probe_url(url, timeout=timeout, method="HEAD")
+    except AtlasDataError:
+        raise
+    except HTTPError as exc:
+        if exc.code == 405:
+            _probe_url(
+                url,
+                timeout=timeout,
+                method="GET",
+                headers={"Range": "bytes=0-0"},
+            )
+            return True
+        raise AtlasDataError(
+            f"ATLAS endpoint {url!r} responded with HTTP {exc.code}"
+        ) from exc
+    except (URLError, OSError) as exc:
+        raise AtlasDataError(
+            f"Could not reach ATLAS endpoint {url!r}: {exc}"
+        ) from exc
+    return True
+
+
+def _probe_url(
+    url: str,
+    *,
+    timeout: float,
+    method: str,
+    headers: Mapping[str, str] | None = None,
+) -> None:
+    request = urllib.request.Request(url, method=method, headers=dict(headers or {}))
+    with urllib.request.urlopen(request, timeout=timeout) as response:  # type: ignore[no-untyped-call]
+        status = getattr(response, "status", None)
+        if status is None:
+            try:
+                status = response.getcode()
+            except AttributeError:
+                status = None
+        if status is not None and int(status) >= 400:
+            raise AtlasDataError(
+                f"ATLAS endpoint {url!r} responded with HTTP {status}"
+            )
 
 
 def _read_from_url(url: str) -> str:
@@ -191,10 +242,39 @@ def summarise_matrix(grouped: Mapping[str, Iterable[Technique]]) -> "OrderedDict
 
 
 def _main() -> None:  # pragma: no cover - exercised via CLI invocation
-    data = load_atlas_data()
-    matrix = select_matrix(data)
-    grouped = group_techniques_by_tactic(matrix)
-    summary = summarise_matrix(grouped)
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="verify the ATLAS dataset can be reached before downloading",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=float,
+        default=10.0,
+        help="timeout in seconds for network operations (default: 10)",
+    )
+    args = parser.parse_args()
+
+    try:
+        if args.check:
+            check_atlas_connection(timeout=args.timeout)
+            print(
+                f"Successfully reached {DEFAULT_ATLAS_DATA_URL} with timeout {args.timeout}s"
+            )
+            return
+
+        data = load_atlas_data()
+        matrix = select_matrix(data)
+        grouped = group_techniques_by_tactic(matrix)
+        summary = summarise_matrix(grouped)
+    except AtlasDataError as exc:  # pragma: no cover - CLI only
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(1)
+
     for tactic, count in summary.items():
         print(f"{tactic}: {count}")
 

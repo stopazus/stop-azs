@@ -3,6 +3,7 @@
 from .atlas import (
     DEFAULT_ATLAS_DATA_URL,
     AtlasDataError,
+    check_atlas_connection,
     Technique,
     load_atlas_data,
     select_matrix,
@@ -13,6 +14,7 @@ from .atlas import (
 __all__ = [
     "DEFAULT_ATLAS_DATA_URL",
     "AtlasDataError",
+    "check_atlas_connection",
     "Technique",
     "load_atlas_data",
     "select_matrix",

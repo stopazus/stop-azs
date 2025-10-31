@@ -2,15 +2,32 @@ from __future__ import annotations
 
 from collections import OrderedDict
 
+from urllib.error import HTTPError
+
 import pytest
 
 from stop_azs import (
     AtlasDataError,
+    check_atlas_connection,
     group_techniques_by_tactic,
     load_atlas_data,
     select_matrix,
     summarise_matrix,
 )
+
+
+class DummyResponse:
+    def __init__(self, status: int | None = 200):
+        self.status = status
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def getcode(self):
+        return self.status
 
 
 @pytest.fixture
@@ -86,3 +103,60 @@ def test_summarise_matrix_counts(sample_data):
 def test_load_atlas_data_rejects_missing_local_path(tmp_path):
     with pytest.raises(AtlasDataError):
         load_atlas_data(tmp_path / "missing.yaml")
+
+
+def test_check_atlas_connection_uses_head(monkeypatch):
+    captured: dict[str, object] = {}
+
+    def fake_urlopen(request, timeout):
+        captured["request"] = request
+        captured["timeout"] = timeout
+        return DummyResponse(status=200)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    assert check_atlas_connection(timeout=5.0) is True
+    assert captured["timeout"] == 5.0
+    request = captured["request"]
+    assert request.get_method() == "HEAD"
+
+
+def test_check_atlas_connection_handles_http_error(monkeypatch):
+    def fake_urlopen(request, timeout):
+        return DummyResponse(status=500)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    with pytest.raises(AtlasDataError):
+        check_atlas_connection()
+
+
+def test_check_atlas_connection_handles_network_error(monkeypatch):
+    def fake_urlopen(request, timeout):
+        raise OSError("boom")
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    with pytest.raises(AtlasDataError):
+        check_atlas_connection()
+
+
+def test_check_atlas_connection_falls_back_when_head_not_allowed(monkeypatch):
+    calls: list[tuple[object, float]] = []
+
+    def fake_urlopen(request, timeout):
+        calls.append((request, timeout))
+        if len(calls) == 1:
+            raise HTTPError(request.full_url, 405, "Method Not Allowed", hdrs=None, fp=None)
+        return DummyResponse(status=200)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+
+    assert check_atlas_connection(timeout=2.5) is True
+    head_request, head_timeout = calls[0]
+    get_request, get_timeout = calls[1]
+    assert head_request.get_method() == "HEAD"
+    assert head_timeout == 2.5
+    assert get_request.get_method() == "GET"
+    assert get_request.get_header("Range") == "bytes=0-0"
+    assert get_timeout == 2.5
