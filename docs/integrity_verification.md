@@ -131,9 +131,3 @@ The SAR excerpt provided by the AML Surveillance Unit is captured below for inte
 </SAR>
 ```
 
-## Supplemental References
-- Flight itinerary screenshot documenting Miami ➔ Tel Aviv departure on **Saturday, July 05** via EL AL flight LY22 (non-stop, 11h 55m).
-- Hebrew-language worksheet illustrating fraction representations and exercises (page labeled "שברים במילים ובמספרים" / "Fractions in words and numbers").
-- Transaction flow network diagram highlighting suspected movement of funds among Wells Fargo, SunTrust, CMB accounts, YBH Holdings, Eisenstein Buyers, EU Shell Co., and related entities.
-
-These artifacts should be stored in the secure evidence archive alongside the electronic dispatch packet.
