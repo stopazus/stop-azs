@@ -23,9 +23,11 @@ __all__ = ["create_evidentiary_bundle"]
 
 
 def _normalise_path(candidate: Path | str) -> Path:
-    """Return ``candidate`` as a :class:`Path` instance."""
+    """Return ``candidate`` as an expanded :class:`Path` instance."""
 
-    return candidate if isinstance(candidate, Path) else Path(candidate)
+    if isinstance(candidate, Path):
+        return candidate.expanduser()
+    return Path(candidate).expanduser()
 
 
 def _gather_exhibits(exhibits_dir: Path) -> List[Path]:
