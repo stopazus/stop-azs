@@ -41,8 +41,9 @@ tooling) to parse and present the dataset to investigators.
 - **Bank follow-up directives** describe the specific account records,
   KYC files, and ledgers to demand from Banesco USA and City National
   Bank of Florida.
-- **Communications** preserve the Banesco advice-of-debit headers and
-  routing metadata so investigators can reference the Received-path keys
+- **Communications** preserve the Banesco advice-of-debit headers,
+  parsed Received-path hop keys (from host, IP, protocol, timestamp),
+  and routing metadata so investigators can cite precise relay details
   when escalating.
 - **Information sink** distinguishes verified checkpoints from gaps
   still awaiting evidence.

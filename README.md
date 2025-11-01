@@ -15,7 +15,7 @@ Firm PLLC IOTA account at City National Bank of Florida.
   red-flag indicators, the affidavit of authorized representative,
   law-enforcement touchpoints, exhibit references, bank-response follow
   up directives, and the captured Banesco advice-of-debit email headers
-  for subpoena coordination.
+  with parsed Received-path keys for subpoena coordination.
 - `README_EXTRA.md` – supplemental operational guidance for investigators
   maintaining the dataset and escalating follow-up with involved
   institutions.
@@ -33,15 +33,15 @@ review:
 3. Entities, properties, red-flag indicators, affidavits, and law-
    enforcement contacts aligned to the SAR narrative.
 4. Bank follow-up directives, including the newly preserved Banesco
-   advice-of-debit email headers that provide Received-path keys to cite
-   when requesting full transaction histories and UETR values.
+   advice-of-debit email headers and their parsed Received-path keys to
+   cite when requesting full transaction histories and UETR values.
 5. Verified checkpoints and information-sink gaps that document which
    dependencies remain outstanding.
 
 ## Current commit summary
 
-- Extended `data/network.json` with Banesco advice-of-debit email header
-  traces so investigators can reference Received-path keys when
+- Extended `data/network.json` with parsed Banesco advice-of-debit
+  Received-path keys so investigators can reference individual hops when
   demanding UETR confirmations.
 - Updated `README.md` and `README_EXTRA.md` to reflect the data-only
   repository layout and the new communications capture.

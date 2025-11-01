@@ -366,7 +366,63 @@
         "by mail-oa1-f97.google.com with SMTP id 586e51a60fabf-16ab8581837so3165172fac.4 for <ADA@nuworldtitle.com>; Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
         "from VM-P-FISGFT ([67.220.117.121]) by smtp-relay.gmail.com with ESMTP id s44-20020a056870612c00b0015f94416267sm111962oae.45.2023.02.09.08.40.48; Thu, 09 Feb 2023 08:40:48 -0800 (PST)"
       ],
-      "notes": "Preserve as reference when pressing Banesco USA for the pending unique end-to-end identifiers and customer-level transaction details."
+      "notes": "Preserve as reference when pressing Banesco USA for the pending unique end-to-end identifiers and customer-level transaction details.",
+      "received_chain_keys": [
+        {
+          "from": "DS0PR05MB9766.namprd05.prod.outlook.com",
+          "ip": "2603:10b6:8:140::13",
+          "by": "BN8PR05MB6162.namprd05.prod.outlook.com",
+          "protocol": "HTTPS",
+          "timestamp": "Thu, 9 Feb 2023 16:40:54 +0000"
+        },
+        {
+          "from": "DM6PR11CA0051.namprd11.prod.outlook.com",
+          "ip": "2603:10b6:5:14c::28",
+          "by": "DS0PR05MB9766.namprd05.prod.outlook.com",
+          "by_ip": "2603:10b6:8:140::13",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:49 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.17"
+        },
+        {
+          "from": "DM6NAM12FT043.eop-nam12.prod.protection.outlook.com",
+          "ip": "2603:10b6:5:14c:cafe::94",
+          "by": "DM6PR11CA0051.outlook.office365.com",
+          "by_ip": "2603:10b6:5:14c::28",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:49 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.19",
+          "via": "Frontend Transport"
+        },
+        {
+          "from": "mail-oa1-f97.google.com",
+          "ip": "209.85.160.97",
+          "by": "DM6NAM12FT043.mail.protection.outlook.com",
+          "by_ip": "10.13.179.162",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:48 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.17",
+          "via": "Frontend Transport"
+        },
+        {
+          "by": "mail-oa1-f97.google.com",
+          "protocol": "SMTP",
+          "timestamp": "Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
+          "for": "ADA@nuworldtitle.com",
+          "id": "586e51a60fabf-16ab8581837so3165172fac.4"
+        },
+        {
+          "from": "VM-P-FISGFT",
+          "ip": "67.220.117.121",
+          "by": "smtp-relay.gmail.com",
+          "protocol": "ESMTP",
+          "timestamp": "Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
+          "id": "s44-20020a056870612c00b0015f94416267sm111962oae.45.2023.02.09.08.40.48"
+        }
+      ]
     },
     {
       "id": "banesco-advice-2023-01-11",
@@ -392,7 +448,63 @@
         "by mail-pj1-f99.google.com with SMTP id o13so13744589pjg.2 for <LOLA@nuworldtitle.com>; Wed, 11 Jan 2023 14:10:42 -0800 (PST)",
         "from VM-P-FISGFT ([67.220.117.121]) by smtp-relay.gmail.com with ESMTP id ca1-20020a17090af30100b0022618843757sm1223837pjb.8.2023.01.11.14.10.41; Wed, 11 Jan 2023 14:10:41 -0800 (PST)"
       ],
-      "notes": "Corroborates the 2023-01-11 wire confirmation and provides additional routing metadata for tracing requests."
+      "notes": "Corroborates the 2023-01-11 wire confirmation and provides additional routing metadata for tracing requests.",
+      "received_chain_keys": [
+        {
+          "from": "IA1PR05MB9406.namprd05.prod.outlook.com",
+          "ip": "2603:10b6:208:41a::17",
+          "by": "BN8PR05MB6162.namprd05.prod.outlook.com",
+          "protocol": "HTTPS",
+          "timestamp": "Wed, 11 Jan 2023 22:10:44 +0000"
+        },
+        {
+          "from": "BN9PR03CA0329.namprd03.prod.outlook.com",
+          "ip": "2603:10b6:408:112::34",
+          "by": "IA1PR05MB9406.namprd05.prod.outlook.com",
+          "by_ip": "2603:10b6:208:41a::17",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:43 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.5986.18"
+        },
+        {
+          "from": "BN8NAM12FT008.eop-nam12.prod.protection.outlook.com",
+          "ip": "2603:10b6:408:112:cafe::7e",
+          "by": "BN9PR03CA0329.outlook.office365.com",
+          "by_ip": "2603:10b6:408:112::34",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:43 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6002.13",
+          "via": "Frontend Transport"
+        },
+        {
+          "from": "mail-pj1-f99.google.com",
+          "ip": "209.85.216.99",
+          "by": "BN8NAM12FT008.mail.protection.outlook.com",
+          "by_ip": "10.13.183.155",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:42 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6002.12",
+          "via": "Frontend Transport"
+        },
+        {
+          "by": "mail-pj1-f99.google.com",
+          "protocol": "SMTP",
+          "timestamp": "Wed, 11 Jan 2023 14:10:42 -0800 (PST)",
+          "for": "LOLA@nuworldtitle.com",
+          "id": "o13so13744589pjg.2"
+        },
+        {
+          "from": "VM-P-FISGFT",
+          "ip": "67.220.117.121",
+          "by": "smtp-relay.gmail.com",
+          "protocol": "ESMTP",
+          "timestamp": "Wed, 11 Jan 2023 14:10:41 -0800 (PST)",
+          "id": "ca1-20020a17090af30100b0022618843757sm1223837pjb.8.2023.01.11.14.10.41"
+        }
+      ]
     }
   ],
   "attachments": [
