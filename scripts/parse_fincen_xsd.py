@@ -23,7 +23,7 @@ Output Format:
     - ComplexTypes: Top-level xs:complexType declarations
     - SimpleTypes: Top-level xs:simpleType declarations with enumerations
 
-Author: Generated for stopazus/stop-azs
+Author: stopazus/stop-azs
 """
 
 import sys

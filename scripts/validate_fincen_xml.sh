@@ -43,8 +43,8 @@ FINCEN_REF_CODES_URL="${SCHEMA_BASE_URL}/FinCENReferenceCodes.xsd"
 FINCEN_SAR_SCHEMA_URL="${SCHEMA_BASE_URL}/FinCEN_SAR.xsd"
 
 # Alternative: Use local example URLs (GitHub raw content)
-# These are placeholders - replace with actual schema URLs
-ALT_SCHEMA_BASE="https://raw.githubusercontent.com/fincen/sar-schemas/main"
+# These are placeholders - replace with actual schema URLs if needed
+# ALT_SCHEMA_BASE="https://raw.githubusercontent.com/example/sar-schemas/main"
 
 # Local schema directory
 SCHEMA_DIR="$(pwd)/schemas"
@@ -287,6 +287,7 @@ validate_with_lxml() {
     
     # Create temporary Python validation script
     local validator_script=$(mktemp)
+    
     cat > "$validator_script" << 'PYTHON_EOF'
 import sys
 from pathlib import Path
