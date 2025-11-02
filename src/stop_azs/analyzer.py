@@ -229,7 +229,7 @@ class TransactionAnalyzer:
 
 
 def load_transactions(path: str | Path, *, encoding: str = "utf-8") -> List[Transaction]:
-    """Load transactions from a CSV or JSON document."""
+    """Load transactions from a CSV, JSON, or NDJSON document."""
 
     file_path = Path(path)
     if not file_path.exists():
