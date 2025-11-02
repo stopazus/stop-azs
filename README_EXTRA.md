@@ -128,4 +128,8 @@ for ready-to-run helpers, including:
   .received_chain_keys' data/network.json` — extracts the parsed
   Received-path hop metadata for the February 2023 Banesco email to quote
   during escalations.
+- `jq '.communications[] | select(.id=="banesco-advice-2023-01-11") |
+  .received_chain_keys' data/network.json` — companion command for the
+  January 2023 Banesco advice-of-debit message when referencing earlier
+  subpoena correspondence.
 

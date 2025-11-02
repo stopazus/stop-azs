@@ -45,15 +45,18 @@ review:
   create a prettified copy alongside any Windows evidence folders.
 - Reference the `command_snippets` block at the end of
   `data/network.json` for additional ready-to-run validation and
-  Received-path extraction commands.
+  Received-path extraction commands covering the January and February
+  Banesco advice-of-debit emails.
 
 ## Current commit summary
 
 - Extended `data/network.json` with parsed Banesco advice-of-debit
-  Received-path keys so investigators can reference individual hops when
-  demanding UETR confirmations.
+  Received-path keys and ready-to-run `jq` helpers for both January and
+  February communications so investigators can quote individual hops
+  when demanding UETR confirmations.
 - Updated `README.md` and `README_EXTRA.md` to reflect the data-only
-  repository layout and the new communications capture.
+  repository layout, the new communications capture, and the expanded
+  command snippets.
 
 ### Validation
 
