@@ -31,6 +31,8 @@ except ImportError:  # pragma: no cover - exercised in unit tests
 # it to the short prefix "f" so XPath expressions stay readable.
 _NAMESPACE = {"f": "http://www.fincen.gov/base"}
 
+_SECURITY_ERROR_MESSAGE = "SAR XML parsing blocked by security policy"
+
 
 def _text_or_none(element: Optional[ET.Element]) -> Optional[str]:
     """Return the text content of ``element`` if present.
@@ -132,14 +134,14 @@ def _safe_fromstring(xml_content: str) -> ET.Element:
             return _DefusedET.fromstring(xml_content)
         except Exception as exc:  # pragma: no cover - behaviour validated in tests
             if _DefusedXmlException and isinstance(exc, _DefusedXmlException):
-                raise ValueError("SAR XML parsing blocked by security policy") from exc
+                raise ValueError(_SECURITY_ERROR_MESSAGE) from exc
             raise
 
     parser = _SafeXMLParser()
     try:
         return ET.fromstring(xml_content, parser=parser)
     except ValueError as exc:
-        raise ValueError("SAR XML parsing blocked by security policy") from exc
+        raise ValueError(_SECURITY_ERROR_MESSAGE) from exc
 
 
 def parse_sar(xml_content: str) -> SARData:
