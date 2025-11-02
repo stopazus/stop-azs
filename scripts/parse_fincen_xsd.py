@@ -28,7 +28,7 @@ Author: Generated for stopazus/stop-azs
 
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, Optional
 
 # Try to use lxml for better namespace handling, fall back to xml.etree
 try:
@@ -43,14 +43,7 @@ except ImportError:
 XS_NS = "http://www.w3.org/2001/XMLSchema"
 
 
-def get_qname(tag: str, ns: Optional[str] = None) -> str:
-    """Create a qualified XML tag name with namespace."""
-    if ns:
-        return f"{{{ns}}}{tag}"
-    return tag
-
-
-def parse_xsd_file(xsd_path: Path) -> Dict[str, any]:
+def parse_xsd_file(xsd_path: Path) -> Dict[str, Any]:
     """Parse an XSD file and extract schema information.
     
     Args:
@@ -135,7 +128,7 @@ def parse_xsd_file(xsd_path: Path) -> Dict[str, any]:
     return result
 
 
-def format_output(data: Dict[str, any]) -> str:
+def format_output(data: Dict[str, Any]) -> str:
     """Format the parsed data as YAML-like output.
     
     Args:
