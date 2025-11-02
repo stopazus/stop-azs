@@ -14,7 +14,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Screen escrow transactions for simple risk indicators")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    analyze_parser = subparsers.add_parser("analyze", help="Analyze a CSV or JSON file of transactions")
+    analyze_parser = subparsers.add_parser("analyze", help="Analyze a CSV, JSON, or NDJSON file of transactions")
     analyze_parser.add_argument("path", help="Path to the transaction file")
     analyze_parser.add_argument(
         "--large-amount-threshold",
