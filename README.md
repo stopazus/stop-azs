@@ -38,6 +38,15 @@ review:
 5. Verified checkpoints and information-sink gaps that document which
    dependencies remain outstanding.
 
+### Quick Windows export example
+
+- Open a PowerShell prompt where the repository is available.
+- Run `jq '.' data/network.json > D:\\ICLOUD\\stop-azs-network.json` to
+  create a prettified copy alongside any Windows evidence folders.
+- Reference the `command_snippets` block at the end of
+  `data/network.json` for additional ready-to-run validation and
+  Received-path extraction commands.
+
 ## Current commit summary
 
 - Extended `data/network.json` with parsed Banesco advice-of-debit

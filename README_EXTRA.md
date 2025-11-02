@@ -16,6 +16,8 @@ using the Stop AZS escrow-diversion dataset.
 
 Use any JSON-capable environment (Python, jq, notebooks, case management
 tooling) to parse and present the dataset to investigators.
+The dataset now advertises reusable `jq` commands in the
+`command_snippets` section for quick validation or export tasks.
 
 ## 2. Working with the dataset
 
@@ -28,6 +30,9 @@ tooling) to parse and present the dataset to investigators.
   advice-of-debit header chain (Message-IDs ending in
   `JavaMail.service_gftapp@VM-P-FISGFT`) to anchor requests for unique
   end-to-end reference numbers.
+- On Windows workstations, run `jq '.' data/network.json >
+  D\\ICLOUD\\stop-azs-network.json` to keep a prettified working copy in
+  shared evidence directories without modifying the original file.
 
 ## 3. Inspecting key sections
 
@@ -110,4 +115,17 @@ log updated until the response is complete.
 When additional investigative procedures or partner requirements emerge,
 append them to this file with a new numbered section so that all
 investigators operate from the same playbook.
+
+## 9. Command snippets reference
+
+Consult the `command_snippets` block at the end of `data/network.json`
+for ready-to-run helpers, including:
+
+- `jq '.' data/network.json` — quick structure validation in any shell.
+- `python -m json.tool data/network.json` — alternative Python-based
+  check for environments without `jq`.
+- `jq '.communications[] | select(.id=="banesco-advice-2023-02-09") |
+  .received_chain_keys' data/network.json` — extracts the parsed
+  Received-path hop metadata for the February 2023 Banesco email to quote
+  during escalations.
 
