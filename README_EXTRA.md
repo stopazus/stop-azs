@@ -138,7 +138,7 @@ relative paths resolve correctly), including:
   prints both Banesco advice-of-debit chains with their identifiers when
   preparing subpoena packets.
 
-Keep both commands handy so subpoena teams can pivot between the
+Keep these commands handy so subpoena teams can pivot between the
 February escalation trail and the January precursor without re-creating
-the filters.
+the filters or overlooking the consolidated output.
 
