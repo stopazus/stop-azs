@@ -119,7 +119,8 @@ investigators operate from the same playbook.
 ## 9. Command snippets reference
 
 Consult the `command_snippets` block at the end of `data/network.json`
-for ready-to-run helpers, including:
+for ready-to-run helpers (execute them from the repository root so the
+relative paths resolve correctly), including:
 
 - `jq '.' data/network.json` — quick structure validation in any shell.
 - `python -m json.tool data/network.json` — alternative Python-based
