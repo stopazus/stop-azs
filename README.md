@@ -48,6 +48,19 @@ review:
   Received-path extraction commands covering the January and February
   Banesco advice-of-debit emails.
 
+### Command snippet highlights
+
+Use these ready-to-copy helpers (also recorded under
+`command_snippets` inside `data/network.json`) when briefing or
+coordinating subpoenas:
+
+- `jq '.communications[] | select(.id=="banesco-advice-2023-02-09") | .received_chain_keys' data/network.json`
+  &mdash; prints the parsed hop metadata for the February 2023 Banesco
+  advice-of-debit email.
+- `jq '.communications[] | select(.id=="banesco-advice-2023-01-11") | .received_chain_keys' data/network.json`
+  &mdash; companion helper for the January 2023 Banesco advice-of-debit
+  chain so investigators can cite the earlier routing details.
+
 ## Current commit summary
 
 - Extended `data/network.json` with parsed Banesco advice-of-debit
