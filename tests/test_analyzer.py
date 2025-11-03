@@ -35,9 +35,13 @@ def test_repeated_invoice_counts_unique_senders():
     ]
     analyzer = TransactionAnalyzer(repeat_invoice_threshold=2)
     results = analyzer.analyze(txs)
-    flagged = [flags for _, flags in results if flags]
-    assert flagged, "At least one transaction should be flagged"
-    assert any(flag.code == "REPEATED_INVOICE" for flag in flagged[0])
+    for tx, flags in results:
+        if tx.invoice_number == "INV-10":
+            codes = {flag.code for flag in flags}
+            assert "REPEATED_INVOICE" in codes
+            repeated_flag = next(flag for flag in flags if flag.code == "REPEATED_INVOICE")
+            assert repeated_flag.details["unique_senders"] == 3
+            assert repeated_flag.details["threshold"] == 2
 
 
 def test_cross_border_and_high_risk_flags():
@@ -69,6 +73,20 @@ def test_transaction_to_dict_round_trips_metadata():
 def test_transaction_requires_reference_sender_receiver():
     with pytest.raises(ValueError):
         Transaction.from_dict({})
+
+
+def test_transaction_from_dict_accepts_numeric_reference():
+    tx = Transaction.from_dict(
+        {
+            "reference": 0,
+            "sender": "Sender",
+            "receiver": "Receiver",
+            "amount": "250.00",
+            "currency": "usd",
+            "date": "2023-07-06",
+        }
+    )
+    assert tx.reference == "0"
 
 
 def test_load_transactions_from_csv(tmp_path):

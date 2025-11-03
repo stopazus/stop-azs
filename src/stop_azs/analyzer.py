@@ -50,12 +50,17 @@ class Transaction:
             return None
 
         raw = dict(raw)
-        reference = str(pop_any(raw, "reference", "wire_reference", "ref", "id") or "").strip()
+        reference_value = pop_any(raw, "reference", "wire_reference", "ref", "id")
+        if reference_value is None:
+            raise ValueError("Transactions require a non-empty reference identifier")
+        reference = str(reference_value).strip()
         if not reference:
             raise ValueError("Transactions require a non-empty reference identifier")
 
-        sender = str(pop_any(raw, "sender", "originator", "from") or "").strip()
-        receiver = str(pop_any(raw, "receiver", "beneficiary", "to") or "").strip()
+        sender_value = pop_any(raw, "sender", "originator", "from")
+        receiver_value = pop_any(raw, "receiver", "beneficiary", "to")
+        sender = str(sender_value).strip() if sender_value is not None else ""
+        receiver = str(receiver_value).strip() if receiver_value is not None else ""
         if not sender or not receiver:
             raise ValueError("Transactions must specify both sender and receiver")
 
@@ -67,15 +72,19 @@ class Transaction:
         except InvalidOperation as exc:  # pragma: no cover - defensive guard
             raise ValueError(f"Could not parse amount '{raw_amount}'") from exc
 
-        currency = str(pop_any(raw, "currency", "ccy") or "").strip().upper() or "USD"
+        currency_value = pop_any(raw, "currency", "ccy")
+        if currency_value is None:
+            currency = "USD"
+        else:
+            currency = str(currency_value).strip().upper() or "USD"
 
         raw_date = pop_any(raw, "date", "timestamp", "posted_at")
         if raw_date is None:
             raise ValueError("Transactions must include a date")
         parsed_date = _coerce_date(raw_date)
 
-        invoice_number = pop_any(raw, "invoice_number", "invoice", "invoice_id")
-        destination_country = pop_any(raw, "country", "destination_country", "beneficiary_country")
+        invoice_raw = pop_any(raw, "invoice_number", "invoice", "invoice_id")
+        destination_raw = pop_any(raw, "country", "destination_country", "beneficiary_country")
         metadata = {key: str(value) for key, value in raw.items() if value not in (None, "")}
 
         return cls(
@@ -85,8 +94,12 @@ class Transaction:
             amount=amount,
             currency=currency,
             date=parsed_date,
-            invoice_number=str(invoice_number).strip() or None,
-            destination_country=str(destination_country).strip().upper() if destination_country else None,
+            invoice_number=(str(invoice_raw).strip() or None) if invoice_raw is not None else None,
+            destination_country=(
+                str(destination_raw).strip().upper() or None
+                if destination_raw is not None
+                else None
+            ),
             metadata=metadata,
         )
 
@@ -229,7 +242,7 @@ class TransactionAnalyzer:
 
 
 def load_transactions(path: str | Path, *, encoding: str = "utf-8") -> List[Transaction]:
-    """Load transactions from a CSV or JSON document."""
+    """Load transactions from a CSV, JSON, or newline-delimited JSON (NDJSON) document."""
 
     file_path = Path(path)
     if not file_path.exists():
@@ -256,7 +269,7 @@ def load_transactions(path: str | Path, *, encoding: str = "utf-8") -> List[Tran
             raise ValueError("JSON transaction payload must be a list")
         return [Transaction.from_dict(item) for item in data]
 
-    raise ValueError("Unsupported file format. Expected CSV or JSON.")
+    raise ValueError("Unsupported file format. Expected CSV, JSON, or NDJSON.")
 
 
 def iter_flag_summary(results: Sequence[Tuple[Transaction, List[SuspicionFlag]]]) -> Iterator[Tuple[str, int]]:

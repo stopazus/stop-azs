@@ -8,7 +8,7 @@ wrongdoing—they are merely prompts for deeper analysis.
 
 ## Features
 
-- Normalises escrow transactions captured in CSV or JSON exports.
+- Normalizes escrow transactions captured in CSV, JSON, or NDJSON exports.
 - Applies configurable heuristics such as large-value transfers, repeated
   invoice reuse, high-risk jurisdictions, and receivers that aggregate many
   senders.
@@ -30,7 +30,7 @@ The optional ``dev`` dependencies install the ``pytest`` test runner.
 ## Usage
 
 After installation the command line interface is available through
-``python -m stop_azs.cli``.  To analyse the sample data bundled with the
+``python -m stop_azs.cli``.  To analyze the sample data bundled with the
 repository:
 
 ```bash
