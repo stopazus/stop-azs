@@ -1,5 +1,12 @@
 # Codex Suspicious Activity Report configuration for IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
 
+[CodexSettings]
+requested_actions = [
+  "Maintain wire holds until DOJ seizure warrant is executed",
+  "Notify correspondent banks via 314(b) information sharing",
+  "Provide updated UETR once Banesco USA responds to subpoena"
+]
+
 [filing]
 type = "Initial"
 date = "2025-04-19T01:48:12-05:00"
@@ -139,4 +146,55 @@ disposition = { law_enforcement_contacted = true, consent_to_share = true }
 [[attachments]]
 file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
 description = "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+classification = "Confidential"
+
+[[attachments]]
+file_name = "DOJ_Seizure_Report_Packet_Zeig_IOTA_Escrow_Fraud.pdf"
+description = """
+DOJ Seizure Report Packet: Zeig IOTA Escrow Fraud
+Overview:
+This document supports seizure and enforcement actions in relation to a structured wire fraud involving a USD 845,000 transaction via compromised credentials. Funds were layered through a series of shell entities, escrow withdrawals, and property purchases tied to Zeig IOTA Escrow and the Eisenstein family.
+1. Transaction & Timeline Highlights
+- April 10, 2023: USD 250,000 escrow deposit and immediate withdrawal via Anywires
+- May 22, 2023: USD 180,000 wire flow through BR Shell LLC (UK)
+- June 15, 2023: USD 50,000 moved to offshore correspondent account
+2. Entities & Accounts Involved
+- Originator: Zeig IOTA Escrow
+- Beneficiaries: YBH Holdings 234 LLC, Eisenstein Buyers
+- Key Accounts: CNB 2304977980, Offshore Account 2000043165557
+- Shells: YBH Holdings 2948 LLC, ZLG Holdings NV, BR Shell LLC (UK)
+3. Visual Flow Map & Shell Entity Tree
+See attached diagrams for structured transaction flow and shell relationships.
+"""
+classification = "Law Enforcement Sensitive"
+
+[[attachments]]
+file_name = "Master_Forensic_Report_Zeig_IOTA_Escrow_and_YBH_Network.pdf"
+description = """
+Master Forensic Report: Zeig IOTA Escrow & YBH Network
+1. Case Context & Summary
+This report compiles forensic findings for a case involving diverted wire funds originally intended for Zeig IOTA Escrow. The investigation revealed layered fund movements, shell entities, offshore accounts, and property acquisitions designed to obfuscate the true flow of funds. Funds are currently frozen pending DOJ seizure, with this report forming part of the law enforcement support package.
+2. Key Entities & Accounts
+- Zeig IOTA Escrow (Originator)
+- YBH Holdings 234 LLC / 2948 LLC (Beneficiaries)
+- CNB Account 2304977980 (Transaction Hub)
+- Eisenstein Trust (Layered Withdrawal Route)
+- Offshore Account 2000043165557
+3. Shell Structure Summary
+Diagrammatically mapped: Eisenstein ➝ YBH Holdings ➝ Property at 3049 Perriwinkle ➝ USD 120K flow through escrow ➝ Same-day withdrawals.
+4. Timeline of Activity
+- April 10, 2023: USD 250,000 in/out via Anywires
+- May 22, 2023: USD 180,000 via BR Shell LLC (UK)
+- July 6, 2023: USD 206,693.68 wired out from Zeig escrow
+5. AML Typology Mapping
+Flagged patterns include structuring/layering, escrow diversion, shell company use, and offshore flow indicators.
+6. Risk Score Grid
+High-risk entries flagged above a score threshold of 4 are prioritized for SAR review and subpoena targeting.
+7. 314(b) Outreach Matches
+Bank-to-bank and agency correspondence confirmed for CNB, SunTrust, Banesco USA, and Zeig Law Group entities.
+8. Eisenstein Trust Activity
+July 2023 deposit/withdrawal pattern through SunTrust matches structured laundering profile.
+9. Visualizations
+Includes heatmap, shell entity tree, and red flag scoring for graphic representation of fund movement and risk exposure.
+"""
 classification = "Confidential"
