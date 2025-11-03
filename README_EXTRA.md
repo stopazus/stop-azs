@@ -134,9 +134,9 @@ relative paths resolve correctly), including:
   January 2023 Banesco advice-of-debit message when referencing earlier
   subpoena correspondence.
 - `jq '.communications[] | select(.id|startswith("banesco-advice-")) |
-  {id, received_chain_keys}' data/network.json` — prints both Banesco
-  advice-of-debit chains with their identifiers for consolidated
-  subpoena briefings.
+  {id, received_chain_keys}' data/network.json` — consolidated view that
+  prints both Banesco advice-of-debit chains with their identifiers when
+  preparing subpoena packets.
 
 Keep both commands handy so subpoena teams can pivot between the
 February escalation trail and the January precursor without re-creating
