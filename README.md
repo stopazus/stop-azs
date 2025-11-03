@@ -51,8 +51,8 @@ review:
 ### Command snippet highlights
 
 Use these ready-to-copy helpers (also recorded under
-`command_snippets` inside `data/network.json`) when briefing or
-coordinating subpoenas:
+`command_snippets` inside `data/network.json`) from the repository
+root when briefing or coordinating subpoenas:
 
 - `jq '.communications[] | select(.id=="banesco-advice-2023-02-09") | .received_chain_keys' data/network.json`
   &mdash; prints the parsed hop metadata for the February 2023 Banesco
@@ -60,6 +60,9 @@ coordinating subpoenas:
 - `jq '.communications[] | select(.id=="banesco-advice-2023-01-11") | .received_chain_keys' data/network.json`
   &mdash; companion helper for the January 2023 Banesco advice-of-debit
   chain so investigators can cite the earlier routing details.
+- `jq '.communications[] | select(.id|startswith("banesco-advice-")) | {id, received_chain_keys}' data/network.json`
+  &mdash; consolidated view that prints both Banesco advice-of-debit
+  chains with their identifiers when preparing subpoena packets.
 
 ## Current commit summary
 

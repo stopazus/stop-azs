@@ -132,6 +132,10 @@ for ready-to-run helpers, including:
   .received_chain_keys' data/network.json` — companion command for the
   January 2023 Banesco advice-of-debit message when referencing earlier
   subpoena correspondence.
+- `jq '.communications[] | select(.id|startswith("banesco-advice-")) |
+  {id, received_chain_keys}' data/network.json` — prints both Banesco
+  advice-of-debit chains with their identifiers for consolidated
+  subpoena briefings.
 
 Keep both commands handy so subpoena teams can pivot between the
 February escalation trail and the January precursor without re-creating
