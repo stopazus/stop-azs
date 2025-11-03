@@ -89,6 +89,27 @@ def test_transaction_from_dict_accepts_numeric_reference():
     assert tx.reference == "0"
 
 
+def test_transaction_from_dict_trims_optional_fields_and_metadata():
+    tx = Transaction.from_dict(
+        {
+            "reference": "  REF-7  ",
+            "sender": "  Sender  ",
+            "receiver": "Receiver",
+            "amount": " 250.00 ",
+            "currency": " usd ",
+            "date": " 2023-07-06 ",
+            "invoice": "  INV-99  ",
+            "destination_country": " gb ",
+            "note": "  urgent  ",
+        }
+    )
+    assert tx.reference == "REF-7"
+    assert tx.currency == "USD"
+    assert tx.invoice_number == "INV-99"
+    assert tx.destination_country == "GB"
+    assert tx.metadata["note"] == "urgent"
+
+
 def test_load_transactions_from_csv(tmp_path):
     csv_content = "reference,sender,receiver,amount,currency,date\nREF-1,A,B,1000,USD,2023-07-06\n"
     path = tmp_path / "tx.csv"

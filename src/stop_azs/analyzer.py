@@ -45,8 +45,15 @@ class Transaction:
 
         def pop_any(mapping: MutableMapping[str, object], *keys: str) -> Optional[object]:
             for key in keys:
-                if key in mapping and mapping[key] not in ("", None):
-                    return mapping.pop(key)
+                if key in mapping:
+                    value = mapping.pop(key)
+                    if value is None:
+                        continue
+                    if isinstance(value, str):
+                        value = value.strip()
+                        if not value:
+                            continue
+                    return value
             return None
 
         raw = dict(raw)
@@ -85,7 +92,17 @@ class Transaction:
 
         invoice_raw = pop_any(raw, "invoice_number", "invoice", "invoice_id")
         destination_raw = pop_any(raw, "country", "destination_country", "beneficiary_country")
-        metadata = {key: str(value) for key, value in raw.items() if value not in (None, "")}
+        metadata: Dict[str, str] = {}
+        for key, value in raw.items():
+            if value is None:
+                continue
+            if isinstance(value, str):
+                text = value.strip()
+                if not text:
+                    continue
+                metadata[key] = text
+            else:
+                metadata[key] = str(value)
 
         return cls(
             reference=reference,
