@@ -18,12 +18,12 @@ import zipfile
 from datetime import datetime, timezone
 from os import PathLike
 from pathlib import Path
-from typing import Iterable, List, Optional, Sequence, Union
+from typing import Iterable, List, Optional, Sequence
 
 __all__ = ["create_evidentiary_bundle"]
 
 
-def _normalise_path(candidate: Union[PathLike[str], Path, str]) -> Path:
+def _normalise_path(candidate: PathLike[str] | str) -> Path:
     """Return ``candidate`` as an expanded :class:`Path` instance."""
 
     return Path(candidate).expanduser()
