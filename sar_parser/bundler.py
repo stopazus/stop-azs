@@ -16,17 +16,16 @@ import json
 import platform
 import zipfile
 from datetime import datetime, timezone
+from os import PathLike
 from pathlib import Path
-from typing import Iterable, List, Optional, Sequence
+from typing import Iterable, List, Optional, Sequence, Union
 
 __all__ = ["create_evidentiary_bundle"]
 
 
-def _normalise_path(candidate: Path | str) -> Path:
+def _normalise_path(candidate: Union[PathLike[str], Path, str]) -> Path:
     """Return ``candidate`` as an expanded :class:`Path` instance."""
 
-    if isinstance(candidate, Path):
-        return candidate.expanduser()
     return Path(candidate).expanduser()
 
 
