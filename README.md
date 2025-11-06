@@ -47,12 +47,15 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 ```
 
+> **Windows PowerShell**: run `.\\.venv\\Scripts\\Activate.ps1` instead of the
+> `source` command shown above.
+
 ### 3) Install development dependencies
-This project has no third-party runtime requirements, but the test suite
-relies on `pytest`.
+Install the tools used during development (currently just `pytest`). Keeping
+them in `requirements-dev.txt` makes it easy to sync with CI.
 
 ```sh
-python -m pip install pytest
+python -m pip install -r requirements-dev.txt
 ```
 
 ### 4) Run local checks
