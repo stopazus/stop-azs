@@ -103,7 +103,8 @@ function Test-NetworkSpeed {
         # Create a 1 GiB test file using 64 MiB buffer for better performance
         $startTime = Get-Date
         $bufferSizeMiB = 64
-        $buffer = New-Object byte[] ($bufferSizeMiB * 1MB)
+        $bufferSizeBytes = $bufferSizeMiB * 1024 * 1024  # MiB to bytes
+        $buffer = New-Object byte[] $bufferSizeBytes
         $random = New-Object System.Random
         $random.NextBytes($buffer)
         
@@ -126,7 +127,7 @@ function Test-NetworkSpeed {
         Write-ColorOutput "Testing read speed from $DriveLetter..." -Color Cyan
         $startTime = Get-Date
         $stream = [System.IO.File]::OpenRead($testFile)
-        $readBuffer = New-Object byte[] ($bufferSizeMiB * 1MB)
+        $readBuffer = New-Object byte[] $bufferSizeBytes
         while ($stream.Read($readBuffer, 0, $readBuffer.Length) -gt 0) {
             # Just read, don't process
         }
