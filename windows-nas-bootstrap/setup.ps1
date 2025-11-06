@@ -64,6 +64,8 @@ function Map-NetworkDrive {
         }
         
         # Convert SecureString to plain text for net use command
+        # Note: Using 'net use' for maximum compatibility with older Windows systems
+        # Password is cleared from memory immediately after use
         $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
         $PlainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR)
@@ -88,43 +90,43 @@ function Map-NetworkDrive {
 function Test-NetworkSpeed {
     param(
         [string]$DriveLetter,
-        [int]$SizeMB = 1024  # 1 GiB = 1024 MiB
+        [int]$SizeMiB = 1024  # 1 GiB = 1024 MiB
     )
     
     Write-ColorOutput "`n=== Network Speed Test ===" -Color Magenta
     Write-ColorOutput "Testing write speed to $DriveLetter (1 GiB file)..." -Color Cyan
     
+    $testFile = $null
     try {
         $testFile = "$DriveLetter\speedtest_$(Get-Date -Format 'yyyyMMdd_HHmmss').tmp"
-        $sizeBytes = $SizeMB * 1MB
         
-        # Create a 1 GiB test file
+        # Create a 1 GiB test file using 64 MiB buffer for better performance
         $startTime = Get-Date
-        $buffer = New-Object byte[] (1MB)
+        $bufferSizeMiB = 64
+        $buffer = New-Object byte[] ($bufferSizeMiB * 1MB)
         $random = New-Object System.Random
         $random.NextBytes($buffer)
         
         $stream = [System.IO.File]::OpenWrite($testFile)
-        for ($i = 0; $i -lt $SizeMB; $i++) {
+        $iterations = [int]($SizeMiB / $bufferSizeMiB)
+        for ($i = 0; $i -lt $iterations; $i++) {
             $stream.Write($buffer, 0, $buffer.Length)
-            if ($i % 100 -eq 0) {
-                $progress = [int](($i / $SizeMB) * 100)
-                Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
-            }
+            $progress = [int](($i / $iterations) * 100)
+            Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
         }
         $stream.Close()
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMB / $duration, 2)
+        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
         
-        Write-ColorOutput "✓ Write Speed: $speedMBps MB/s" -Color Green
+        Write-ColorOutput "✓ Write Speed: $speedMBps MiB/s" -Color Green
         
         # Read speed test
         Write-ColorOutput "Testing read speed from $DriveLetter..." -Color Cyan
         $startTime = Get-Date
         $stream = [System.IO.File]::OpenRead($testFile)
-        $readBuffer = New-Object byte[] (1MB)
+        $readBuffer = New-Object byte[] ($bufferSizeMiB * 1MB)
         while ($stream.Read($readBuffer, 0, $readBuffer.Length) -gt 0) {
             # Just read, don't process
         }
@@ -132,9 +134,9 @@ function Test-NetworkSpeed {
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMB / $duration, 2)
+        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
         
-        Write-ColorOutput "✓ Read Speed: $speedMBps MB/s" -Color Green
+        Write-ColorOutput "✓ Read Speed: $speedMBps MiB/s" -Color Green
         
         # Clean up test file
         Remove-Item $testFile -Force
@@ -142,7 +144,7 @@ function Test-NetworkSpeed {
         
     } catch {
         Write-ColorOutput "✗ Speed test failed: $_" -Color Red
-        if (Test-Path $testFile) {
+        if ($null -ne $testFile -and (Test-Path $testFile)) {
             Remove-Item $testFile -Force -ErrorAction SilentlyContinue
         }
     }
