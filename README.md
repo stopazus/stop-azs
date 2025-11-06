@@ -40,69 +40,43 @@ Thanks for helping out! Do these one-time steps to get a clean local setup.
 - `watch` (optional) — macOS: `brew install watch`
 - `shellcheck` (for lint) — macOS: `brew install shellcheck` · Ubuntu: `sudo apt-get install shellcheck`
 
-### 2) Install shell helpers
+### 2) Create a virtual environment
 ```sh
-# zsh (default)
-make install-shell-helpers
-source ~/.zshrc
-
-# bash (if you use ~/.bashrc)
-SHELL_RC="$HOME/.bashrc" make install-shell-helpers
-source "$HOME/.bashrc"
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
 ```
 
-Verify:
+### 3) Install development dependencies
+This project has no third-party runtime requirements, but the test suite
+relies on `pytest`.
+
 ```sh
-drs --help
-drw --help
-make post-install-check
+python -m pip install pytest
 ```
 
-### 3) Git hooks (pre-commit)
-Install our pre-commit hook (runs `make lint-sh` and blocks commits on errors):
+### 4) Run local checks
 ```sh
-make install-githooks
-```
-Remove later with:
-```sh
-make uninstall-githooks
-```
+# Execute the unit tests
+pytest
 
-### 4) Quick local checks
-```sh
-# Lint shell scripts
-make lint-sh
+# Optional: try the validator in an interactive Python session to see example errors
+python - <<'PY'
+from sar_parser.validator import validate_string
 
-# Smoke tests (fast)
-INTERVAL=1 DURATION=15s make drw-idle
-INTERVAL=1 DURATION=15s make drw-work
+result = validate_string("""
+<SAR>
+  <FilingInformation>
+    <ActivityAssociationTypeCode>Y</ActivityAssociationTypeCode>
+  </FilingInformation>
+</SAR>
+""")
+print("Valid?", result.is_valid)
+for error in result.errors:
+    print(f"- {error.message} ({error.xpath})")
+PY
 ```
-
-### Handy make targets
-- `install-shell-helpers` — add `drs`/`drw` to your shell rc (idempotent)
-- `post-install-check` — doctor: verifies jq/paths/helpers
-- `drw-idle` / `drw-work` — quick condition smoke tests
-- `lint-sh` — ShellCheck on `scripts/*.sh`
-- `install-githooks` / `uninstall-githooks` — manage pre-commit hook
 
 ### CI (what runs on PRs)
-- **Smoketests:** `drw-idle` and `drw-work` (matrix: Ubuntu + macOS); PRs also have a quick 10s run.
-- **ShellCheck:** lints `scripts/*.sh`.
+- **Tests:** `pytest`
 - **Concurrency:** new pushes cancel older runs for the same PR/branch.
-
-### Bootstrap (one command)
-
-Runs `install-shell-helpers` → `post-install-check` → `install-githooks`.
-
-```sh
-# zsh (default)
-make bootstrap
-source ~/.zshrc
-
-# bash users
-SHELL_RC="$HOME/.bashrc" make bootstrap
-source "$HOME/.bashrc"
-
-# verify
-drs --help && drw --help
-```
