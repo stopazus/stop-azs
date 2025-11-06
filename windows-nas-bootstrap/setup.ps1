@@ -108,14 +108,21 @@ function Test-NetworkSpeed {
         $random = New-Object System.Random
         $random.NextBytes($buffer)
         
-        $stream = [System.IO.File]::OpenWrite($testFile)
-        $iterations = [int]($SizeMiB / $bufferSizeMiB)
-        for ($i = 0; $i -lt $iterations; $i++) {
-            $stream.Write($buffer, 0, $buffer.Length)
-            $progress = [int](($i / $iterations) * 100)
-            Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
+        $stream = $null
+        try {
+            $stream = [System.IO.File]::OpenWrite($testFile)
+            $iterations = [int]($SizeMiB / $bufferSizeMiB)
+            for ($i = 0; $i -lt $iterations; $i++) {
+                $stream.Write($buffer, 0, $buffer.Length)
+                $progress = [int](($i / $iterations) * 100)
+                Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
+            }
+        } finally {
+            if ($null -ne $stream) {
+                $stream.Close()
+                $stream.Dispose()
+            }
         }
-        $stream.Close()
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
@@ -126,12 +133,19 @@ function Test-NetworkSpeed {
         # Read speed test
         Write-ColorOutput "Testing read speed from $DriveLetter..." -Color Cyan
         $startTime = Get-Date
-        $stream = [System.IO.File]::OpenRead($testFile)
-        $readBuffer = New-Object byte[] $bufferSizeBytes
-        while ($stream.Read($readBuffer, 0, $readBuffer.Length) -gt 0) {
-            # Just read, don't process
+        $stream = $null
+        try {
+            $stream = [System.IO.File]::OpenRead($testFile)
+            $readBuffer = New-Object byte[] $bufferSizeBytes
+            while ($stream.Read($readBuffer, 0, $readBuffer.Length) -gt 0) {
+                # Just read, don't process
+            }
+        } finally {
+            if ($null -ne $stream) {
+                $stream.Close()
+                $stream.Dispose()
+            }
         }
-        $stream.Close()
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
