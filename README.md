@@ -6,6 +6,15 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+## Windows NAS Bootstrap
+
+The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
+- Installs essential applications via winget (Python 3.12, Git, rclone, VS Code, 7-Zip, VLC, WinSCP, PuTTY)
+- Maps NAS cloud storage drives (G:, I:, O:)
+- Performs optional network speed tests
+
+See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
