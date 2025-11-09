@@ -121,5 +121,4 @@ The coordinated misuse of attorney trust accounts, shell companies, and offshore
 ## Conclusion
 The forensic review shows that Justin Zeig’s CNB trust accounts functioned as transient clearing houses: deposits associated with disputed closings were withdrawn almost immediately, frequently rerouted through YBH-branded entities, and occasionally pushed offshore, leaving zero residual balances. These patterns, coupled with the red-flagged transfers to Bitton-controlled shell companies and personal accounts tied to Sharon Topaz, support the allegation that escrow instructions were circumvented in favor of a deliberate pass-through laundering network. Continued coordination with IRS-CI, FinCEN, and transnational partners remains critical to recovering the $206,693.68 claimed by N & S Holding LLC and to tracing the broader $7 million flow attributed to the scheme.
 
-## Code Review Observations
-During the latest audit we confirmed that the current commit matches its parent without any observable diff, so no review findings were generated.
+
