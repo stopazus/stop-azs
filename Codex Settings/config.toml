@@ -1,5 +1,7 @@
 # Codex Suspicious Activity Report configuration for IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
 
+title = "DOJ Seizure Report Packet: Zeig IOTA Escrow Fraud"
+
 [CodexSettings]
 requested_actions = [
   "Maintain wire holds until DOJ seizure warrant is executed",
@@ -133,7 +135,7 @@ loss_amount = { currency = "USD", value = 845000.00 }
 recovery_status = "Funds frozen pending DOJ seizure warrant."
 
 [narrative]
-summary = "IC3 complaint 7065f60922b948a59af3a8654edb16dd filed by Sharon Topaz documents escrow funds diverted via BEC."
+summary = "This document supports seizure and enforcement actions in relation to a structured wire fraud involving a $845,000 transaction via compromised credentials. Funds were layered through a series of shell entities, escrow withdrawals, and property purchases tied to Zeig IOTA Escrow and the Eisenstein family."
 details = "Complaint submitted at https://complaint.ic3.gov on 2025-04-19T01:48:12 EST states that Zeig IOTA Escrow's email compromise rerouted USD 845,000. Investigation confirmed instructions sent from the compromised account directed Banesco USA to wire funds to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and correspondent account 2000043165557. Rapid withdrawals and layering attempts continue to be monitored while recovery asset actions are coordinated."
 requested_actions = [
   "Maintain wire holds until DOJ seizure warrant is executed",
@@ -142,6 +144,20 @@ requested_actions = [
 ]
 
 disposition = { law_enforcement_contacted = true, consent_to_share = true }
+
+[timeline]
+april_10_2023 = "$250,000 escrow deposit and immediate withdrawal via Anywires"
+may_22_2023 = "$180,000 wire flow through BR Shell LLC (UK)"
+june_15_2023 = "$50,000 moved to offshore correspondent account"
+
+[entities]
+originator = "Zeig IOTA Escrow"
+beneficiaries = ["YBH Holdings 234 LLC", "Eisenstein Buyers"]
+key_accounts = ["CNB 2304977980", "Offshore Acct 2000043165557"]
+shell_entities = ["YBH Holdings 2948 LLC", "ZLG Holdings NV", "BR Shell LLC (UK)"]
+
+[visuals]
+description = "See attached diagrams for structured transaction flow and shell relationships."
 
 [[attachments]]
 file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
