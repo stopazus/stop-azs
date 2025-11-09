@@ -1,4 +1,7 @@
 # stop-azs
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf1a4f9368d84d86acdeee57451aa20c)](https://app.codacy.com/gh/stopazus/stop-azs?utm_source=github.com&utm_medium=referral&utm_content=stopazus/stop-azs&utm_campaign=Badge_Grade)
+
 This repository documents key allegations and participants in the alleged diversion of escrow funds
 from the City National Bank trust account controlled by Justin E. Zeig. See [analysis.md](analysis.md)
 for detailed background on the trust account activity, summaries of the shell entities involved,
