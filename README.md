@@ -19,6 +19,9 @@ Firm PLLC IOTA account at City National Bank of Florida.
 - `README_EXTRA.md` – supplemental operational guidance for investigators
   maintaining the dataset and escalating follow-up with involved
   institutions.
+- `analysis.md` – narrative briefing that synthesizes confirmed activity,
+  pending follow-ups, preserved evidence, and command shortcuts for
+  subpoena preparation.
 
 ## Usage
 
@@ -73,6 +76,9 @@ root when briefing or coordinating subpoenas:
 - Updated `README.md` and `README_EXTRA.md` to reflect the data-only
   repository layout, the new communications capture, and the expanded
   command snippets.
+- Added `analysis.md` as a narrative companion to `data/network.json`
+  summarizing confirmed transactions, outstanding subpoenas, and the
+  available evidence trail.
 
 ### Validation
 
