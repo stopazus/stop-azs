@@ -38,6 +38,9 @@ PLACEHOLDER_VALUES = {
     "NOT APPLICABLE",
 }
 
+# Pre-uppercase the set for faster comparisons (avoid repeated .upper() calls)
+_PLACEHOLDER_VALUES_UPPER = {val.upper() for val in PLACEHOLDER_VALUES}
+
 
 @dataclass(slots=True)
 class ValidationError:
@@ -74,7 +77,7 @@ def _normalise_text(value: Optional[str]) -> str:
 
 def _is_placeholder(value: Optional[str]) -> bool:
     normalised = _normalise_text(value)
-    return normalised.upper() in PLACEHOLDER_VALUES
+    return normalised.upper() in _PLACEHOLDER_VALUES_UPPER
 
 
 def validate_string(xml_text: str) -> ValidationResult:
@@ -102,8 +105,10 @@ def validate_string(xml_text: str) -> ValidationResult:
         )
         return result
 
-    _validate_required_blocks(root, result)
-    _validate_transactions(root, result)
+    # Fetch transactions once and pass to both validation functions
+    transactions = root.findall("Transactions/Transaction")
+    _validate_required_blocks(root, result, transactions)
+    _validate_transactions(result, transactions)
 
     return result
 
@@ -116,7 +121,9 @@ def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> 
     return validate_string(xml_text)
 
 
-def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
+def _validate_required_blocks(
+    root: ET.Element, result: ValidationResult, transactions: list[ET.Element]
+) -> None:
     if root.find("FilerInformation") is None:
         result.errors.append(
             ValidationError("Missing <FilerInformation> block.", location="/SAR")
@@ -128,7 +135,6 @@ def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> Non
             ValidationError("At least one <Subject> is required.", location="/SAR/Subjects")
         )
 
-    transactions = root.findall("Transactions/Transaction")
     if not transactions:
         result.errors.append(
             ValidationError(
@@ -138,8 +144,8 @@ def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> Non
         )
 
 
-def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
-    for index, transaction in enumerate(root.findall("Transactions/Transaction"), start=1):
+def _validate_transactions(result: ValidationResult, transactions: list[ET.Element]) -> None:
+    for index, transaction in enumerate(transactions, start=1):
         amount = transaction.find("Amount")
         if amount is None:
             result.errors.append(
