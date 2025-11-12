@@ -19,3 +19,9 @@ See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## Repository Setup
+
+To link a cloned working copy to the GitHub repository, add the `origin` remote:
+
+git remote add origin <https://github.com/stopazus/gemini-chat.git>
