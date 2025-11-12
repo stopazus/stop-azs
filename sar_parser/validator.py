@@ -68,42 +68,42 @@ class ValidationResult:
         self.errors.extend(new_errors)
 
 
-def _normalise_text(value: Optional[str]) -> str:
+def _normalize_text_content(value: Optional[str]) -> str:
     return (value or "").strip()
 
 
-def _is_placeholder(value: Optional[str]) -> bool:
-    normalised = _normalise_text(value)
-    return normalised.upper() in PLACEHOLDER_VALUES
+def _is_placeholder_value(value: Optional[str]) -> bool:
+    normalized = _normalize_text_content(value)
+    return normalized.upper() in PLACEHOLDER_VALUES
 
 
-def validate_string(xml_text: str) -> ValidationResult:
+def validate_string(xml_content: str) -> ValidationResult:
     """Validate a SAR document stored in memory."""
 
     result = ValidationResult()
 
     try:
-        root = ET.fromstring(xml_text)
-    except ET.ParseError as exc:  # pragma: no cover - defensive path for malformed XML
+        xml_root = ET.fromstring(xml_content)
+    except ET.ParseError as parse_exception:  # pragma: no cover - defensive path for malformed XML
         result.errors.append(
             ValidationError(
-                message=f"Malformed XML: {exc}.",
+                message=f"Malformed XML: {parse_exception}.",
                 location="/",
             )
         )
         return result
 
-    if root.tag != "SAR":
+    if xml_root.tag != "SAR":
         result.errors.append(
             ValidationError(
                 message="Root element must be <SAR>.",
-                location=f"/{root.tag}",
+                location=f"/{xml_root.tag}",
             )
         )
         return result
 
-    _validate_required_blocks(root, result)
-    _validate_transactions(root, result)
+    _validate_required_blocks(xml_root, result)
+    _validate_transactions(xml_root, result)
 
     return result
 
@@ -111,24 +111,24 @@ def validate_string(xml_text: str) -> ValidationResult:
 def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> ValidationResult:
     """Load a SAR document from disk and validate its contents."""
 
-    with open(path, "r", encoding="utf-8") as handle:
-        xml_text = handle.read()
-    return validate_string(xml_text)
+    with open(path, "r", encoding="utf-8") as file_handle:
+        xml_content = file_handle.read()
+    return validate_string(xml_content)
 
 
-def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
-    if root.find("FilerInformation") is None:
+def _validate_required_blocks(xml_root: ET.Element, result: ValidationResult) -> None:
+    if xml_root.find("FilerInformation") is None:
         result.errors.append(
             ValidationError("Missing <FilerInformation> block.", location="/SAR")
         )
 
-    subjects = root.findall("Subjects/Subject")
+    subjects = xml_root.findall("Subjects/Subject")
     if not subjects:
         result.errors.append(
             ValidationError("At least one <Subject> is required.", location="/SAR/Subjects")
         )
 
-    transactions = root.findall("Transactions/Transaction")
+    transactions = xml_root.findall("Transactions/Transaction")
     if not transactions:
         result.errors.append(
             ValidationError(
@@ -138,8 +138,8 @@ def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> Non
         )
 
 
-def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
-    for index, transaction in enumerate(root.findall("Transactions/Transaction"), start=1):
+def _validate_transactions(xml_root: ET.Element, result: ValidationResult) -> None:
+    for index, transaction in enumerate(xml_root.findall("Transactions/Transaction"), start=1):
         amount = transaction.find("Amount")
         if amount is None:
             result.errors.append(
@@ -150,7 +150,7 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
             )
             continue
 
-        if _is_placeholder(amount.text):
+        if _is_placeholder_value(amount.text):
             result.errors.append(
                 ValidationError(
                     "Amount must be provided instead of a placeholder.",
