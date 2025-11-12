@@ -77,6 +77,29 @@ def _is_placeholder(value: Optional[str]) -> bool:
     return normalised.upper() in PLACEHOLDER_VALUES
 
 
+def _add_error(result: ValidationResult, message: str, location: str) -> None:
+    """Helper to add a validation error to the result."""
+    result.errors.append(ValidationError(message=message, location=location))
+
+
+def _check_required_element(
+    root: ET.Element,
+    xpath: str,
+    error_message: str,
+    location: str,
+    result: ValidationResult,
+) -> bool:
+    """Check if a required element exists and add an error if missing.
+    
+    Returns True if the element exists, False otherwise.
+    """
+    elements = root.findall(xpath) if "/" in xpath else ([root.find(xpath)] if root.find(xpath) is not None else [])
+    if not elements:
+        _add_error(result, error_message, location)
+        return False
+    return True
+
+
 def validate_string(xml_text: str) -> ValidationResult:
     """Validate a SAR document stored in memory."""
 
@@ -85,21 +108,11 @@ def validate_string(xml_text: str) -> ValidationResult:
     try:
         root = ET.fromstring(xml_text)
     except ET.ParseError as exc:  # pragma: no cover - defensive path for malformed XML
-        result.errors.append(
-            ValidationError(
-                message=f"Malformed XML: {exc}.",
-                location="/",
-            )
-        )
+        _add_error(result, f"Malformed XML: {exc}.", "/")
         return result
 
     if root.tag != "SAR":
-        result.errors.append(
-            ValidationError(
-                message="Root element must be <SAR>.",
-                location=f"/{root.tag}",
-            )
-        )
+        _add_error(result, "Root element must be <SAR>.", f"/{root.tag}")
         return result
 
     _validate_required_blocks(root, result)
@@ -117,45 +130,49 @@ def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> 
 
 
 def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
-    if root.find("FilerInformation") is None:
-        result.errors.append(
-            ValidationError("Missing <FilerInformation> block.", location="/SAR")
-        )
-
-    subjects = root.findall("Subjects/Subject")
-    if not subjects:
-        result.errors.append(
-            ValidationError("At least one <Subject> is required.", location="/SAR/Subjects")
-        )
-
-    transactions = root.findall("Transactions/Transaction")
-    if not transactions:
-        result.errors.append(
-            ValidationError(
-                "At least one <Transaction> is required.",
-                location="/SAR/Transactions",
-            )
-        )
+    _check_required_element(
+        root,
+        "FilerInformation",
+        "Missing <FilerInformation> block.",
+        "/SAR",
+        result,
+    )
+    
+    _check_required_element(
+        root,
+        "Subjects/Subject",
+        "At least one <Subject> is required.",
+        "/SAR/Subjects",
+        result,
+    )
+    
+    _check_required_element(
+        root,
+        "Transactions/Transaction",
+        "At least one <Transaction> is required.",
+        "/SAR/Transactions",
+        result,
+    )
 
 
 def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
     for index, transaction in enumerate(root.findall("Transactions/Transaction"), start=1):
         amount = transaction.find("Amount")
+        location_prefix = f"/SAR/Transactions/Transaction[{index}]"
+        
         if amount is None:
-            result.errors.append(
-                ValidationError(
-                    "Transaction is missing an <Amount> element.",
-                    location=f"/SAR/Transactions/Transaction[{index}]",
-                )
+            _add_error(
+                result,
+                "Transaction is missing an <Amount> element.",
+                location_prefix,
             )
             continue
 
         if _is_placeholder(amount.text):
-            result.errors.append(
-                ValidationError(
-                    "Amount must be provided instead of a placeholder.",
-                    location=f"/SAR/Transactions/Transaction[{index}]/Amount",
-                )
+            _add_error(
+                result,
+                "Amount must be provided instead of a placeholder.",
+                f"{location_prefix}/Amount",
             )
 
 
