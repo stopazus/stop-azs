@@ -86,6 +86,33 @@ function Map-NetworkDrive {
     }
 }
 
+# Function to safely close and dispose a stream
+function Close-Stream {
+    param(
+        [object]$Stream
+    )
+    
+    if ($null -ne $Stream) {
+        $Stream.Close()
+        $Stream.Dispose()
+    }
+}
+
+# Function to measure and report I/O speed
+function Measure-IOSpeed {
+    param(
+        [DateTime]$StartTime,
+        [DateTime]$EndTime,
+        [int]$SizeMiB,
+        [string]$OperationType
+    )
+    
+    $duration = ($EndTime - $StartTime).TotalSeconds
+    $speedMBps = [math]::Round($SizeMiB / $duration, 2)
+    Write-ColorOutput "✓ $OperationType Speed: $speedMBps MiB/s" -Color Green
+    return $speedMBps
+}
+
 # Function to perform speed test
 function Test-NetworkSpeed {
     param(
@@ -118,17 +145,11 @@ function Test-NetworkSpeed {
                 Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
             }
         } finally {
-            if ($null -ne $stream) {
-                $stream.Close()
-                $stream.Dispose()
-            }
+            Close-Stream -Stream $stream
         }
         $endTime = Get-Date
         
-        $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
-        
-        Write-ColorOutput "✓ Write Speed: $speedMBps MiB/s" -Color Green
+        Measure-IOSpeed -StartTime $startTime -EndTime $endTime -SizeMiB $SizeMiB -OperationType "Write"
         
         # Read speed test
         Write-ColorOutput "Testing read speed from $DriveLetter..." -Color Cyan
@@ -141,17 +162,11 @@ function Test-NetworkSpeed {
                 # Just read, don't process
             }
         } finally {
-            if ($null -ne $stream) {
-                $stream.Close()
-                $stream.Dispose()
-            }
+            Close-Stream -Stream $stream
         }
         $endTime = Get-Date
         
-        $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
-        
-        Write-ColorOutput "✓ Read Speed: $speedMBps MiB/s" -Color Green
+        Measure-IOSpeed -StartTime $startTime -EndTime $endTime -SizeMiB $SizeMiB -OperationType "Read"
         
         # Clean up test file
         Remove-Item $testFile -Force
