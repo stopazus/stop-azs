@@ -1,0 +1,615 @@
+{
+  "submission": {
+    "ic3_tracking_id": "7065f60922b948a59af3a8654edb16dd",
+    "report_date": "2025-10-05",
+    "timezone": "America/New_York",
+    "narrative_summary": "Diversion of escrowed sale proceeds owed to N & S Holding LLC (Florida Land Trust No. 2763-196). Despite written direction to pay the beneficiary, the title agent wired funds to an attorney IOTA escrow (Zeig Law Firm PLLC, City National Bank of Florida) on 2023-01-11. Indicators include contradiction of closing instructions, lack of 1099-S to beneficiary, internal references to a never-executed 'future transaction', and unresolved funds consistent with layering typologies in real-estate money laundering."
+  },
+  "sar_filing": {
+    "filing_information": {
+      "filing_type": "Initial",
+      "filing_date": "2025-09-11",
+      "amendment_type": "None",
+      "contact_office": "N & S Holding LLC - AML Surveillance Unit",
+      "contact_phone": "786-707-7111",
+      "contact_email": "office@nsholding.us"
+    },
+    "filer_information": {
+      "name": "N & S Holding LLC",
+      "ein": "81-3342299",
+      "address": {
+        "line1": "2640 Hollywood Blvd",
+        "city": "Hollywood",
+        "state": "FL",
+        "zip": "33020",
+        "country": "US"
+      },
+      "sam": {
+        "uei": "QD5XW4H6MNX8",
+        "cage": "87AY0"
+      }
+    },
+    "subjects": [
+      {
+        "name": "YBH Holdings LLC",
+        "entity_type": "Business",
+        "account": {}
+      },
+      {
+        "name": "Eisenstein Buyers",
+        "entity_type": "Business",
+        "account": {}
+      },
+      {
+        "name": "Zeig IOTA Escrow",
+        "entity_type": "Business",
+        "account": {}
+      }
+    ],
+    "transactions": [
+      {
+        "id": "sar-2023-02-09",
+        "date": "2023-02-09",
+        "amount": "PENDING",
+        "currency": "USD",
+        "origin": "Zeig IOTA Escrow",
+        "pass_through_accounts": [
+          "#2304977980",
+          "#2000043165557"
+        ],
+        "beneficiaries": [
+          "YBH Holdings LLC",
+          "Eisenstein Buyers",
+          "Layered Offshore Accounts"
+        ],
+        "notes": "Routing inconsistent with escrow instructions; suspected layering/structuring.",
+        "status": "pending subpoena",
+        "uetr": "PENDING"
+      }
+    ],
+    "suspicious_activity": {
+      "activities": [
+        "Wire fraud - escrow diversion",
+        "Money laundering - layering",
+        "Structuring"
+      ],
+      "locations": [
+        "1040 Hsia Bitoon"
+      ],
+      "narrative": "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Funds originated from Zeig IOTA Escrow, routed through pass-through accounts #2304977980 and #2000043165557, and dispersed to YBH Holdings LLC, Eisenstein Buyers, and layered offshore accounts. Dollar amounts and UETR identifiers pending subpoena from Banesco USA."
+    },
+    "attachments": [
+      {
+        "file": "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf",
+        "description": "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+      }
+    ]
+  },
+  "transaction_trail": {
+    "property": "2763 NW 196 Terrace, Miami Gardens, FL",
+    "reference": "IC3 Submission ID 7065f60922b948a59af3a8654edb16dd",
+    "escrow_account": {
+      "bank": "City National Bank of Florida",
+      "account_number": "#2304977980",
+      "holder": "Zeig Law Firm PLLC IOTA"
+    },
+    "transactions": [
+      {
+        "id": "2023-01-11-wire",
+        "datetime": "2023-01-11T17:09:50-05:00",
+        "amount": 206693.68,
+        "currency": "USD",
+        "origin": "Banesco USA D/XXXXXX6842 (Nu World Title of Sunset LLC)",
+        "destination": "City National Bank of Florida ABA 066004367 / Acct #2304977980 (Zeig Law Firm PLLC IOTA)",
+        "obi": "22S-213 SELLER PROCEEDS 2763 NW 196 TERR",
+        "notes": "Escrow diversion contradicting written instructions to pay N & S Holding LLC.",
+        "status": "posted"
+      }
+    ],
+    "pending_transactions": [
+      {
+        "id": "2023-02-09-routing",
+        "date": "2023-02-09",
+        "amount": null,
+        "currency": "USD",
+        "origin": "Zeig IOTA Escrow",
+        "pass_through_accounts": [
+          "#2304977980",
+          "#2000043165557"
+        ],
+        "beneficiaries": [
+          "YBH Holdings LLC",
+          "Eisenstein Buyers",
+          "Layered Offshore Accounts"
+        ],
+        "notes": "Routing inconsistent with escrow instructions; suspected layering/structuring. Dollar amounts and UETR identifiers pending subpoena from Banesco USA.",
+        "status": "pending subpoena"
+      }
+    ]
+  },
+  "entities": {
+    "businesses": [
+      {
+        "name": "N & S Holding LLC",
+        "role": "Complainant / Beneficiary",
+        "jurisdiction": "Wyoming (US), doing business in FL"
+      },
+      {
+        "name": "Land Trust Service Corporation / Florida Land Trust No. 2763-196",
+        "role": "Trustee / Land Trust",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "Nu World Title of Sunset LLC",
+        "role": "Originating Title Agent",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "Zeig Law Firm PLLC",
+        "role": "Receiving Attorney IOTA Escrow",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "City National Bank of Florida",
+        "role": "Receiving Bank",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "Banesco USA",
+        "role": "Originating Bank",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "YBH Holdings LLC",
+        "role": "Related Entity (active)",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "YBH Holdings 2948 LLC",
+        "role": "Related Entity (inactive)",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "YBH Holdings 341 LLC",
+        "role": "Related Entity (inactive)",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "ZLG Consulting BVI",
+        "role": "Related Offshore Entity",
+        "jurisdiction": "British Virgin Islands"
+      },
+      {
+        "name": "ZLG Holdings N.V.",
+        "role": "Related Offshore Entity",
+        "jurisdiction": "Netherlands Antilles / N.V."
+      }
+    ],
+    "individuals": [
+      {
+        "name": "Daniella Eisenstein",
+        "role": "Buyer (recorded owner at 3049 Perriwinkle Cir)",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "Zachary Eisenstein",
+        "role": "Buyer (recorded owner at 3049 Perriwinkle Cir)",
+        "jurisdiction": "Florida"
+      },
+      {
+        "name": "Yossef Ben-Hamo",
+        "role": "Individual of interest (network mapping)",
+        "jurisdiction": "Florida / Israel"
+      },
+      {
+        "name": "Justin E. Zeig",
+        "role": "Attorney / IOTA account signatory",
+        "jurisdiction": "Florida"
+      }
+    ]
+  },
+  "properties": [
+    {
+      "address": "2763 NW 196 Terrace, Miami Gardens, FL",
+      "status": "confirmed_wire_event",
+      "notes": "Escrow diversion tied to sale proceeds; beneficiary N & S Holding LLC per trust instruction",
+      "wire_date": "2023-01-11T17:09:50-05:00",
+      "wire_amount": 206693.68,
+      "wire_currency": "USD",
+      "wire_origin": "Banesco USA D/XXXXXX6842 (Nu World Title of Sunset LLC)",
+      "wire_destination": "City National Bank of Florida ABA 066004367 / Acct #2304977980 (Zeig Law Firm PLLC IOTA)",
+      "wire_obi": "22S-213 SELLER PROCEEDS 2763 NW 196 TERR"
+    },
+    {
+      "address": "3049 Perriwinkle Circle, Davie, FL 33328",
+      "status": "record_title_confirmed_control_unverified",
+      "recorded_owners": [
+        "Daniella Eisenstein",
+        "Zachary Eisenstein"
+      ],
+      "alleged_control_entities": [
+        "YBH Holdings 234 LLC"
+      ],
+      "purchase_price": 395000.0,
+      "notes": "Recorded owners per exhibit; control entity unverified"
+    },
+    {
+      "address": "2733 NW 198th Terrace (alias of 2763 NW 196 Terrace, Miami Gardens, FL 33056)",
+      "status": "alias_verified",
+      "recorded_owners": [
+        "ZLG Holdings N.V."
+      ],
+      "purchase_price": 275000.0,
+      "notes": "Bank follow-up confirmed this reference was a mis-keyed variant of 2763 NW 196 Terrace; treat as the same Miami Gardens property."
+    }
+  ],
+  "indicators": [
+    "Wire disbursement contradicted written closing/beneficiary instructions (land-trust).",
+    "Use of attorney IOTA escrow (City National Bank of Florida) to park sale proceeds owed to beneficiary.",
+    "Lack of 1099-S issuance to true beneficiary of sale proceeds.",
+    "Internal reference to a non-executed 'future transaction' used to justify diversion.",
+    "Funds not returned or reconciled after request; absence of corrective disbursement.",
+    "Layering typology: escrow \u2192 attorney trust \u2192 related/shell entities \u2192 subsequent acquisition.",
+    "Round-dollar and structured transfers observed in related account activity (monitoring list).",
+    "Active/inactive twin LLC patterns (YBH 2948/341) suggesting SPV rotation for title/finance."
+  ],
+  "affidavit": {
+    "document_title": "Affidavit of Authorized Representative",
+    "representative": {
+      "name": "Sharon Topaz",
+      "title": "Managing Partner",
+      "organization": "N & S Holding LLC",
+      "uei": "QD5XW4H6MNX8",
+      "cage": "87AY0"
+    },
+    "authority_scope": [
+      "Recognized for regulatory submissions to FBI, FinCEN, IRS, DoD, DDTC, and international counterparts.",
+      "Authorized to coordinate with FBI, FinCEN, IRS, DoD, and international regulatory partners for investigative actions.",
+      "Holds first-tier subcontractor authority under the U.S. federal contracting framework per FAR 52.209-7 and FAR 52.204-10.",
+      "SAM.gov registration active for N & S Holding FL LLC with no exclusions or debarments."
+    ],
+    "capabilities": [
+      "Apply for and manage federal assistance projects with institutional, managerial, and financial controls.",
+      "Deploy AI-driven investigative systems supporting FBI IC3, FinCEN, and IRS engagements.",
+      "Execute AML and UCC enforcement actions including liens, constructive trusts, and fund tracing.",
+      "Coordinate cross-border compliance activities aligned with U.S. and international regulatory frameworks.",
+      "Produce AI-assisted summaries and records suitable for SARs, UCC filings, and court exhibits."
+    ],
+    "statutes": [
+      "False Claims Act (31 U.S.C. \u00a7\u00a7 3729, 3730)",
+      "Program Fraud Civil Remedies Act (31 U.S.C. \u00a7 3801)",
+      "Trafficking Victims Protection Act (22 U.S.C. \u00a7 7104)",
+      "ITAR/DDTC export authorizations (22 C.F.R. \u00a7 124.1(a))",
+      "Mandatory disclosures under 2 C.F.R. \u00a7 200.113 and policy requirements under \u00a7 200.300"
+    ],
+    "effective_period": {
+      "start": "2025-04-19",
+      "end": "2026-04-19"
+    }
+  },
+  "law_enforcement_contacts": [
+    {
+      "agency": "FBI \u2013 Internet Crime Complaint Center (IC3)",
+      "program": "Recovery Asset Team (RAT)",
+      "reference": "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd",
+      "requested_action": "Initiate rapid asset freeze/trace; coordinate with receiving bank (City National Bank of Florida) and originating bank (Banesco USA) referencing 2023-01-11 $206,693.68 wire and OBI '22S-213 SELLER PROCEEDS 2763 NW 196 TERR'."
+    },
+    {
+      "agency": "FinCEN \u2013 BSA E-Filing",
+      "program": "Suspicious Activity Report (SAR)",
+      "reference": "This dataset reflects the SAR narrative supplement and exhibits.",
+      "requested_action": "Flag related parties and accounts; share with appropriate task force partners under 314(b)/(a) as applicable."
+    },
+    {
+      "agency": "IRS \u2013 Criminal Investigation (IRS-CI)",
+      "program": "Fraud / Money Laundering Referral",
+      "reference": "Related 3949-A supplement planned; cross-reference to IC3 Submission ID above.",
+      "requested_action": "Parallel financial tracing for potential tax evasion, unreported proceeds, and nominee structures."
+    }
+  ],
+  "bank_follow_up": {
+    "instructions": [
+      "When Banesco USA or City National Bank of Florida responds, request complete transaction histories for every customer tied to the diverted escrow proceeds, not only the identified escrow accounts.",
+      "Seek customer due diligence files, signature cards, authorized signers, disbursement approvals, and any internal compliance alerts associated with those customers.",
+      "If any identifiers, amounts, or narrative fields are missing from the response, issue immediate follow-up questions that enumerate the outstanding data points.",
+      "Reference the preserved Banesco advice-of-debit Message-IDs and Received-path keys when requesting unique end-to-end (UETR) identifiers for pending transactions."
+    ],
+    "institutions": [
+      {
+        "name": "Banesco USA",
+        "focus_accounts": [
+          "D/XXXXXX6842 (Nu World Title of Sunset LLC escrow)"
+        ],
+        "questions": [
+          "Provide all incoming and outgoing transfers for customers connected to Florida Land Trust No. 2763-196 for the 90 days surrounding 2023-01-11.",
+          "Share KYC, beneficial ownership, and compliance review notes for Nu World Title of Sunset LLC and any affiliated escrow accounts.",
+          "Supply SWIFT logs or case references that map Message-ID 862544080.1675960846971.JavaMail.service_gftapp@VM-P-FISGFT and the associated Received chain to the pending UETR identifiers."
+        ],
+        "escalation_note": "Escalate to compliance if KYC packages or account statements are withheld."
+      },
+      {
+        "name": "City National Bank of Florida",
+        "focus_accounts": [
+          "Account #2304977980 (Zeig Law Firm PLLC IOTA escrow)"
+        ],
+        "questions": [
+          "Request complete client ledgers identifying all beneficiaries of the IOTA account for the month of January 2023.",
+          "Obtain SWIFT/ACH logs for funds leaving the IOTA account that relate to the diverted escrow amount and any connected customers."
+        ],
+        "escalation_note": "If client ledger entries omit counterparties, insist on supplemental reporting before closing the inquiry."
+      }
+    ],
+    "reminder": "Continue questioning until bank responses provide every requested data point; document each follow-up in the case log."
+  },
+  "communications": [
+    {
+      "id": "banesco-advice-2023-02-09",
+      "type": "email",
+      "subject": "ADVICE OF DEBIT - BANK CONFIDENTIAL",
+      "date": "2023-02-09T16:40:46Z",
+      "from": "eadvice@banescousa.com",
+      "to": [
+        "ada@nuworldtitle.com",
+        "liana@nuworldtitle.com",
+        "frontdesk@nuworldtitle.com",
+        "controller@nuworldtitle.com",
+        "genesis@nuworldtitle.com",
+        "lixy@nuworldtitle.com",
+        "lola@nuworldtitle.com"
+      ],
+      "message_id": "862544080.1675960846971.JavaMail.service_gftapp@VM-P-FISGFT",
+      "received_chain": [
+        "from DS0PR05MB9766.namprd05.prod.outlook.com (2603:10b6:8:140::13) by BN8PR05MB6162.namprd05.prod.outlook.com with HTTPS; Thu, 9 Feb 2023 16:40:54 +0000",
+        "from DM6PR11CA0051.namprd11.prod.outlook.com (2603:10b6:5:14c::28) by DS0PR05MB9766.namprd05.prod.outlook.com (2603:10b6:8:140::13) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Thu, 9 Feb 2023 16:40:49 +0000",
+        "from DM6NAM12FT043.eop-nam12.prod.protection.outlook.com (2603:10b6:5:14c:cafe::94) by DM6PR11CA0051.outlook.office365.com (2603:10b6:5:14c::28) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19 via Frontend Transport; Thu, 9 Feb 2023 16:40:49 +0000",
+        "from mail-oa1-f97.google.com (209.85.160.97) by DM6NAM12FT043.mail.protection.outlook.com (10.13.179.162) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17 via Frontend Transport; Thu, 9 Feb 2023 16:40:48 +0000",
+        "by mail-oa1-f97.google.com with SMTP id 586e51a60fabf-16ab8581837so3165172fac.4 for <ADA@nuworldtitle.com>; Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
+        "from VM-P-FISGFT ([67.220.117.121]) by smtp-relay.gmail.com with ESMTP id s44-20020a056870612c00b0015f94416267sm111962oae.45.2023.02.09.08.40.48; Thu, 09 Feb 2023 08:40:48 -0800 (PST)"
+      ],
+      "notes": "Preserve as reference when pressing Banesco USA for the pending unique end-to-end identifiers and customer-level transaction details.",
+      "received_chain_keys": [
+        {
+          "from": "DS0PR05MB9766.namprd05.prod.outlook.com",
+          "ip": "2603:10b6:8:140::13",
+          "by": "BN8PR05MB6162.namprd05.prod.outlook.com",
+          "protocol": "HTTPS",
+          "timestamp": "Thu, 9 Feb 2023 16:40:54 +0000"
+        },
+        {
+          "from": "DM6PR11CA0051.namprd11.prod.outlook.com",
+          "ip": "2603:10b6:5:14c::28",
+          "by": "DS0PR05MB9766.namprd05.prod.outlook.com",
+          "by_ip": "2603:10b6:8:140::13",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:49 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.17"
+        },
+        {
+          "from": "DM6NAM12FT043.eop-nam12.prod.protection.outlook.com",
+          "ip": "2603:10b6:5:14c:cafe::94",
+          "by": "DM6PR11CA0051.outlook.office365.com",
+          "by_ip": "2603:10b6:5:14c::28",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:49 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.19",
+          "via": "Frontend Transport"
+        },
+        {
+          "from": "mail-oa1-f97.google.com",
+          "ip": "209.85.160.97",
+          "by": "DM6NAM12FT043.mail.protection.outlook.com",
+          "by_ip": "10.13.179.162",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Thu, 9 Feb 2023 16:40:48 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6086.17",
+          "via": "Frontend Transport"
+        },
+        {
+          "by": "mail-oa1-f97.google.com",
+          "protocol": "SMTP",
+          "timestamp": "Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
+          "for": "ADA@nuworldtitle.com",
+          "id": "586e51a60fabf-16ab8581837so3165172fac.4"
+        },
+        {
+          "from": "VM-P-FISGFT",
+          "ip": "67.220.117.121",
+          "by": "smtp-relay.gmail.com",
+          "protocol": "ESMTP",
+          "timestamp": "Thu, 09 Feb 2023 08:40:48 -0800 (PST)",
+          "id": "s44-20020a056870612c00b0015f94416267sm111962oae.45.2023.02.09.08.40.48"
+        }
+      ]
+    },
+    {
+      "id": "banesco-advice-2023-01-11",
+      "type": "email",
+      "subject": "ADVICE OF DEBIT - BANK CONFIDENTIAL",
+      "date": "2023-01-11T22:10:40Z",
+      "from": "eadvice@banescousa.com",
+      "to": [
+        "ada@nuworldtitle.com",
+        "liana@nuworldtitle.com",
+        "frontdesk@nuworldtitle.com",
+        "controller@nuworldtitle.com",
+        "genesis@nuworldtitle.com",
+        "lixy@nuworldtitle.com",
+        "lola@nuworldtitle.com"
+      ],
+      "message_id": "1324134118.1673475040681.JavaMail.service_gftapp@VM-P-FISGFT",
+      "received_chain": [
+        "from IA1PR05MB9406.namprd05.prod.outlook.com (2603:10b6:208:41a::17) by BN8PR05MB6162.namprd05.prod.outlook.com with HTTPS; Wed, 11 Jan 2023 22:10:44 +0000",
+        "from BN9PR03CA0329.namprd03.prod.outlook.com (2603:10b6:408:112::34) by IA1PR05MB9406.namprd05.prod.outlook.com (2603:10b6:208:41a::17) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan 2023 22:10:43 +0000",
+        "from BN8NAM12FT008.eop-nam12.prod.protection.outlook.com (2603:10b6:408:112:cafe::7e) by BN9PR03CA0329.outlook.office365.com (2603:10b6:408:112::34) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend Transport; Wed, 11 Jan 2023 22:10:43 +0000",
+        "from mail-pj1-f99.google.com (209.85.216.99) by BN8NAM12FT008.mail.protection.outlook.com (10.13.183.155) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12 via Frontend Transport; Wed, 11 Jan 2023 22:10:42 +0000",
+        "by mail-pj1-f99.google.com with SMTP id o13so13744589pjg.2 for <LOLA@nuworldtitle.com>; Wed, 11 Jan 2023 14:10:42 -0800 (PST)",
+        "from VM-P-FISGFT ([67.220.117.121]) by smtp-relay.gmail.com with ESMTP id ca1-20020a17090af30100b0022618843757sm1223837pjb.8.2023.01.11.14.10.41; Wed, 11 Jan 2023 14:10:41 -0800 (PST)"
+      ],
+      "notes": "Corroborates the 2023-01-11 wire confirmation and provides additional routing metadata for tracing requests.",
+      "received_chain_keys": [
+        {
+          "from": "IA1PR05MB9406.namprd05.prod.outlook.com",
+          "ip": "2603:10b6:208:41a::17",
+          "by": "BN8PR05MB6162.namprd05.prod.outlook.com",
+          "protocol": "HTTPS",
+          "timestamp": "Wed, 11 Jan 2023 22:10:44 +0000"
+        },
+        {
+          "from": "BN9PR03CA0329.namprd03.prod.outlook.com",
+          "ip": "2603:10b6:408:112::34",
+          "by": "IA1PR05MB9406.namprd05.prod.outlook.com",
+          "by_ip": "2603:10b6:208:41a::17",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:43 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.5986.18"
+        },
+        {
+          "from": "BN8NAM12FT008.eop-nam12.prod.protection.outlook.com",
+          "ip": "2603:10b6:408:112:cafe::7e",
+          "by": "BN9PR03CA0329.outlook.office365.com",
+          "by_ip": "2603:10b6:408:112::34",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:43 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6002.13",
+          "via": "Frontend Transport"
+        },
+        {
+          "from": "mail-pj1-f99.google.com",
+          "ip": "209.85.216.99",
+          "by": "BN8NAM12FT008.mail.protection.outlook.com",
+          "by_ip": "10.13.183.155",
+          "protocol": "Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)",
+          "timestamp": "Wed, 11 Jan 2023 22:10:42 +0000",
+          "protocol_info": "version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "id": "15.20.6002.12",
+          "via": "Frontend Transport"
+        },
+        {
+          "by": "mail-pj1-f99.google.com",
+          "protocol": "SMTP",
+          "timestamp": "Wed, 11 Jan 2023 14:10:42 -0800 (PST)",
+          "for": "LOLA@nuworldtitle.com",
+          "id": "o13so13744589pjg.2"
+        },
+        {
+          "from": "VM-P-FISGFT",
+          "ip": "67.220.117.121",
+          "by": "smtp-relay.gmail.com",
+          "protocol": "ESMTP",
+          "timestamp": "Wed, 11 Jan 2023 14:10:41 -0800 (PST)",
+          "id": "ca1-20020a17090af30100b0022618843757sm1223837pjb.8.2023.01.11.14.10.41"
+        }
+      ]
+    }
+  ],
+  "attachments": [
+    {
+      "id": "A",
+      "file": "IC3 Complaint.pdf",
+      "description": "Filed IC3 complaint detailing the diverted escrow funds and requested recovery actions."
+    },
+    {
+      "id": "A-1",
+      "file": "Exhibit_A1_Trust_Fund_Misappropriation_Summary.pdf",
+      "description": "Breakdown of trust fund misappropriation amounts tied to the 2023-01-11 wire."
+    },
+    {
+      "id": "B",
+      "file": "Important \u2013 Closing Instructions.pdf",
+      "description": "Closing instructions directing payment of sale proceeds to N & S Holding LLC."
+    },
+    {
+      "id": "C",
+      "file": "ADVICE OF DEBIT - BANK CONFIDENTIAL.pdf",
+      "description": "Bank debit advice confirming the Banesco USA wire to Zeig Law Firm PLLC IOTA."
+    },
+    {
+      "id": "D",
+      "file": "Layering_Activity.pdf",
+      "description": "Diagram of suspected layering transfers through related entities and offshore accounts."
+    },
+    {
+      "id": "E",
+      "file": "Legal Claims Summary.pdf",
+      "description": "Summary of legal claims pursued by N & S Holding LLC regarding the diverted proceeds."
+    },
+    {
+      "id": "Annex",
+      "file": "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf",
+      "description": "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+    }
+  ],
+  "information_sink": {
+    "verified": [
+      {
+        "category": "Escrow diversion wire",
+        "details": "2023-01-11 $206,693.68 wire from Banesco USA (Nu World Title of Sunset LLC) to Zeig Law Firm PLLC IOTA confirmed via bank debit advice and closing instructions.",
+        "sources": [
+          "Attachment C",
+          "Attachment B"
+        ]
+      },
+      {
+        "category": "IC3 and SAR alignment",
+        "details": "IC3 tracking ID 7065f60922b948a59af3a8654edb16dd matches the SAR narrative supplement and annex attachment.",
+        "sources": [
+          "IC3 submission",
+          "Attachment Annex"
+        ]
+      },
+      {
+        "category": "Affidavit authority",
+        "details": "Sharon Topaz empowered as Managing Partner for N & S Holding LLC with UEI QD5XW4H6MNX8 and CAGE 87AY0 per affidavit.",
+        "sources": [
+          "Affidavit of Authorized Representative"
+        ]
+      },
+      {
+        "category": "Filer EIN",
+        "details": "Employer Identification Number 81-3342299 for N & S Holding LLC confirmed via SAM.gov registration records.",
+        "sources": [
+          "SAM.gov registration",
+          "Affidavit of Authorized Representative"
+        ]
+      },
+      {
+        "category": "Address alias resolution",
+        "details": "Bank response tied the 2733 NW 198th Terrace reference to the confirmed 2763 NW 196 Terrace property in Miami Gardens, FL 33056, closing the outstanding verification gap.",
+        "sources": [
+          "Bank follow-up correspondence",
+          "IC3 exhibit cross-check"
+        ]
+      }
+    ],
+    "missing": [
+      {
+        "category": "UETR identifiers",
+        "details": "Unique end-to-end reference for 2023-02-09 subpoena transactions remains pending despite preserved Banesco advice-of-debit headers.",
+        "dependency": "Banesco USA subpoena response tying the stored Message-IDs and Received-path chain to SWIFT confirmation."
+      },
+      {
+        "category": "Beneficiary account identifiers",
+        "details": "Account numbers for YBH Holdings LLC, Eisenstein Buyers, and Zeig IOTA escrow subjects absent from subpoena packet.",
+        "dependency": "Bank responses or trust account ledgers; continue questioning institutions until identifiers, owners, and authorization records are complete."
+      },
+      {
+        "category": "Control verification",
+        "details": "Control entity for 3049 Perriwinkle Circle remains unresolved pending documentation.",
+        "dependency": "Title updates and property record searches."
+      }
+    ]
+  },
+  "command_snippets": {
+    "pretty_print": "jq '.' data/network.json",
+    "validate_with_python": "python -m json.tool data/network.json",
+    "export_windows_copy": "jq '.' data/network.json > D:\\ICLOUD\\stop-azs-network.json",
+    "extract_feb_received_chain": "jq '.communications[] | select(.id==\"banesco-advice-2023-02-09\") | .received_chain_keys' data/network.json",
+    "extract_jan_received_chain": "jq '.communications[] | select(.id==\"banesco-advice-2023-01-11\") | .received_chain_keys' data/network.json",
+    "extract_all_received_chains": "jq '.communications[] | select(.id|startswith(\"banesco-advice-\")) | {id, received_chain_keys}' data/network.json"
+  }
+}
