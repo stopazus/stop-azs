@@ -23,10 +23,6 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-]
-
-[tool.setuptools]
-packages = ["sar_parser"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sar_parser*"]
