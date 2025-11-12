@@ -7,7 +7,7 @@
 - Install project dependencies if necessary, then run `pytest` from the repository root to execute the automated test suite.
 
 ## SAR Case Packet Workflow
-Run all commands from the repository root unless otherwise noted.
+Run all commands from the repository root unless otherwise noted. See [Testing](#testing) above for guidance on running the automated test suite before executing workflow steps.
 
 ### Quick Start
 ```
