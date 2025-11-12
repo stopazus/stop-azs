@@ -6,6 +6,37 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+## SAR Parser
+
+The [sar_parser](sar_parser/) module provides validation utilities for Suspicious Activity Report (SAR) XML documents that follow the FinCEN XML schema. The validator performs structural and semantic checks to surface actionable validation errors, including:
+
+- Malformed XML detection (missing closing tags, namespace issues)
+- Missing or placeholder values in required fields
+- Incorrect data formats (dates, currency amounts, identifiers)
+- Missing core collections (subjects, transactions, beneficiaries)
+
+The module is intentionally dependency-free for use in automation environments without additional packages.
+
+### Usage
+
+```python
+from sar_parser import validate_file, validate_string
+
+# Validate a SAR document from a file
+result = validate_file("path/to/sar.xml")
+
+# Validate a SAR document from a string
+xml_content = "<SAR>...</SAR>"
+result = validate_string(xml_content)
+
+# Check validation results
+if result.is_valid:
+    print("SAR document is valid")
+else:
+    for error in result.errors:
+        print(f"{error.severity}: {error.message} at {error.location}")
+```
+
 ## Windows NAS Bootstrap
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
@@ -17,5 +48,10 @@ See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage
 
 ## Testing
 
-The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
-collected tests, confirming that no executable checks are defined yet.
+The project includes automated tests for the SAR parser module. Run tests using:
+
+```bash
+python3 tests/test_validator.py
+```
+
+All tests are implemented using Python's built-in `unittest` framework and require no additional dependencies.
