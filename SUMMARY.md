@@ -16,6 +16,15 @@ python -m json.tool data/network.json
 jq '.communications[] | select(.id|startswith("banesco-advice-")) | {id, received_chain_keys}' data/network.json
 ```
 
+### Windows export helper
+
+To keep a prettified working copy in a shared evidence folder on Windows, open
+PowerShell at the repository root and run:
+
+```powershell
+jq '.' data/network.json > D:\ICLOUD\stop-azs-network.json
+```
+
 ## Testing expectations
 
 Because the repository is data-only, the validation commands above double as the expected "tests" prior to sharing updates:
