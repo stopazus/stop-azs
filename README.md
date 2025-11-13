@@ -7,11 +7,12 @@
 - Install project dependencies if necessary, then run `pytest` from the repository root to execute the automated test suite.
 
 ## SAR Case Packet Workflow
-Run all commands from the repository root unless otherwise noted. See [Testing](#testing) above for guidance on running the automated test suite before executing workflow steps.
+Run all commands from the repository root unless otherwise noted. See [Testing](#testing) above for guidance on running the automated test suite before executing workflow steps, and confirm the suite passes before starting the Quick Start or One-shot sequences below.
 
 ### Quick Start
+Before running these steps, execute `pytest` from the repository root to ensure the suite passes.
+
 ```
-pytest                     # run from repository root to confirm the test suite passes
 cd case_packet
 make validate                  # show CSV validator outputs (if any)
 make filters-dryrun            # preview Jira API calls (no execution)
@@ -21,9 +22,9 @@ make filters                   # real creation of saved filters
 ```
 
 ### One-shot
-Run the automated checks once from the repository root before starting the guided workflow:
+Run the automated checks once from the repository root before starting the guided workflow (see [Testing](#testing)):
+
 ```
-pytest                     # verify the repository state
 cd case_packet
 make all   # asks for confirmations at each step
 ```
