@@ -58,7 +58,7 @@ make all   # asks for confirmations at each step
 See [`STATEMENT OF DAMAGES.MD`](STATEMENT%20OF%20DAMAGES.MD) for the full claim narrative. Key figures include:
 
 - **Unauthorized escrow diversion:** $256,693.68 in funds moved without proper instruction.
-- **Treble damages exposure:** $1,026,774.72 under Fla. Stat. §772.11, based on tripling the diverted escrow amount.
+- **Treble damages exposure:** $770,081.04 under Fla. Stat. §772.11 (base diversion amount × 3, inclusive of actual damages).
 - **Additional penalties estimate:** $100,950.00 in IRS-linked fines and interest tied to reporting failures.
 - **Total known diverted funds:** Approximately $617,693.68 traced across Zeig PLLC IOTA escrow, Hasia Bitton, and YBH Holdings accounts.
 - **Property & seller reference:** Land Trust Service Corporation, as trustee for Trust No. 2763-196, regarding 2763 NW 196 Terrace, Miami Gardens, FL 33056.

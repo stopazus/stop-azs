@@ -27,9 +27,10 @@ Per the escrow agreement, the Escrow Agent is discharged only upon proper disbur
 - **Total Known Diverted Funds:** approx. $617,693.68 (subject to treble damages + IRS penalties)
 
 ## 4. Treble Damages Calculation
-- **Base Escrow Diversion:** $256,693.68
-- **Treble Penalty (x3):** $770,081.04
-- **Total Treble Damages:** $1,026,774.72
+- **Base Escrow Diversion (Actual Damages):** $256,693.68
+- **Statutory Treble Multiplier (Fla. Stat. §772.11):** 3× actual damages
+- **Calculated Treble Damages (Base × 3):** $770,081.04 (includes the base diversion amount)
+- **Additional Statutory Recovery Above Base Damages:** $513,387.36
 
 ## 5. Other Recoverable Penalties & Interest
 Estimated IRS-linked penalties, fines, and interest:
@@ -58,5 +59,5 @@ Property sold: 2763 NW 196 Terrace, Miami Gardens, FL 33056 (Florida Land Trust 
   - Escrowed funds and pass-through deposits.
   - All layered transfers and derivative assets.
   - Trust property interests tied to Land Trust No. 2763-196.
-- Claim Amount: minimum $1,026,774.72
+- Claim Amount: minimum $770,081.04 (trebled actual damages)
 - Plus treble damages, attorney’s fees, penalties, and enforcement costs.
