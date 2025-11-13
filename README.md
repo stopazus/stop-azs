@@ -69,6 +69,19 @@ root when briefing or coordinating subpoenas:
   &mdash; consolidated view that prints both Banesco advice-of-debit
   chains with their identifiers when preparing subpoena packets.
 
+### Color cue legend
+
+The investigative brief and dataset reference two color cues for fast
+status checks:
+
+- **White** entries call out evidence-backed checkpoints that already
+  have corroborating documentation.
+- **Red** entries flag unresolved subpoenas or missing records that
+  still require escalation.
+
+No blue state is used in this workflow so investigators can focus on
+the verified (white) and outstanding (red) streams without ambiguity.
+
 ## Current commit summary
 
 - Extended `data/network.json` with parsed Banesco advice-of-debit

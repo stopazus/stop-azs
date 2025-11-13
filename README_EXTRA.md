@@ -55,6 +55,12 @@ The dataset now advertises reusable `jq` commands in the
 - **Affidavit coverage** confirms Sharon Topaz's authority and the legal
   framework governing investigative actions.
 
+**Color cue legend:** Throughout the narrative materials, "white"
+callouts highlight verified checkpoints with corroborating evidence,
+while "red" callouts mark open gaps or subpoena-dependent items.
+"Blue" is intentionally unused so investigators can immediately pivot
+between the documented (white) and outstanding (red) tracks.
+
 ## 4. Updating the dataset
 
 1. Edit `data/network.json` to add new transactions, entities, or

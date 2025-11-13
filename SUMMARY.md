@@ -16,6 +16,11 @@ python -m json.tool data/network.json
 jq '.communications[] | select(.id|startswith("banesco-advice-")) | {id, received_chain_keys}' data/network.json
 ```
 
+## Color cues at a glance
+
+- **White** &mdash; verified checkpoints supported by evidence (see the information sink section in `data/network.json`).
+- **Red** &mdash; outstanding subpoenas or missing data that remain open; there is no blue state in this workflow.
+
 ### Windows export helper
 
 To keep a prettified working copy in a shared evidence folder on Windows, open

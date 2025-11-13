@@ -19,3 +19,7 @@
 ## Tooling shortcuts
 - Reusable command snippets in the dataset document jq and Python helpers for validation, exports, and Received-chain extraction from any workstation (Windows instructions included).
 - Investigators should execute the snippets from the repository root, as echoed in the main README’s command highlight section.
+
+## Color cue legend
+- White highlights correspond to the evidence-backed checkpoints listed in the information sink and overview sections.
+- Red highlights identify outstanding subpoenas or missing records; no blue status is defined so teams stay focused on closing the red items.

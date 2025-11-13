@@ -604,6 +604,22 @@
       }
     ]
   },
+  "color_coding": {
+    "white": {
+      "description": "Verified checkpoints backed by documented evidence such as bank confirmations, affidavits, or SAM.gov records.",
+      "linked_sections": [
+        "information_sink.verified",
+        "analysis_overview"
+      ]
+    },
+    "red": {
+      "description": "Outstanding gaps and subpoena-dependent leads that require continued escalation until institutions supply the missing data.",
+      "linked_sections": [
+        "information_sink.missing",
+        "bank_follow_up_directives"
+      ]
+    }
+  },
   "command_snippets": {
     "pretty_print": "jq '.' data/network.json",
     "validate_with_python": "python -m json.tool data/network.json",
