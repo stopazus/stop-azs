@@ -11,6 +11,7 @@ Run all commands from the repository root unless otherwise noted. See [Testing](
 
 ### Quick Start
 ```
+pytest                     # run from repository root to confirm the test suite passes
 cd case_packet
 make validate                  # show CSV validator outputs (if any)
 make filters-dryrun            # preview Jira API calls (no execution)
@@ -20,7 +21,9 @@ make filters                   # real creation of saved filters
 ```
 
 ### One-shot
+Run the automated checks once from the repository root before starting the guided workflow:
 ```
+pytest                     # verify the repository state
 cd case_packet
 make all   # asks for confirmations at each step
 ```
