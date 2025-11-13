@@ -1,15 +1,15 @@
 # Involved Parties
 
 ## Overview
-This document summarizes the principal individuals and entities identified in N & S Holding LLC's whistleblower filings, forensic reports, and law-enforcement escalations concerning the alleged diversion of escrow funds tied to the Perriwinkle Circle real-estate transaction.
+This document summarizes the principal individuals and entities identified in N & S Holding LLC's whistleblower filings, forensic reports, and law-enforcement escalations concerning the alleged diversion of escrow funds tied to the Periwinkle Circle real-estate transaction.
 
 ## Parties of Interest
 - **Justin Zeig (Esq.)** – Formerly of Zeig Law Firm PLLC, disbarred by the Florida Bar in December 2024. Allegedly served as escrow agent while controlling the origin of deposits. Filings assert he misappropriated client funds and facilitated laundering.
 - **Hasia Bitton** – Real-estate agent and principal of YBH Holdings LLC (including YBH Holdings 2948 LLC). Identified as a key coordinator who controlled bank accounts and shell companies used to route escrow funds. Transaction analysis shows layering patterns passing through her accounts.
 - **YBH Holdings LLC / YBH Holdings 2948 LLC** – Bitton-managed entities alleged to have operated as nominee special-purpose vehicles to obscure fund sources and destinations. Internal tracing links YBH Holdings 2948 LLC to structured ETH transfers.
-- **Zeig Law Firm PLLC** – The firm that maintained the IOTA trust account for the Perriwinkle Circle sale. The trust account is central to the alleged diversion: escrow deposits were rerouted through the firm's accounts instead of reaching the sellers.
-- **Daniella & Zachary Eisenstein** – Sellers (debtors) of 3049 Perriwinkle Circle and intended recipients of escrow proceeds. N & S Holding LLC argues their transaction was tainted by the diversion and seeks remedies against all parties involved.
-- **N & S Holding LLC (Land Trust)** – Purchaser of 2763 NW 196 Terrace and secured lienholder on Perriwinkle Circle, represented by Trustee Sharon Topaz. Identified as the victim of the diverted escrow (approx. $206,693.68) and currently pursuing recovery while cooperating with federal authorities.
+- **Zeig Law Firm PLLC** – The firm that maintained the IOTA trust account for the Periwinkle Circle sale. The trust account is central to the alleged diversion: escrow deposits were rerouted through the firm's accounts instead of reaching the sellers.
+- **Daniella & Zachary Eisenstein** – Sellers (debtors) of 3049 Periwinkle Circle and intended recipients of escrow proceeds. N & S Holding LLC argues their transaction was tainted by the diversion and seeks remedies against all parties involved.
+- **N & S Holding LLC (Land Trust)** – Purchaser of 2763 NW 196 Terrace and secured lienholder on Periwinkle Circle, represented by Trustee Sharon Topaz. Identified as the victim of the diverted escrow (approx. $206,693.68) and currently pursuing recovery while cooperating with federal authorities.
 - **Nu World Title LLC** – Title company originally holding escrow funds for the Eisenstein transaction. Investigative findings indicate Nu World Title disbursed funds under false pretenses, bypassing trust instructions; the company is treated as a secondary victim.
 - **Yossef Ben-Hamo / "Ben-Hamo Group"** – Israeli national and unlicensed broker tied to Bitton-controlled shell entities. Associated accounts and wallets suggest cross-border layering and foreign involvement in the laundering scheme.
 
