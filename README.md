@@ -46,7 +46,7 @@ review:
 ### Quick Windows export example
 
 - Open a PowerShell prompt where the repository is available.
-- Run `jq '.' data/network.json > D:\\ICLOUD\\stop-azs-network.json` to
+- Run `jq '.' data/network.json > D:\ICLOUD\stop-azs-network.json` to
   create a prettified copy alongside any Windows evidence folders.
 - Reference the `command_snippets` block at the end of
   `data/network.json` for additional ready-to-run validation and
