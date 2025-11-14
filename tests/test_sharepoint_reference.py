@@ -35,3 +35,4 @@ def test_integrity_sheet_records_sharepoint_artifact_details():
     integrity_text = INTEGRITY_PATH.read_text(encoding="utf-8")
     assert ARTIFACT_NAME in integrity_text, "Integrity sheet must document the hosted SharePoint artifact name"
     assert RETRIEVAL_NOTE in integrity_text, "Integrity sheet must record the SharePoint retrieval timestamp"
+    assert ACCESS_NOTE in integrity_text, "Integrity sheet must describe SharePoint access controls"
