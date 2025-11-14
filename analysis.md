@@ -118,5 +118,16 @@ The forensic ledger exhibit consolidates documented pass-through events associat
 ## Implications and Next Steps
 The coordinated misuse of attorney trust accounts, shell companies, and offshore conduits illustrates a sophisticated layering strategy. Victims—particularly secured creditors like N & S Holding LLC and service providers such as Nu World Title LLC—face lengthy recovery processes. Investigators are continuing to reconcile ledger entries against property records, subpoena digital-asset exchange data, and trace funds through international banking channels. Evidence packages will incorporate weekly registry snapshots, hashed document inventories, and refreshed UCC/title analyses. Enhanced due-diligence protocols for escrow agents and closer monitoring of rapid pass-through trust accounts are recommended to prevent similar schemes.
 
+## Operational Task Tracker
+The investigation team tracks critical follow-up items in real time to prevent duplication of effort and to surface any blockers quickly. Active workstreams remain listed below until their confirmation packages are received, at which point the action is migrated to the archived log in Appendix E.
+
+| Task | Owner | Status | Last Updated | Next Checkpoint | Confirmation Reference |
+| --- | --- | --- | --- | --- | --- |
+| Reconcile CNB ledger entries with Broward County property filings covering January–August 2023. | Forensic Accounting (Topaz team) | In progress | 2025-08-24 | Clerk of Courts parcel extracts due 2025-08-27; escalate if imaging delay persists. | Awaiting certified deed set from Broward Clerk imaging desk. |
+| Trace Bank Hapoalim wire cascade tied to the Ben-Hamo network (wire log BH-0928). | IRS-CI international liaison cell | Awaiting confirmation | 2025-08-23 | Confirm MLAT courier receipt of BH-0928 notarized SWIFT export by 2025-08-29. | Pending notarized BH-0928 dossier from Bank Hapoalim compliance. |
+| Compile supplemental evidence packet for FinCEN SAR addendum briefing. | AML Reporting Unit | Drafting | 2025-08-24 | Incorporate Anywires/YBH ledger anomalies flagged during 2025-08-26 coordination call. | FinCEN acknowledgement letter outstanding (target docket FIN-2025-08-31). |
+
+Completed actions and their supporting confirmations are catalogued in [Appendix E](docs/appendix_e_archived_actions.md).
+
 ## Conclusion
 The forensic review shows that Justin Zeig’s CNB trust accounts functioned as transient clearing houses: deposits associated with disputed closings were withdrawn almost immediately, frequently rerouted through YBH-branded entities, and occasionally pushed offshore, leaving zero residual balances. These patterns, coupled with the red-flagged transfers to Bitton-controlled shell companies and personal accounts tied to Sharon Topaz, support the allegation that escrow instructions were circumvented in favor of a deliberate pass-through laundering network. Continued coordination with IRS-CI, FinCEN, and transnational partners remains critical to recovering the $206,693.68 claimed by N & S Holding LLC and to tracing the broader $7 million flow attributed to the scheme.
