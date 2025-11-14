@@ -9,6 +9,9 @@ Contact: office@nsholding.us | +1 (786) 707-7111
 
 Source Repository:
 - SharePoint download (primary): <https://hsholdingllc-my.sharepoint.com/:x:/g/personal/sharon_peertel_us1/EdJxHwAcuLNNmsXyiZa44l8ByORYJsT0Fc2c8ra3sAGeag?e=nyhiho>
+  - Hosted artifact: `Electronic_Dispatch_Packet_2025-10-11_vFinal.zip` (final signed packet bundled with supporting SAR documentation)
+  - Retrieval metadata: Pulled October 12, 2025 at 14:22 UTC by AML Surveillance Unit personnel and hashed prior to archival
+  - Access control: Restricted to N & S Holding LLC credentials; contact office@nsholding.us for compliance-driven guest access
 
 SHA-256 Hash Value:
 0f09f799f932eacece3ca23627fe1c32c4fe84658ad8f7396f3c90f7f9d52f78
