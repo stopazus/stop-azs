@@ -12,8 +12,7 @@ from sar_parser import parse_sar
 @pytest.fixture
 def sample_xml(tmp_path: Path) -> Path:
     xml_content = """
-    <SAR xmlns=
-        "http://www.fincen.gov/base">
+    <SAR xmlns="http://www.fincen.gov/base">
       <FilingInformation>
         <FilingType>Initial</FilingType>
         <FilingDate>2025-01-01</FilingDate>
