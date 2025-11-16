@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import Iterable, List, Optional, Tuple, Type
 import json
 import sys
 import xml.etree.ElementTree as ET
@@ -25,7 +25,9 @@ try:  # pragma: no cover - optional dependency path
     from defusedxml.common import DefusedXmlException as _DefusedXmlException
 except ImportError:  # pragma: no cover - exercised in unit tests
     _DefusedET = None
-    _DefusedXmlException = ()
+    _DEFUSED_SECURITY_ERRORS: Tuple[Type[BaseException], ...] = ()
+else:  # pragma: no cover - exercised in unit tests
+    _DEFUSED_SECURITY_ERRORS = (_DefusedXmlException,)
 
 # The FinCEN SAR files use the base namespace as the default namespace.  We map
 # it to the short prefix "f" so XPath expressions stay readable.
@@ -132,10 +134,8 @@ def _safe_fromstring(xml_content: str) -> ET.Element:
     if _DefusedET is not None:
         try:
             return _DefusedET.fromstring(xml_content)
-        except Exception as exc:  # pragma: no cover - behaviour validated in tests
-            if _DefusedXmlException and isinstance(exc, _DefusedXmlException):
-                raise ValueError(_SECURITY_ERROR_MESSAGE) from exc
-            raise
+        except _DEFUSED_SECURITY_ERRORS as exc:  # pragma: no cover - behaviour validated in tests
+            raise ValueError(_SECURITY_ERROR_MESSAGE) from exc
 
     parser = _SafeXMLParser()
     try:
