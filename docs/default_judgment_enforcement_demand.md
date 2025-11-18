@@ -1,5 +1,12 @@
 # Default Judgment Enforcement Demand Template
 
+[Attorney Name], Esq.
+[Bar Number and Jurisdiction]
+Counsel for Plaintiff [Plaintiff Legal Name]
+[Law Firm Name]
+[Address]
+[Phone] | [Email]
+
 > **Template Usage Note:** Replace every bracketed placeholder with the appropriate party name, court, citation, or factual value.
 > Do **not** insert real bank account numbers, wire references, routing numbers, or personally identifiable information in this repository copy.
 > Reference sensitive data descriptively (e.g., "escrow account ending in 1234") in a working draft that is kept outside of the repository.
