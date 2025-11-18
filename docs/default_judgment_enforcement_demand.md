@@ -57,14 +57,6 @@ Defendant shall produce the following for the last 36 months:
 - Internal ledgers and communications regarding trust or escrow funds;
 - Records of transfers to or from related entities.
 
-### C. Identification of All Related Accounts
-
-Defendant must provide a sworn list of:
-
-- All bank, trust, cryptocurrency, and payment-processor accounts;
-- Any account that received or transferred funds originating from the diverted escrow;
-- All affiliated or alter-ego entities involved in any downstream activity.
-
 ---
 
 ## V. Legal Authority for Enforcement
