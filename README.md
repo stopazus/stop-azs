@@ -26,6 +26,12 @@ This repository holds a neutral synopsis of a draft Suspicious Activity Report (
 | Layered offshore accounts | Downstream recipients | Identified generically; jurisdictions pending Mutual Legal Assistance Treaty (MLAT) outreach |
 | N & S Holding LLC | Reporting party | Headquarters: 2640 Hollywood Blvd, Hollywood, FL 33020 |
 
+## Related Recorded Instruments
+| Instrument | Recording details | Parties | Notes |
+| --- | --- | --- | --- |
+| Mortgage (Instr. #117541329) | Recorded 27 Aug 2021, Broward County Commission; doc stamps $5,600, intangible tax $3,200 | Borrowers: Hasia Bitton and Aharon Bitton (Wife and Husband); Lender: SG Capital Partners LLC dba ClearEdge Lending (Delaware LLC); Mortgagee of record: MERS (MIN 101276720210700056; phone 888-679-6377) | Instrument dated 24 Aug 2021; principal $1,600,000.00 noted on associated promissory note; prepared by SG Capital Partners LLC dba ClearEdge Lending, 20 Enterprise, Suite 330, Aliso Viejo, CA 92656; return address 750 Washington Blvd., Suite 1050, Stamford, CT 06901 |
+| Deed (Instr. #117541328) | Recorded 27 Aug 2021, Broward County Commission; deed doc stamps $14,000.00 | Parties not specified in abstracted text | Referenced as related to the property transaction; additional page details not provided in supplied extract |
+
 ## Transaction Narrative — 9 February 2023
 1. Funds were reportedly released from the Zeig IOTA escrow account contrary to authorized instructions.
 2. Intermediary accounts `#2304977980` and `#2000043165557` allegedly received and routed the transfers.
