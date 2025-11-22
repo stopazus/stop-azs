@@ -23,6 +23,32 @@ promoting them into `analysis.md`. A living index of those destinations now live
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
 
+### Resource Update Tracking
+
+The [`tools/resource_updater.py`](tools/resource_updater.py) script provides live status tracking for
+external research resources. It tracks when resources were last updated and displays current status
+indicators:
+
+```bash
+# View current status of all external resources
+python3 tools/resource_updater.py
+
+# Mark a resource as recently updated
+python3 tools/resource_updater.py --update-resource "Gemini Workbench" --status-file .resource_status.json
+
+# Check status with JSON output
+python3 tools/resource_updater.py --status-file .resource_status.json --output-format json
+
+# Check live connectivity (placeholder for future implementation)
+python3 tools/resource_updater.py --check-live
+```
+
+Status indicators:
+- 🟢 Live: Resource recently updated
+- 🟡 Stale: Resource not updated recently
+- ⚪ Unknown: No status information available
+- 🔴 Error: Resource encountered an error
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
