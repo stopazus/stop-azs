@@ -249,7 +249,7 @@
     "Lack of 1099-S issuance to true beneficiary of sale proceeds.",
     "Internal reference to a non-executed 'future transaction' used to justify diversion.",
     "Funds not returned or reconciled after request; absence of corrective disbursement.",
-    "Layering typology: escrow \u2192 attorney trust \u2192 related/shell entities \u2192 subsequent acquisition.",
+    "Layering typology: escrow → attorney trust → related/shell entities → subsequent acquisition.",
     "Round-dollar and structured transfers observed in related account activity (monitoring list).",
     "Active/inactive twin LLC patterns (YBH 2948/341) suggesting SPV rotation for title/finance."
   ],
@@ -276,11 +276,11 @@
       "Produce AI-assisted summaries and records suitable for SARs, UCC filings, and court exhibits."
     ],
     "statutes": [
-      "False Claims Act (31 U.S.C. \u00a7\u00a7 3729, 3730)",
-      "Program Fraud Civil Remedies Act (31 U.S.C. \u00a7 3801)",
-      "Trafficking Victims Protection Act (22 U.S.C. \u00a7 7104)",
-      "ITAR/DDTC export authorizations (22 C.F.R. \u00a7 124.1(a))",
-      "Mandatory disclosures under 2 C.F.R. \u00a7 200.113 and policy requirements under \u00a7 200.300"
+      "False Claims Act (31 U.S.C. §§ 3729, 3730)",
+      "Program Fraud Civil Remedies Act (31 U.S.C. § 3801)",
+      "Trafficking Victims Protection Act (22 U.S.C. § 7104)",
+      "ITAR/DDTC export authorizations (22 C.F.R. § 124.1(a))",
+      "Mandatory disclosures under 2 C.F.R. § 200.113 and policy requirements under § 200.300"
     ],
     "effective_period": {
       "start": "2025-04-19",
