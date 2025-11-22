@@ -5,7 +5,7 @@ This repository documents allegations and evidence of escrow fund diversion invo
 ## Project Overview
 
 - **Purpose**: Legal/investigative documentation and SAR XML validation
-- **Primary Language**: Python 3.10+
+- **Primary Language**: Python 3.10 (as specified in CI/CD workflows)
 - **Key Components**:
   - `analysis.md` - Detailed investigation documentation
   - `sar_parser/` - SAR XML validator utilities
@@ -42,12 +42,14 @@ When working on issues, always review these key files for context:
 
 ### Running Tests
 ```bash
-# Run all tests with unittest
+# Run all tests with unittest (use 'python3' or 'python' depending on your environment)
 python3 -m unittest discover -s tests -v
 
 # Run a specific test file
 python3 -m unittest tests.test_validator -v
 ```
+
+**Note**: Use `python3` on systems where both Python 2 and 3 are installed, or `python` on systems with only Python 3.
 
 ### Code Quality
 ```bash
@@ -121,7 +123,7 @@ else:
 ## Validation Logic Patterns
 
 The SAR validator follows these patterns:
-- Returns `ValidationResult` objects containing lists of `ValidationError` instances
+- Returns `ValidationResult` objects containing a list of `ValidationError` instances (in the `errors` field)
 - Each error includes: message, location (XPath-like), and severity
 - Checks for: malformed XML, missing required blocks, placeholder values, incorrect data formats
 - Uses defensive programming with try/except for XML parsing
