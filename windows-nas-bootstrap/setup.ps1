@@ -31,7 +31,7 @@ function Install-App {
     
     Write-ColorOutput "`nInstalling $AppName..." -Color Cyan
     try {
-        $result = winget install --id $AppId --silent --accept-package-agreements --accept-source-agreements 2>&1
+        $installResult = winget install --id $AppId --silent --accept-package-agreements --accept-source-agreements 2>&1
         if ($LASTEXITCODE -eq 0) {
             Write-ColorOutput "✓ $AppName installed successfully" -Color Green
             return $true
@@ -66,18 +66,18 @@ function Map-NetworkDrive {
         # Convert SecureString to plain text for net use command
         # Note: Using 'net use' for maximum compatibility with older Windows systems
         # Password is cleared from memory immediately after use
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-        $PlainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR)
+        $secureStringBSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
+        $plainTextPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($secureStringBSTR)
+        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($secureStringBSTR)
         
         # Map the drive with persistence
-        $result = net use "$DriveLetter" "$NetworkPath" /user:$Username $PlainPassword /persistent:yes 2>&1
+        $mapResult = net use "$DriveLetter" "$NetworkPath" /user:$Username $plainTextPassword /persistent:yes 2>&1
         
         if ($LASTEXITCODE -eq 0) {
             Write-ColorOutput "✓ $DriveLetter mapped successfully" -Color Green
             return $true
         } else {
-            Write-ColorOutput "✗ Failed to map $DriveLetter : $result" -Color Red
+            Write-ColorOutput "✗ Failed to map $DriveLetter : $mapResult" -Color Red
             return $false
         }
     } catch {
@@ -90,7 +90,7 @@ function Map-NetworkDrive {
 function Test-NetworkSpeed {
     param(
         [string]$DriveLetter,
-        [int]$SizeMiB = 1024  # 1 GiB = 1024 MiB
+        [int]$testFileSizeMiB = 1024  # 1 GiB = 1024 MiB
     )
     
     Write-ColorOutput "`n=== Network Speed Test ===" -Color Magenta
@@ -111,7 +111,7 @@ function Test-NetworkSpeed {
         $stream = $null
         try {
             $stream = [System.IO.File]::OpenWrite($testFile)
-            $iterations = [int]($SizeMiB / $bufferSizeMiB)
+            $iterations = [int]($testFileSizeMiB / $bufferSizeMiB)
             for ($i = 0; $i -lt $iterations; $i++) {
                 $stream.Write($buffer, 0, $buffer.Length)
                 $progress = [int](($i / $iterations) * 100)
@@ -126,9 +126,9 @@ function Test-NetworkSpeed {
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
+        $transferSpeedMBps = [math]::Round($testFileSizeMiB / $duration, 2)
         
-        Write-ColorOutput "✓ Write Speed: $speedMBps MiB/s" -Color Green
+        Write-ColorOutput "✓ Write Speed: $transferSpeedMBps MiB/s" -Color Green
         
         # Read speed test
         Write-ColorOutput "Testing read speed from $DriveLetter..." -Color Cyan
@@ -149,9 +149,9 @@ function Test-NetworkSpeed {
         $endTime = Get-Date
         
         $duration = ($endTime - $startTime).TotalSeconds
-        $speedMBps = [math]::Round($SizeMiB / $duration, 2)
+        $transferSpeedMBps = [math]::Round($testFileSizeMiB / $duration, 2)
         
-        Write-ColorOutput "✓ Read Speed: $speedMBps MiB/s" -Color Green
+        Write-ColorOutput "✓ Read Speed: $transferSpeedMBps MiB/s" -Color Green
         
         # Clean up test file
         Remove-Item $testFile -Force
@@ -182,7 +182,7 @@ try {
 }
 
 # Define apps to install
-$apps = @(
+$applications = @(
     @{ Id = "Python.Python.3.12"; Name = "Python 3.12" },
     @{ Id = "Git.Git"; Name = "Git" },
     @{ Id = "Rclone.Rclone"; Name = "rclone" },
@@ -198,8 +198,8 @@ Write-ColorOutput "`n=== Installing Applications ===" -Color Magenta
 $successCount = 0
 $failCount = 0
 
-foreach ($app in $apps) {
-    if (Install-App -AppId $app.Id -AppName $app.Name) {
+foreach ($application in $applications) {
+    if (Install-App -AppId $application.Id -AppName $application.Name) {
         $successCount++
     } else {
         $failCount++
@@ -215,7 +215,7 @@ Write-ColorOutput "Enter password for NAS user '$username':" -Color Cyan
 $password = Read-Host -AsSecureString
 
 # Define NAS drives
-$drives = @(
+$networkDrives = @(
     @{ Letter = "G:"; Path = "\\nas\Cloud-GDrive"; Description = "Google Drive" },
     @{ Letter = "I:"; Path = "\\nas\Cloud-iCloud"; Description = "iCloud" },
     @{ Letter = "O:"; Path = "\\nas\Cloud-OneDrive"; Description = "OneDrive" }
@@ -225,17 +225,17 @@ $drives = @(
 $mappedCount = 0
 $firstMappedDrive = $null
 
-foreach ($drive in $drives) {
-    Write-ColorOutput "`nMapping $($drive.Letter) → $($drive.Path) ($($drive.Description))" -Color Cyan
-    if (Map-NetworkDrive -DriveLetter $drive.Letter -NetworkPath $drive.Path -Username $username -Password $password) {
+foreach ($networkDrive in $networkDrives) {
+    Write-ColorOutput "`nMapping $($networkDrive.Letter) → $($networkDrive.Path) ($($networkDrive.Description))" -Color Cyan
+    if (Map-NetworkDrive -DriveLetter $networkDrive.Letter -NetworkPath $networkDrive.Path -Username $username -Password $password) {
         $mappedCount++
         if ($null -eq $firstMappedDrive) {
-            $firstMappedDrive = $drive.Letter
+            $firstMappedDrive = $networkDrive.Letter
         }
     }
 }
 
-Write-ColorOutput "`nDrive Mapping Summary: $mappedCount of $($drives.Count) drives mapped" -Color $(if ($mappedCount -eq $drives.Count) { 'Green' } else { 'Yellow' })
+Write-ColorOutput "`nDrive Mapping Summary: $mappedCount of $($networkDrives.Count) drives mapped" -Color $(if ($mappedCount -eq $networkDrives.Count) { 'Green' } else { 'Yellow' })
 
 # Run speed test if at least one drive was mapped
 if ($null -ne $firstMappedDrive) {
