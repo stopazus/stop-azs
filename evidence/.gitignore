@@ -1,0 +1,5 @@
+# Ignore raw directory contents (files here are processed and moved to hashed/)
+raw/*
+
+# Keep the raw directory structure
+!raw/.gitkeep

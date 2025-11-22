@@ -1,0 +1,2 @@
+This is a sample evidence document that demonstrates the hash_evidence.py script.
+It contains important information that needs to be securely hashed and stored.

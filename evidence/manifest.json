@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "original_filename": "document1.txt",
+      "hashed_filename": "1207390883582a10138dd42fa753baf076ae8275b159aa2ea3ce9b2157b93663.txt",
+      "sha256": "1207390883582a10138dd42fa753baf076ae8275b159aa2ea3ce9b2157b93663",
+      "size_bytes": 161,
+      "processed_date": "2025-11-22T16:16:27.953271+00:00",
+      "path": "evidence/hashed/1207390883582a10138dd42fa753baf076ae8275b159aa2ea3ce9b2157b93663.txt"
+    },
+    {
+      "original_filename": "report.pdf",
+      "hashed_filename": "9e6ed7c10b38c959b64cbf09c6c707b0c2ddc5236684b153653393ad35bc1f8b.pdf",
+      "sha256": "9e6ed7c10b38c959b64cbf09c6c707b0c2ddc5236684b153653393ad35bc1f8b",
+      "size_bytes": 111,
+      "processed_date": "2025-11-22T16:16:27.953384+00:00",
+      "path": "evidence/hashed/9e6ed7c10b38c959b64cbf09c6c707b0c2ddc5236684b153653393ad35bc1f8b.pdf"
+    }
+  ],
+  "metadata": {
+    "created": "2025-11-22T16:16:27.953070+00:00",
+    "last_updated": "2025-11-22T16:16:27.953390+00:00"
+  }
+}
