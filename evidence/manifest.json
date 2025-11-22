@@ -15,10 +15,18 @@
       "size_bytes": 111,
       "processed_date": "2025-11-22T16:16:27.953384+00:00",
       "path": "evidence/hashed/9e6ed7c10b38c959b64cbf09c6c707b0c2ddc5236684b153653393ad35bc1f8b.pdf"
+    },
+    {
+      "original_filename": "financial_record.csv",
+      "hashed_filename": "e6a34c2a4a1f098b013c21af1b8d2bde5286177a96be1efd6ce669a34c7a489f.csv",
+      "sha256": "e6a34c2a4a1f098b013c21af1b8d2bde5286177a96be1efd6ce669a34c7a489f",
+      "size_bytes": 122,
+      "processed_date": "2025-11-22T16:18:04.374040+00:00",
+      "path": "evidence/hashed/e6a34c2a4a1f098b013c21af1b8d2bde5286177a96be1efd6ce669a34c7a489f.csv"
     }
   ],
   "metadata": {
     "created": "2025-11-22T16:16:27.953070+00:00",
-    "last_updated": "2025-11-22T16:16:27.953390+00:00"
+    "last_updated": "2025-11-22T16:18:04.374055+00:00"
   }
 }

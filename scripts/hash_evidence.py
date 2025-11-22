@@ -63,7 +63,8 @@ def process_evidence_files():
     # Find new files in raw directory
     new_files = []
     for file_path in raw_dir.iterdir():
-        if file_path.is_file() and file_path.name not in processed_files:
+        # Skip .gitkeep and other hidden files
+        if file_path.is_file() and not file_path.name.startswith('.') and file_path.name not in processed_files:
             new_files.append(file_path)
     
     if not new_files:
