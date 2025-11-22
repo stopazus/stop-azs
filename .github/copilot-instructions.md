@@ -28,10 +28,11 @@ When working on issues, always review these key files for context:
 - Keep modules intentionally dependency-free where possible (like `validator.py`)
 
 ### Testing
-- Use Python's built-in `unittest` framework (not pytest)
+- Use Python's built-in `unittest` framework
 - Test files should be named `test_*.py` and placed in the `tests/` directory
 - All new functionality must include corresponding unit tests
 - Tests should validate both success and failure cases
+- **Note**: The CI workflow references pytest, but tests are currently written using unittest and work correctly with `python3 -m unittest`
 
 ### Documentation
 - Maintain detailed docstrings explaining the purpose and behavior
@@ -123,7 +124,7 @@ else:
 ## Validation Logic Patterns
 
 The SAR validator follows these patterns:
-- Returns `ValidationResult` objects containing a list of `ValidationError` instances (in the `errors` field)
+- Returns `ValidationResult` objects with an `errors` field containing `ValidationError` instances
 - Each error includes: message, location (XPath-like), and severity
 - Checks for: malformed XML, missing required blocks, placeholder values, incorrect data formats
 - Uses defensive programming with try/except for XML parsing
