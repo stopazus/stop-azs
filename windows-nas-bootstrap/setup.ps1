@@ -58,10 +58,9 @@ function Map-NetworkDrive {
     
     try {
         # Remove existing mapping if it exists
-        if (Test-Path "$DriveLetter") {
-            Write-ColorOutput "Removing existing mapping for $DriveLetter" -Color Yellow
-            net use "$DriveLetter" /delete /y 2>&1 | Out-Null
-        }
+        # Note: 'net use /delete' handles non-existent drives gracefully, so we skip the Test-Path check
+        Write-ColorOutput "Removing any existing mapping for $DriveLetter" -Color Yellow
+        net use "$DriveLetter" /delete /y 2>&1 | Out-Null
         
         # Convert SecureString to plain text for net use command
         # Note: Using 'net use' for maximum compatibility with older Windows systems
@@ -104,9 +103,13 @@ function Test-NetworkSpeed {
         $startTime = Get-Date
         $bufferSizeMiB = 64
         $bufferSizeBytes = $bufferSizeMiB * 1024 * 1024  # MiB to bytes
+        # Optimize: Create buffer filled with pattern instead of random data (faster and sufficient for speed testing)
         $buffer = New-Object byte[] $bufferSizeBytes
-        $random = New-Object System.Random
-        $random.NextBytes($buffer)
+        # Fill with repeating pattern (much faster than random data generation)
+        for ($i = 0; $i -lt $bufferSizeBytes; $i += 1024) {
+            $remaining = [Math]::Min(1024, $bufferSizeBytes - $i)
+            [Array]::Copy([byte[]](0..255 + 0..255 + 0..255 + 0..255), 0, $buffer, $i, $remaining)
+        }
         
         $stream = $null
         try {
@@ -114,8 +117,11 @@ function Test-NetworkSpeed {
             $iterations = [int]($SizeMiB / $bufferSizeMiB)
             for ($i = 0; $i -lt $iterations; $i++) {
                 $stream.Write($buffer, 0, $buffer.Length)
-                $progress = [int](($i / $iterations) * 100)
-                Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
+                # Optimize: Only update progress every 4 iterations to reduce UI overhead
+                if ($i % 4 -eq 0 -or $i -eq ($iterations - 1)) {
+                    $progress = [int](($i / $iterations) * 100)
+                    Write-Progress -Activity "Writing test file" -Status "$progress% Complete" -PercentComplete $progress
+                }
             }
         } finally {
             if ($null -ne $stream) {
@@ -198,6 +204,9 @@ Write-ColorOutput "`n=== Installing Applications ===" -Color Magenta
 $successCount = 0
 $failCount = 0
 
+# Note: Apps are installed sequentially for reliability and clearer error reporting.
+# For faster installation, consider using PowerShell jobs or winget's built-in parallel
+# capabilities (if available in your winget version) at the cost of more complex error handling.
 foreach ($app in $apps) {
     if (Install-App -AppId $app.Id -AppName $app.Name) {
         $successCount++
