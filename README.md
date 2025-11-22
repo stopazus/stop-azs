@@ -31,7 +31,7 @@ The repository is data-only. Load `data/network.json` with your analysis
 tooling (for example, `jq`, a notebook, or case-management platform) to
 review:
 
-1. Filing metadata and the verified 2023-01-11 Banesco \u2192 City National
+1. Filing metadata and the verified 2023-01-11 Banesco → City National
    Bank of Florida wire.
 2. Pending subpoena trails that still require unique end-to-end (UETR)
    identifiers or beneficiary account numbers.
