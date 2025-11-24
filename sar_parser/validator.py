@@ -93,6 +93,8 @@ def validate_string(xml_text: str) -> ValidationResult:
         )
         return result
 
+    _strip_namespaces(root)
+
     if root.tag != "SAR":
         result.errors.append(
             ValidationError(
@@ -157,6 +159,16 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
                     location=f"/SAR/Transactions/Transaction[{index}]/Amount",
                 )
             )
+
+
+def _strip_namespaces(element: ET.Element) -> None:
+    """Remove XML namespaces in-place to simplify validation lookups."""
+
+    if element.tag.startswith("{"):
+        element.tag = element.tag.split("}", 1)[1]
+
+    for child in element:
+        _strip_namespaces(child)
 
 
 __all__ = [
