@@ -72,6 +72,8 @@ This document captures the externally hosted services that the stop-azs toolchai
 - `visualstudio.com`
 - `azure.com`
 - `microsoft.com`
+- `cdn.winget.microsoft.com`
+- `winget.azureedge.net`
 
 ### Developer Platforms & Source Hosting
 - `github.com`
