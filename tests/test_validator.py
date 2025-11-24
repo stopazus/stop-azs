@@ -73,6 +73,44 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_rejects_non_numeric_amount(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "TEN")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount must be a numeric value.",
+            {error.message for error in result.errors},
+        )
+
+    def test_requires_uppercase_currency_code(self) -> None:
+        xml = VALID_SAR_XML.replace('currency="USD"', 'currency="usd"')
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount currency attribute must be a three-letter code.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_invalid_dates(self) -> None:
+        xml = VALID_SAR_XML.replace("2024-04-30", "2024/04/30")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Date must use ISO format YYYY-MM-DD.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_invalid_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "1234567890abcdef1234567890ABCDEF", "not-a-valid-uetr"
+        )
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be a valid UUID.",
+            {error.message for error in result.errors},
+        )
+
 
 class ValidateFileTests(unittest.TestCase):
     def test_reads_from_disk(self) -> None:
