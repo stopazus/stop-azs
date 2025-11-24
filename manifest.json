@@ -1,0 +1,34 @@
+{
+  "ingest_id": "evidence/ingest-20251122222738",
+  "generated_at_utc": "2025-11-22T22:27:38Z",
+  "summary": {
+    "ledger_records": 2,
+    "hashed_files": 2
+  },
+  "artifacts": [
+    {
+      "path": "ledgers/ingest-20251122222738.csv",
+      "format": "csv",
+      "sha256": "e79b804122a9054bd2d910649d8e0fded9df68a967f403f5cb0de20c474de88a",
+      "record_count": 2
+    },
+    {
+      "path": "ledgers/ingest-20251122222738.jsonl",
+      "format": "jsonl",
+      "sha256": "ef83c001875d51419e71f240d1820ca6c5a9ed310ecf05f8f3b993cdfd004ff3",
+      "record_count": 2
+    },
+    {
+      "path": "evidence/hashed/ingest-20251122222738-disk.sha256",
+      "format": "sha256sum",
+      "sha256": "5671dbe9b4321abd3d246637b836343aaf7397be773811b3c07448bd99c4a181",
+      "record_count": 1
+    },
+    {
+      "path": "evidence/hashed/ingest-20251122222738-mail.sha256",
+      "format": "sha256sum",
+      "sha256": "bfe16640681e316635d3ad986921047a1ad8405b636163c017a8b8a921ad37ea",
+      "record_count": 1
+    }
+  ]
+}
