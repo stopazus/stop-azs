@@ -8,8 +8,8 @@ v.
 
 **{{DEFENDANT_1_NAME}}, an individual;**
 **{{DEFENDANT_2_NAME}}, a {{DEFENDANT_2_STATE}} {{DEFENDANT_2_ENTITY_TYPE}};**
-**{{ADDITIONAL_DEFENDANT_1_NAME}}, an individual; and**
-**{{ADDITIONAL_DEFENDANT_2_NAME}}, an individual,**
+**{{DEFENDANT_3_NAME}}, an individual; and**
+**{{DEFENDANT_4_NAME}}, an individual,**
 Defendants.
 
 Case No. (pre-filing): __________________
@@ -31,7 +31,7 @@ Plaintiff {{PLAINTIFF_LEGAL_NAME}} ("Plaintiff"), by and through undersigned cou
 6. Between {{DATE_RANGE_OF_TRANSACTIONS}}, Plaintiff transferred or caused to be transferred funds to accounts associated with Defendants, including {{ACCOUNT_OR_TRANSACTION_REFERENCE_DESCRIPTION}}.
 7. Records obtained from {{SOURCE_OF_RECORDS}} reflect that the funds were diverted, dissipated, or otherwise misapplied rather than used for their intended purpose.
 8. Investigations by {{INVESTIGATIVE_AGENCIES_OR_EXPERTS}} have identified that Defendants routed approximately {{TOTAL_DIVERTED_FUNDS}} through entities including {{LIST_OF_ENTITY_PLACEHOLDERS}}.
-9. Defendants {{ADDITIONAL_DEFENDANT_NAMES}} knowingly assisted in the diversion and concealment of Plaintiff's funds by coordinating transfers through the aforementioned entities and by facilitating documentation designed to obscure the nature and origin of the funds.
+9. Defendants {{DEFENDANT_3_NAME}} and {{DEFENDANT_4_NAME}} knowingly assisted in the diversion and concealment of Plaintiff's funds by coordinating transfers through the aforementioned entities and by facilitating documentation designed to obscure the nature and origin of the funds.
 10. As a direct consequence of Defendants' conduct, Plaintiff suffered losses totaling {{TOTAL_LOSSES}}, comprising {{DESCRIPTION_OF_LOSSES}}.
 
 ### III. Legal Grounds for Default Judgment
