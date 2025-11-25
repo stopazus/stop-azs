@@ -38,6 +38,31 @@ PLACEHOLDER_VALUES = {
     "NOT APPLICABLE",
 }
 
+DEFAULT_ALLOWED_CURRENCIES = {
+    "USD",
+    "EUR",
+    "GBP",
+    "CAD",
+    "AUD",
+    "NZD",
+    "JPY",
+    "CHF",
+    "CNY",
+    "HKD",
+    "SGD",
+    "SEK",
+    "NOK",
+    "DKK",
+    "MXN",
+    "BRL",
+    "INR",
+    "ZAR",
+    "RUB",
+    "AED",
+    "SAR",
+    "KRW",
+}
+
 
 @dataclass(slots=True)
 class ValidationError:
@@ -77,8 +102,16 @@ def _is_placeholder(value: Optional[str]) -> bool:
     return normalised.upper() in PLACEHOLDER_VALUES
 
 
-def validate_string(xml_text: str) -> ValidationResult:
-    """Validate a SAR document stored in memory."""
+def validate_string(
+    xml_text: str, allowed_currencies: Optional[Iterable[str]] = None
+) -> ValidationResult:
+    """Validate a SAR document stored in memory.
+
+    Args:
+        xml_text: Raw SAR XML content.
+        allowed_currencies: Optional allowlist of accepted three-letter
+            currency codes. When omitted, a common ISO 4217 subset is used.
+    """
 
     result = ValidationResult()
 
@@ -105,17 +138,27 @@ def validate_string(xml_text: str) -> ValidationResult:
         return result
 
     _validate_required_blocks(root, result)
-    _validate_transactions(root, result)
+    _validate_transactions(root, result, allowed_currencies)
 
     return result
 
 
-def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> ValidationResult:
-    """Load a SAR document from disk and validate its contents."""
+def validate_file(
+    path: "str | os.PathLike[str] | os.PathLike[bytes] | int",
+    *,
+    allowed_currencies: Optional[Iterable[str]] = None,
+) -> ValidationResult:
+    """Load a SAR document from disk and validate its contents.
+
+    Args:
+        path: Filesystem path to a SAR XML document.
+        allowed_currencies: Optional allowlist of accepted currency codes to
+            validate against.
+    """
 
     with open(path, "r", encoding="utf-8") as handle:
         xml_text = handle.read()
-    return validate_string(xml_text)
+    return validate_string(xml_text, allowed_currencies)
 
 
 def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
@@ -140,7 +183,15 @@ def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> Non
         )
 
 
-def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
+def _validate_transactions(
+    root: ET.Element,
+    result: ValidationResult,
+    allowed_currencies: Optional[Iterable[str]] = None,
+) -> None:
+    allowed_currency_set = {code.upper() for code in DEFAULT_ALLOWED_CURRENCIES}
+    if allowed_currencies is not None:
+        allowed_currency_set.update(code.upper() for code in allowed_currencies)
+
     for index, transaction in enumerate(root.findall("Transactions/Transaction"), start=1):
         amount = transaction.find("Amount")
         if amount is None:
@@ -157,6 +208,34 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
                 ValidationError(
                     "Amount must be provided instead of a placeholder.",
                     location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                )
+            )
+
+        currency_code = amount.attrib.get("currency")
+        if currency_code is None:
+            result.errors.append(
+                ValidationError(
+                    "Amount currency attribute is required.",
+                    location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                )
+            )
+            continue
+
+        normalised_currency = currency_code.strip().upper()
+        if len(normalised_currency) != 3 or not normalised_currency.isalpha():
+            result.errors.append(
+                ValidationError(
+                    "Currency codes must be three uppercase letters.",
+                    location=f"/SAR/Transactions/Transaction[{index}]/Amount/@currency",
+                )
+            )
+            continue
+
+        if normalised_currency not in allowed_currency_set:
+            result.errors.append(
+                ValidationError(
+                    f"Currency code '{normalised_currency}' is not allowed.",
+                    location=f"/SAR/Transactions/Transaction[{index}]/Amount/@currency",
                 )
             )
 
