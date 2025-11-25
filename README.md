@@ -23,6 +23,10 @@ promoting them into `analysis.md`. A living index of those destinations now live
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
 
+## Request Flow Documentation
+
+The SAR validation service request lifecycle—from the public endpoint, through validation, to database persistence—is documented in [`docs/request_flow.md`](docs/request_flow.md), including a Mermaid sequence diagram that illustrates each hop.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
