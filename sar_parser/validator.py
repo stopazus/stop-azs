@@ -152,6 +152,10 @@ def _check_amounts(
             result.add_error("Amount must be a numeric value.", xpath)
             continue
 
+        if not value.is_finite():
+            result.add_error("Amount must be a finite numeric value.", xpath)
+            continue
+
         if value < 0:
             result.add_error("Amount must be zero or greater.", xpath)
 

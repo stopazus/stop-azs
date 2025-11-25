@@ -82,6 +82,15 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_rejects_non_finite_amount(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "NaN")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount must be a finite numeric value.",
+            {error.message for error in result.errors},
+        )
+
     def test_requires_uppercase_currency_code(self) -> None:
         xml = VALID_SAR_XML.replace('currency="USD"', 'currency="usd"')
         result = validate_string(xml)
