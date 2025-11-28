@@ -59,4 +59,3 @@ Check applicable boxes if the collateral is held in a trust or administered by a
 
 **Prepared by:** _______________________________________
 
-**Date:** _____________________
