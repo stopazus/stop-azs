@@ -1,6 +1,6 @@
 # stop-azs
 
-[Primary README (Google Drive)](https://drive.google.com/drive/my-drive)
+[Primary README (Google Drive)](https://drive.google.com/drive/folders/SHARED_FOLDER_ID) <!-- TODO: Replace SHARED_FOLDER_ID with the actual shared folder or document ID -->
 
 [![Conda CI](https://github.com/ORG/REPO/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/ORG/REPO/actions/workflows/python-package-conda.yml)
 [![Owner Contact Packet](https://github.com/ORG/REPO/actions/workflows/owner-contact-packet.yml/badge.svg?branch=main)](https://github.com/ORG/REPO/actions/workflows/owner-contact-packet.yml)
