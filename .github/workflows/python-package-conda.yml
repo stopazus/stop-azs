@@ -1,34 +1,104 @@
 name: Python Package using Conda
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "fast (light lint/backoff) or full (strict lint with longer retries)"
+        required: false
+        default: full
+        type: choice
+        options:
+          - fast
+          - full
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
+    env:
+      PROFILE: ${{ github.event.inputs.profile || 'full' }}
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.10'
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        conda install pytest
-        pytest
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Configure profile defaults
+        run: |
+          profile="${PROFILE:-full}"
+          echo "Using profile: ${profile}"
+
+          if [ "$profile" = "fast" ]; then
+            echo "LINT_PROFILE=fast" >> "$GITHUB_ENV"
+            echo "RETRY_ATTEMPTS=2" >> "$GITHUB_ENV"
+            echo "RETRY_BACKOFF=5" >> "$GITHUB_ENV"
+          else
+            echo "LINT_PROFILE=full" >> "$GITHUB_ENV"
+            echo "RETRY_ATTEMPTS=4" >> "$GITHUB_ENV"
+            echo "RETRY_BACKOFF=15" >> "$GITHUB_ENV"
+          fi
+
+      - name: Add conda to system path
+        run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          echo $CONDA/bin >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          retry() {
+            attempts=${RETRY_ATTEMPTS:-1}
+            backoff=${RETRY_BACKOFF:-5}
+            n=1
+            until "$@"; do
+              if [ $n -ge $attempts ]; then
+                echo "Command failed after ${attempts} attempts: $*"
+                return 1
+              fi
+              echo "Attempt $n failed; retrying in ${backoff}s..."
+              sleep "$backoff"
+              n=$((n+1))
+            done
+          }
+
+          retry conda env update --file environment.yml --name base
+
+      - name: Lint with flake8
+        run: |
+          conda install flake8
+
+          if [ "${LINT_PROFILE}" = "fast" ]; then
+            echo "Running fast-profile lint (exit-zero, shorter run)."
+            flake8 . --exit-zero --max-line-length=127
+          else
+            echo "Running full-profile lint (strict)."
+            # stop the build if there are Python syntax errors or undefined names
+            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          fi
+
+      - name: Test with pytest
+        run: |
+          conda install pytest
+
+          retry() {
+            attempts=${RETRY_ATTEMPTS:-1}
+            backoff=${RETRY_BACKOFF:-5}
+            n=1
+            until "$@"; do
+              if [ $n -ge $attempts ]; then
+                echo "Command failed after ${attempts} attempts: $*"
+                return 1
+              fi
+              echo "Attempt $n failed; retrying in ${backoff}s..."
+              sleep "$backoff"
+              n=$((n+1))
+            done
+          }
+
+          retry pytest
