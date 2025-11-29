@@ -1,4 +1,9 @@
 # stop-azs
+
+[Primary README (Google Drive)](https://drive.google.com/drive/my-drive)
+
+[![Conda CI](https://github.com/ORG/REPO/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/ORG/REPO/actions/workflows/python-package-conda.yml)
+[![Owner Contact Packet](https://github.com/ORG/REPO/actions/workflows/owner-contact-packet.yml/badge.svg?branch=main)](https://github.com/ORG/REPO/actions/workflows/owner-contact-packet.yml)
 This repository documents key allegations and participants in the alleged diversion of escrow funds
 from the City National Bank trust account controlled by Justin E. Zeig. See [analysis.md](analysis.md)
 for detailed background on the trust account activity, summaries of the shell entities involved,
@@ -22,6 +27,12 @@ promoting them into `analysis.md`. A living index of those destinations now live
 [`docs/external_resources.md`](docs/external_resources.md). Each entry records the location, primary
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
+
+## Request Flow Reference
+
+The end-to-end path for client submissions—from the public API endpoint through validation and database
+persistence—is documented in [`docs/request_flow.md`](docs/request_flow.md), including a mermaid diagram of
+the sequence.
 
 ## Testing
 
