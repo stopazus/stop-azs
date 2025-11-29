@@ -43,7 +43,7 @@ graph TD
     end
 
     subgraph App
-        App["API Service\nparse + authn/z + size checks"]
+        App["API Service\nparse + authn/authz + size checks"]
         Validator["Validate SAR XML\n(sar_parser.validate_string)"]
         DAL["Data Access Layer\nSQL + transactions"]
     end
