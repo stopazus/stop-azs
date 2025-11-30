@@ -166,7 +166,9 @@ def _check_amounts(
             or not currency.isalpha()
             or not currency.isupper()
         ):
-            result.add_error("Amount currency attribute must be a three-letter code.", xpath)
+            result.add_error(
+                "Amount currency attribute must be a three-letter code.", xpath
+            )
 
 
 def _check_dates(
@@ -212,9 +214,7 @@ def _check_uetrs(
             result.add_error("UETR must be a valid UUID.", xpath)
 
 
-def _build_xpath(
-    element: ET.Element, parent_map: Dict[ET.Element, ET.Element]
-) -> str:
+def _build_xpath(element: ET.Element, parent_map: Dict[ET.Element, ET.Element]) -> str:
     """Reconstruct a simple XPath pointing to *element*."""
 
     path_parts: List[str] = []

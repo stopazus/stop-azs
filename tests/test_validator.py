@@ -1,3 +1,7 @@
+"""Validation integration tests for the SAR parser."""
+
+# ruff: noqa: E402
+
 import sys
 import tempfile
 import unittest
@@ -126,7 +130,7 @@ class ValidateFileTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             path = Path(tmpdir) / "sar.xml"
             path.write_text(VALID_SAR_XML, encoding="utf-8")
-            result = validate_file(path)
+            result = validate_file(str(path))
         self.assertTrue(result.is_valid, result.errors)
 
 
