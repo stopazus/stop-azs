@@ -1,0 +1,41 @@
+[
+  {
+    "assignee": "aml-operations",
+    "due_date": "2024-02-15",
+    "notes": "Validated checksum of attachments recovered from OneDrive/AML/SAR share and archived copies in evidence locker.",
+    "status": "completed",
+    "task_id": "onedrive-001",
+    "title": "Reconcile SAR attachments from OneDrive export"
+  },
+  {
+    "assignee": "forensics",
+    "due_date": "2024-02-22",
+    "notes": "Compare OneDrive draft narrative with Appendix D flow description.",
+    "status": "in-progress",
+    "task_id": "onedrive-002",
+    "title": "Cross-check Perriwinkle escrow narrative"
+  },
+  {
+    "assignee": "compliance-review",
+    "due_date": "2024-03-01",
+    "notes": "Awaiting subpoena return to replace truncated OneDrive export rows.",
+    "status": "blocked",
+    "task_id": "onedrive-003",
+    "title": "Restore missing beneficiary audit trail"
+  },
+  {
+    "assignee": "data-quality",
+    "notes": "Map free-form OneDrive notes into canonical SAR schema fields.",
+    "status": "queued",
+    "task_id": "onedrive-004",
+    "title": "Normalise pass-through account identifiers"
+  },
+  {
+    "assignee": "case-management",
+    "due_date": "2024-02-10",
+    "notes": "Uploaded PDF to OneDrive remediation folder and notified stakeholders.",
+    "status": "completed",
+    "task_id": "onedrive-005",
+    "title": "Publish remediation checklist to case workspace"
+  }
+]
