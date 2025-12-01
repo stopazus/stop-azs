@@ -35,6 +35,23 @@ def test_restore_does_not_overwrite_existing(tmp_path: Path) -> None:
     assert destination.read_text(encoding="utf-8").strip().startswith("[")
 
 
+def test_restore_supports_paths_with_spaces(tmp_path: Path) -> None:
+    """Ensure restoration works for destinations containing spaces."""
+
+    from sar_parser.tasks import DEFAULT_TASKS, restore_onedrive_tasks
+
+    destination = tmp_path / "SSD V7 2TB" / "workspace" / "data" / "onedrive_tasks.json"
+
+    created_path = restore_onedrive_tasks(destination)
+
+    assert created_path == destination
+    assert created_path.exists()
+
+    data = json.loads(created_path.read_text(encoding="utf-8"))
+    assert len(data) == len(DEFAULT_TASKS)
+    assert {item["task_id"] for item in data} == {task.task_id for task in DEFAULT_TASKS}
+
+
 def test_load_restores_missing_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     from sar_parser import tasks as tasks_module
 
