@@ -10,6 +10,21 @@ The package bundles two main feature areas:
 Importing from :mod:`sar_parser` re-exports the most frequently used entry
 points from both modules so callers can access them without digging into the
 package structure.
+
+Quick start example
+===================
+
+.. code-block:: python
+
+   from sar_parser import validate_document, load_onedrive_tasks
+
+   document = {...}  # SAR payload
+   validate_document(document)
+   tasks = load_onedrive_tasks()
+
+The import side effects ensure that :func:`load_onedrive_tasks` will recreate
+the bundled dataset on demand, giving callers a resilient entry point that
+matches the behaviour exercised in the unit test suite.
 """
 
 from .validator import (
