@@ -23,6 +23,14 @@ promoting them into `analysis.md`. A living index of those destinations now live
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
 
+## Request Flow
+
+The end-to-end SAR submission path—from the public endpoint through validation
+and durable persistence—is documented in
+[`docs/request_flow.md`](docs/request_flow.md). The Mermaid diagram captures how
+the API gateway, controller, validation layer, and database interact so teams
+can troubleshoot or extend the pipeline without guesswork.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
