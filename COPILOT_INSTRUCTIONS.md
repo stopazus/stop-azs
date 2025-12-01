@@ -5,9 +5,7 @@
 - `sar_parser`
 
 ## Validation Commands
-Please ensure to run the following commands to validate:
-- `yarn lint`
-- `yarn test`
+- `python -m pytest`
 
 ## CI Snippet for GitHub Actions
 ```yaml
@@ -24,15 +22,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
       - name: Run validation commands
         run: |
-          yarn lint
-          yarn test
+          python -m pytest
 ```
 
 ## Owner Contact
