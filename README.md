@@ -23,6 +23,12 @@ promoting them into `analysis.md`. A living index of those destinations now live
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
 
+## Request Flow
+
+The end-to-end path for a client submission—from the public API endpoint through validation and into the
+database—is captured in [`docs/request_flow.md`](docs/request_flow.md), including a Mermaid diagram that
+highlights each security, validation, and persistence hop.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
