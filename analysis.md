@@ -29,15 +29,20 @@
   *Action required:* Deliver referral packet and request preservation letters for implicated institutions.
 
 ## Active Task Board
-| Priority | Task | Owner | Deadline | Status |
+| Priority | Task | Owner | Deadline | Status (Last Updated) |
 | --- | --- | --- | --- | --- |
-| P0 | Secure written confirmation of CNB freeze on accounts 2304977980 and 2000043165557. | Freeze Ops Lead | Immediate | ☐ Pending |
-| P0 | Confirm RAT transmission of Financial Fraud Kill Chain notice to CNB and downstream banks. | Agency Liaison | Immediate | ☐ Pending |
-| P1 | Submit urgent SAR update via FinCEN BSA E-Filing referencing IC3 Submission ID. | Compliance Officer | < 24 hrs | ☐ In Progress |
-| P1 | Deliver IRS-CI referral packet with bank records and RAT acknowledgement. | Legal Liaison | < 24 hrs | ☐ Not Started |
-| P1 | Prepare ex parte TRO filing in Broward County Circuit Court to secure domestic assets. | Litigation Counsel | 24–48 hrs | ☐ Not Started |
-| P2 | Compile freeze log with call notes, case numbers, and follow-up commitments. | Evidence Clerk | Ongoing | ☑ Active |
-| P2 | Coordinate secondary receiving bank emergency hold letters referencing RAT notice. | Agency Liaison | Ongoing | ☐ Pending |
+| P0 | Secure written confirmation of CNB freeze on accounts 2304977980 and 2000043165557. | Freeze Ops Lead | Immediate | Pending — awaiting CNB written acknowledgment (2023-02-10 10:30 ET) |
+| P0 | Confirm RAT transmission of Financial Fraud Kill Chain notice to CNB and downstream banks. | Agency Liaison | Immediate | Pending — RAT callback not yet logged (2023-02-10 10:30 ET) |
+| P1 | Submit urgent SAR update via FinCEN BSA E-Filing referencing IC3 Submission ID. | Compliance Officer | < 24 hrs | In Progress — draft narrative with updated beneficiary list (2023-02-10 09:45 ET) |
+| P1 | Deliver IRS-CI referral packet with bank records and RAT acknowledgement. | Legal Liaison | < 24 hrs | Not Started — awaiting RAT confirmation to append (2023-02-10 10:30 ET) |
+| P1 | Prepare ex parte TRO filing in Broward County Circuit Court to secure domestic assets. | Litigation Counsel | 24–48 hrs | Not Started — evidence packet under legal review (2023-02-10 10:30 ET) |
+| P2 | Compile freeze log with call notes, case numbers, and follow-up commitments. | Evidence Clerk | Ongoing | Active — logging CNB hotline call details (2023-02-10 10:20 ET) |
+| P2 | Coordinate secondary receiving bank emergency hold letters referencing RAT notice. | Agency Liaison | Ongoing | Pending — templates prepared, awaiting RAT notice (2023-02-10 10:30 ET) |
+
+## Archived Actions (Confirmation Received)
+> Move tasks here once written confirmations or official acknowledgements are filed in the evidence repository.
+
+_No confirmed actions archived yet._
 
 > Update task statuses in real time; promote completed actions to an archived appendix once confirmation documents are received.
 
