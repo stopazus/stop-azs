@@ -1,7 +1,8 @@
 # Zeig Escrow Recovery — Living Response Dossier
 
-> This document tracks the live status of the recovery effort stemming from the diversion of approximately $7 million in escrow
-> proceeds from the Zeig IOTA account. It centralizes tasks, owners, evidence, and coordination checkpoints for the strike team.
+> This living dossier must be updated as soon as new information lands. Track the real-time status of the $7 million escrow
+> diversion recovery, centralize task owners and evidence, and immediately archive completed actions once supporting
+> confirmation documents are logged.
 
 ## Mission Snapshot
 - **Primary objective:** Recover and preserve diverted escrow proceeds tied to Justin Zeig’s misuse of the City National Bank
