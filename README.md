@@ -11,8 +11,12 @@ recovery and enforcement efforts.
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
 - Installs essential applications via winget (Python 3.12, Git, rclone, VS Code, 7-Zip, VLC, WinSCP, PuTTY)
 - Maps Google Drives (https://drive.google.com/drive/folders/1UwPxnoQJcSaeBRCkIkZ2aV2_lGcVlhcB?usp=sharing)
+- Reconnects NAS-hosted cloud mirrors to standard drive letters (G:, I:, O:) documented in
+  [docs/nas_drive_mapping.md](docs/nas_drive_mapping.md) so investigators can restore shortcuts after
+  reinstalls.
 
-See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions.
+See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions and
+the drive-mapping reference.
 
 ## External Research Resources
 
