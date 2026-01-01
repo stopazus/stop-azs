@@ -6,6 +6,25 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+## Repository Structure
+
+The repository is organized into the following directories:
+
+- **`evidence/`** - Evidence files with integrity tracking
+  - `raw/` - Original PDFs/Images (Bank Statements, Emails)
+  - `hashed/` - Renamed with SHA-256 hash for integrity
+  - `ucc_filings/` - Official UCC-1 and Registry Snapshots
+- **`ledgers/`** - Financial ledgers and transaction records
+  - `active/` - Current working Excel/CSV workbooks
+  - `snapshots/` - Weekly frozen CSV exports (e.g., `ledger_2025-11-22.csv`)
+- **`docs/`** - Documentation and reports
+  - `affidavits/` - Generated affidavits (Notarized scans)
+  - `reports/` - Weekly summaries for Law Enforcement
+- **`scripts/`** - Tools for hashing and reconciling
+- **`tools/`** - Additional utility scripts
+- **`sar_parser/`** - SAR (Suspicious Activity Report) validation tools
+- **`tests/`** - Test files
+
 ## Windows NAS Bootstrap
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
