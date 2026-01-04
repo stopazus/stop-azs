@@ -73,6 +73,36 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_detects_missing_amount_text(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", " ")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount value is required.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_placeholder_date(self) -> None:
+        xml = VALID_SAR_XML.replace("2024-04-30", "PENDING")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Transaction date must be provided instead of a placeholder.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_placeholder_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "1234567890abcdef1234567890ABCDEF",
+            "UNKNOWN",
+        )
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be provided instead of a placeholder.",
+            {error.message for error in result.errors},
+        )
+
 
 class ValidateFileTests(unittest.TestCase):
     def test_reads_from_disk(self) -> None:

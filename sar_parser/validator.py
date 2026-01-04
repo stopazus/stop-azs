@@ -27,6 +27,8 @@ from __future__ import annotations
 import os
 
 from dataclasses import dataclass, field
+from datetime import datetime
+import re
 from typing import Iterable, Optional
 from xml.etree import ElementTree as ET
 
@@ -117,6 +119,11 @@ def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> 
 
 
 def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
+    if root.find("FilingInformation") is None:
+        result.errors.append(
+            ValidationError("Missing <FilingInformation> block.", location="/SAR")
+        )
+
     if root.find("FilerInformation") is None:
         result.errors.append(
             ValidationError("Missing <FilerInformation> block.", location="/SAR")
@@ -150,13 +157,120 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
             )
             continue
 
-        if _is_placeholder(amount.text):
-            result.errors.append(
-                ValidationError(
-                    "Amount must be provided instead of a placeholder.",
-                    location=f"/SAR/Transactions/Transaction[{index}]/Amount",
-                )
+        _validate_amount(amount, index, result)
+
+        _validate_transaction_date(transaction.find("Date"), index, result)
+
+        _validate_uetr(transaction.find("UETR"), index, result)
+
+
+def _validate_amount(amount: ET.Element, index: int, result: ValidationResult) -> None:
+    value = _normalise_text(amount.text)
+
+    if not value:
+        result.errors.append(
+            ValidationError(
+                "Amount value is required.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
             )
+        )
+    elif _is_placeholder(value):
+        result.errors.append(
+            ValidationError(
+                "Amount must be provided instead of a placeholder.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+            )
+        )
+
+    if value and not _is_placeholder(value) and not _is_float(value):
+        result.errors.append(
+            ValidationError(
+                "Amount must be a numeric value.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+            )
+        )
+    elif value and not _is_placeholder(value) and float(value) < 0:
+        result.errors.append(
+            ValidationError(
+                "Amount cannot be negative.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+            )
+        )
+
+    currency = amount.attrib.get("currency")
+    if not currency or not re.fullmatch(r"[A-Z]{3}", currency):
+        result.errors.append(
+            ValidationError(
+                "Amount currency must be a three-letter ISO 4217 code.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+            )
+        )
+
+
+def _validate_transaction_date(date_element: Optional[ET.Element], index: int, result: ValidationResult) -> None:
+    if date_element is None:
+        result.errors.append(
+            ValidationError(
+                "Transaction is missing a <Date> element.",
+                location=f"/SAR/Transactions/Transaction[{index}]",
+            )
+        )
+        return
+
+    value = _normalise_text(date_element.text)
+    if not value or _is_placeholder(value):
+        result.errors.append(
+            ValidationError(
+                "Transaction date must be provided instead of a placeholder.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Date",
+            )
+        )
+        return
+    try:
+        datetime.strptime(value, "%Y-%m-%d")
+    except ValueError:
+        result.errors.append(
+            ValidationError(
+                "Transaction date must use YYYY-MM-DD format.",
+                location=f"/SAR/Transactions/Transaction[{index}]/Date",
+            )
+        )
+
+
+def _validate_uetr(uetr_element: Optional[ET.Element], index: int, result: ValidationResult) -> None:
+    if uetr_element is None:
+        result.errors.append(
+            ValidationError(
+                "Transaction is missing a <UETR> element.",
+                location=f"/SAR/Transactions/Transaction[{index}]",
+            )
+        )
+        return
+
+    value = _normalise_text(uetr_element.text)
+    if not value or _is_placeholder(value):
+        result.errors.append(
+            ValidationError(
+                "UETR must be provided instead of a placeholder.",
+                location=f"/SAR/Transactions/Transaction[{index}]/UETR",
+            )
+        )
+        return
+    if not re.fullmatch(r"[0-9a-fA-F]{32}", value):
+        result.errors.append(
+            ValidationError(
+                "UETR must be a 32-character hexadecimal string.",
+                location=f"/SAR/Transactions/Transaction[{index}]/UETR",
+            )
+        )
+
+
+def _is_float(value: str) -> bool:
+    try:
+        float(value)
+    except ValueError:
+        return False
+    return True
 
 
 __all__ = [
