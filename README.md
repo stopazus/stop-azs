@@ -27,3 +27,15 @@ off-repo staging areas without breaking the evidence trail.
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## Task Manager Utility
+
+The repository includes a lightweight PowerShell helper, `task_manager.ps1`, for tracking work
+items in `tasks.json`. It supports add, update, remove, and list actions so contributors on
+Windows can quickly log and adjust tasks.
+
+Example: mark the "Database Migration" task as active with a priority of 2 and two tags.
+
+```powershell
+./task_manager.ps1 -Action update -Title "Database Migration" -Status active -Priority 2 -Tags "urgent,database"
+```
