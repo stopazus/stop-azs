@@ -5,6 +5,7 @@
 <FilingDate>2025-09-11</FilingDate>
 <AmendmentType>None</AmendmentType>
 <PriorDocumentControlNumber/>
+<InternalReference>UCC ASAP AMRSCSE</InternalReference>
 <ContactOffice>Office of Terrorism and Financial Intelligence (TFI) – Manager, N &amp; S Holding LLC</ContactOffice>
 <ContactPhone>786-707-7111</ContactPhone>
 <ContactEmail>office@nsholding.us</ContactEmail>
@@ -100,7 +101,7 @@
 <Locations>
 <KnownAddress>1040 Hsia Bitoon</KnownAddress>
 </Locations>
-<Narrative>IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. On 2023-02-09, Zeig IOTA Escrow received an urgent email spoofing a title officer with altered wire instructions. Funds from operating account ***1002 were moved via intermediary accounts #2304977980 (River Bank &amp; Trust) and #2000043165557 (Great Lakes Commercial Bank) before final dispersal to YBH Holdings LLC (***4581) and Eisenstein Buyers (***9217), followed by additional transfers to layered offshore vehicles in Curaçao and the BVI.
+<Narrative>IC3 Submission ID 7065f60922b948a59af3a8654edb16dd. Internal reference: UCC ASAP AMRSCSE. On 2023-02-09, Zeig IOTA Escrow received an urgent email spoofing a title officer with altered wire instructions. Funds from operating account ***1002 were moved via intermediary accounts #2304977980 (River Bank &amp; Trust) and #2000043165557 (Great Lakes Commercial Bank) before final dispersal to YBH Holdings LLC (***4581) and Eisenstein Buyers (***9217), followed by additional transfers to layered offshore vehicles in Curaçao and the BVI.
 
 Escrow personnel confirmed the email header resolved to an anonymized SMTP relay located in Eastern Europe and that MFA alerts were disabled shortly before the transfer window. IP traffic logs and voice recordings gathered by N &amp; S Holding LLC’s AML team are preserved in the attached annex. Recovery efforts were initiated the same day through the FBI Recovery Asset Team and Banesco USA’s fraud desk; subpoena responses for final dollar amounts and SWIFT UETR identifiers are pending.
 
