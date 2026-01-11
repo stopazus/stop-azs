@@ -6,6 +6,12 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+## Features
+
+- Normalizes how external research resources are cataloged for contributors.
+- Documents the end-to-end request flow with a Mermaid diagram.
+- Provides a Windows NAS bootstrap bundle for workstation setup.
+
 ## Windows NAS Bootstrap
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
