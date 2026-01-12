@@ -25,6 +25,8 @@ without additional packages.
 from __future__ import annotations
 
 import os
+import re
+from decimal import Decimal, InvalidOperation
 
 from dataclasses import dataclass, field
 from typing import Iterable, Optional
@@ -145,7 +147,7 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
             result.errors.append(
                 ValidationError(
                     "Transaction is missing an <Amount> element.",
-                    location=f"/SAR/Transactions/Transaction[{index}]",
+                    location=f"/SAR/Transactions/Transaction[{index}]/Amount",
                 )
             )
             continue
@@ -157,6 +159,67 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
                     location=f"/SAR/Transactions/Transaction[{index}]/Amount",
                 )
             )
+
+        else:
+            raw_amount = _normalise_text(amount.text)
+
+            if any(char in raw_amount for char in ("$", ",")):
+                result.errors.append(
+                    ValidationError(
+                        "Amount must not contain currency symbols or commas.",
+                        location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                    )
+                )
+            else:
+                try:
+                    val = Decimal(raw_amount)
+
+                    if val < 0:
+                        result.errors.append(
+                            ValidationError(
+                                "Amount must be a non-negative value.",
+                                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                            )
+                        )
+
+                    if val.as_tuple().exponent < -2:
+                        result.errors.append(
+                            ValidationError(
+                                "Amount cannot have more than 2 decimal places.",
+                                location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                            )
+                        )
+
+                except InvalidOperation:
+                    result.errors.append(
+                        ValidationError(
+                            "Amount must be a valid numeric value.",
+                            location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                        )
+                    )
+
+        uetr = transaction.find("UETR")
+        if uetr is None or _is_placeholder(uetr.text):
+            result.errors.append(
+                ValidationError(
+                    "Transaction is missing a valid <UETR> identifier.",
+                    location=f"/SAR/Transactions/Transaction[{index}]/UETR",
+                )
+            )
+        else:
+            normalised_uetr = _normalise_text(uetr.text)
+            uuid_pattern = (
+                r"^[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?"
+                r"[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}$"
+            )
+
+            if not re.fullmatch(uuid_pattern, normalised_uetr):
+                result.errors.append(
+                    ValidationError(
+                        "UETR must be a valid 32-character hex string or UUID.",
+                        location=f"/SAR/Transactions/Transaction[{index}]/UETR",
+                    )
+                )
 
 
 __all__ = [

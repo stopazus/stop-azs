@@ -73,6 +73,85 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_rejects_currency_symbols_and_commas(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "$1,000.50")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount must not contain currency symbols or commas.",
+            {error.message for error in result.errors},
+        )
+
+    def test_reports_missing_amount_location(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "      <Amount currency=\"USD\">1000.50</Amount>\n", ""
+        )
+        result = validate_string(xml)
+
+        self.assertFalse(result.is_valid)
+        self.assertEqual(
+            (
+                "Transaction is missing an <Amount> element.",
+                "/SAR/Transactions/Transaction[1]/Amount",
+            ),
+            (result.errors[0].message, result.errors[0].location),
+        )
+
+    def test_rejects_non_numeric_amount(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "one thousand")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount must be a valid numeric value.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_negative_amount(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "-10.00")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount must be a non-negative value.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_excess_decimal_places(self) -> None:
+        xml = VALID_SAR_XML.replace("1000.50", "10.123")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Amount cannot have more than 2 decimal places.",
+            {error.message for error in result.errors},
+        )
+
+    def test_requires_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace("<UETR>1234567890abcdef1234567890ABCDEF</UETR>", "")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Transaction is missing a valid <UETR> identifier.",
+            {error.message for error in result.errors},
+        )
+
+    def test_rejects_invalid_uetr_format(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "1234567890abcdef1234567890ABCDEF", "1234-invalid-uetr"
+        )
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be a valid 32-character hex string or UUID.",
+            {error.message for error in result.errors},
+        )
+
+    def test_allows_standard_uuid_notation(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "1234567890abcdef1234567890ABCDEF",
+            "12345678-90ab-cdef-1234-567890abcdef",
+        )
+        result = validate_string(xml)
+        self.assertTrue(result.is_valid, result.errors)
+
 
 class ValidateFileTests(unittest.TestCase):
     def test_reads_from_disk(self) -> None:
