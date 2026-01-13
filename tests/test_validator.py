@@ -73,6 +73,15 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_handles_default_namespace(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "<SAR>",
+            '<SAR xmlns="http://www.fincen.gov/base">',
+            1,
+        )
+        result = validate_string(xml)
+        self.assertTrue(result.is_valid, result.errors)
+
 
 class ValidateFileTests(unittest.TestCase):
     def test_reads_from_disk(self) -> None:
