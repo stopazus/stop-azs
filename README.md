@@ -23,6 +23,11 @@ promoting them into `analysis.md`. A living index of those destinations now live
 custodian, and handling expectations so contributors know how to access the Gemini workspace and any future
 off-repo staging areas without breaking the evidence trail.
 
+## Request flow documentation
+
+The [request flow guide](docs/request_flow.md) describes how client submissions traverse the platform—from the
+public attachment endpoint through validation, persistence, and the queued handoffs to IC3, IRS-CI, and FinCEN.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
