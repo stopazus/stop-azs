@@ -25,5 +25,8 @@ off-repo staging areas without breaking the evidence trail.
 
 ## Testing
 
-The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
-collected tests, confirming that no executable checks are defined yet.
+Run the Python unit tests with `pytest`:
+
+```bash
+python -m pytest
+```

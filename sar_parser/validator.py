@@ -117,6 +117,11 @@ def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> 
 
 
 def _validate_required_blocks(root: ET.Element, result: ValidationResult) -> None:
+    if root.find("FilingInformation") is None:
+        result.errors.append(
+            ValidationError("Missing <FilingInformation> block.", location="/SAR")
+        )
+
     if root.find("FilerInformation") is None:
         result.errors.append(
             ValidationError("Missing <FilerInformation> block.", location="/SAR")

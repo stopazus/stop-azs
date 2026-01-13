@@ -56,13 +56,29 @@ class ValidateStringTests(unittest.TestCase):
         self.assertTrue(result.is_valid, result.errors)
 
     def test_reports_missing_sections(self) -> None:
-        broken_xml = "<SAR><FilingInformation /></SAR>"
+        broken_xml = "<SAR></SAR>"
         result = validate_string(broken_xml)
         self.assertFalse(result.is_valid)
         error_messages = {error.message for error in result.errors}
+        self.assertIn("Missing <FilingInformation> block.", error_messages)
         self.assertIn("Missing <FilerInformation> block.", error_messages)
         self.assertIn("At least one <Subject> is required.", error_messages)
         self.assertIn("At least one <Transaction> is required.", error_messages)
+
+    def test_requires_filing_information(self) -> None:
+        xml = """\
+<SAR>
+  <FilerInformation />
+  <Subjects><Subject /></Subjects>
+  <Transactions><Transaction><Amount>5</Amount></Transaction></Transactions>
+</SAR>
+"""
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Missing <FilingInformation> block.",
+            {error.message for error in result.errors},
+        )
 
     def test_detects_placeholder_amount(self) -> None:
         xml = VALID_SAR_XML.replace("1000.50", "UNKNOWN")
