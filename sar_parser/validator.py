@@ -25,10 +25,10 @@ without additional packages.
 from __future__ import annotations
 
 import os
+import re
 
 from dataclasses import dataclass, field
 from datetime import datetime
-import re
 from typing import Iterable, Optional
 from xml.etree import ElementTree as ET
 
@@ -174,6 +174,7 @@ def _validate_amount(amount: ET.Element, index: int, result: ValidationResult) -
                 location=f"/SAR/Transactions/Transaction[{index}]/Amount",
             )
         )
+        return
     elif _is_placeholder(value):
         result.errors.append(
             ValidationError(
@@ -181,15 +182,16 @@ def _validate_amount(amount: ET.Element, index: int, result: ValidationResult) -
                 location=f"/SAR/Transactions/Transaction[{index}]/Amount",
             )
         )
+        return
 
-    if value and not _is_placeholder(value) and not _is_float(value):
+    if not _is_float(value):
         result.errors.append(
             ValidationError(
                 "Amount must be a numeric value.",
                 location=f"/SAR/Transactions/Transaction[{index}]/Amount",
             )
         )
-    elif value and not _is_placeholder(value) and float(value) < 0:
+    elif float(value) < 0:
         result.errors.append(
             ValidationError(
                 "Amount cannot be negative.",
