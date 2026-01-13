@@ -15,6 +15,14 @@ The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows
 
 See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions.
 
+## Refreshing the GitHub Token
+
+Some automation (for example, local scripts that interact with GitHub’s API or
+manually triggered workflows) may require a personal access token in addition to
+the ephemeral `GITHUB_TOKEN` that Actions provides. Follow the inventory,
+rotation, and validation guide in [docs/github_token.md](docs/github_token.md)
+whenever you need to generate a new credential or update the repository secret.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
