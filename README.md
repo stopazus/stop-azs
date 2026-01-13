@@ -15,7 +15,21 @@ The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows
 
 See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions.
 
+## SAR Parser Utilities
+
+The `sar_parser` package contains helper utilities that can be reused in
+automation workflows:
+
+- `validate_string` and `validate_file` perform structural checks on SAR
+  XML documents and collect actionable validation errors.
+- `sar_parser.live_update` offers a "live update" mode that continuously
+  monitors a SAR file on disk and re-runs the validator whenever the file
+  changes. You can launch it via `python -m sar_parser.live_update path/to/file.xml`.
+
 ## Testing
 
-The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
-collected tests, confirming that no executable checks are defined yet.
+Run the Python unit tests to verify the validator and live update helper:
+
+```bash
+python -m pytest
+```

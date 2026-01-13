@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sar_parser import validate_file, validate_string
+from sar_parser import LiveUpdateMonitor, validate_file, validate_string
 
 
 VALID_SAR_XML = """\
@@ -81,6 +81,52 @@ class ValidateFileTests(unittest.TestCase):
             path.write_text(VALID_SAR_XML, encoding="utf-8")
             result = validate_file(path)
         self.assertTrue(result.is_valid, result.errors)
+
+
+class LiveUpdateMonitorTests(unittest.TestCase):
+    def test_emits_updates_when_file_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "sar.xml"
+            path.write_text(VALID_SAR_XML, encoding="utf-8")
+
+            monitor = LiveUpdateMonitor(path)
+            first = monitor.poll_once()
+            self.assertIsNotNone(first)
+            assert first is not None
+            self.assertTrue(first.result.is_valid)
+
+            self.assertIsNone(monitor.poll_once())
+
+            path.write_text(VALID_SAR_XML.replace("1000.50", "UNKNOWN"), encoding="utf-8")
+            second = monitor.poll_once()
+            self.assertIsNotNone(second)
+            assert second is not None
+            self.assertFalse(second.result.is_valid)
+
+    def test_run_requires_positive_interval(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "sar.xml"
+            path.write_text(VALID_SAR_XML, encoding="utf-8")
+            monitor = LiveUpdateMonitor(path)
+
+            iterator = monitor.run(interval=0)
+            with self.assertRaises(ValueError):
+                next(iterator)
+
+    def test_missing_file_is_tolerated_until_available(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "sar.xml"
+            monitor = LiveUpdateMonitor(path)
+
+            # First poll should quietly return None when the file is absent.
+            self.assertIsNone(monitor.poll_once())
+
+            # After writing the file we should see a validation result.
+            path.write_text(VALID_SAR_XML, encoding="utf-8")
+            update = monitor.poll_once()
+            self.assertIsNotNone(update)
+            assert update is not None
+            self.assertTrue(update.result.is_valid)
 
 
 if __name__ == "__main__":

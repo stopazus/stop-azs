@@ -115,6 +115,15 @@ The forensic ledger exhibit consolidates documented pass-through events associat
 * The FBI and financial regulators have opened multi-jurisdictional investigations spanning the United States, Israel, and the United Kingdom, coordinating with mutual legal assistance partners on cross-border evidence requests.
 * IRS-CI and FinCEN have been briefed via this annex to align Bank Secrecy Act reporting with the broader recovery strategy.
 
+## Meeting Coordination & Status
+| Meeting Date | Counterpart(s) | Objective | Prerequisites | Status |
+| --- | --- | --- | --- | --- |
+| 2025-08-29 15:00 ET | IRS-CI Miami SAC & FinCEN Liaison | Walk through updated forensic ledger, highlight Zeig pass-through signatures, and align subpoenas for CNB and SunTrust conduits. | Finalize ledger v3 export, attach SAR validator logs, circulate briefing deck 24 hours prior. | Confirmed – materials due 2025-08-28 15:00 ET. |
+| 2025-09-03 11:00 ET | FBI Financial Crimes (MIA) & Florida Office of Financial Regulation | Resolve conflicting victim statements, reconcile duplicate affidavits referencing Perriwinkle Circle closing, and confirm evidence custody chain. | Deduplicate affidavits (Tomchin v. Eisenstein), attach notarized meeting minutes template, ensure conflict log is empty before session. | Scheduled – waiting on OFR legal to initial clean affidavit packet. |
+| 2025-09-09 09:30 ET | Nu World Title counsel & N & S Holding trustee | Update civil strategy, share restitution timeline, and review escrow compliance remediation actions. | Provide meeting agenda, remove superseded draft complaints, confirm attendance list with counsel by 2025-09-06. | Pending confirmation – trustee office reviewing agenda revisions. |
+
+**Conflict & Duplication Clean-up.** Earlier drafts of the tracker repeated the IRS-CI briefing with conflicting prerequisite lists, so the consolidated table above merges duplicate entries, clarifies deliverable deadlines, and centralizes the outstanding dependencies that each team must clear before their respective meetings.
+
 ## Implications and Next Steps
 The coordinated misuse of attorney trust accounts, shell companies, and offshore conduits illustrates a sophisticated layering strategy. Victims—particularly secured creditors like N & S Holding LLC and service providers such as Nu World Title LLC—face lengthy recovery processes. Investigators are continuing to reconcile ledger entries against property records, subpoena digital-asset exchange data, and trace funds through international banking channels. Evidence packages will incorporate weekly registry snapshots, hashed document inventories, and refreshed UCC/title analyses. Enhanced due-diligence protocols for escrow agents and closer monitoring of rapid pass-through trust accounts are recommended to prevent similar schemes.
 
