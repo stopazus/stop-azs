@@ -1,0 +1,3 @@
+record_id,asset,hash,source,ingested_at
+1,disk-image-ewf.E01,5a56d2ac0d52a1f9b1d5e2f7d31c813ad4c6e2a532d5f4cb24b0a4b88960f2d0,/evidence/drop/disk-image-ewf.E01,2025-11-22T22:25:11Z
+2,mailbox-export.pst,2f4f0ae85453a56be311c7d8c8fef52b934f712a6f9729fdfcb2e2754a36c462,/evidence/drop/mailbox-export.pst,2025-11-22T22:26:04Z
