@@ -1,5 +1,68 @@
 # Escrow Diversion Investigation Summary
 
+## SAR Narrative Supplement Summary
+
+**Submission ID:** 7065f60922b948a59af3a8654edb16dd  
+**Report Date:** October 5, 2025  
+**Timezone:** America/New_York
+
+### Core Narrative
+* **Subject Activity:** Diversion of escrowed sale proceeds from Florida Land Trust No. 2763-196. Title agent redirected funds owed to N & S Holding LLC into attorney-controlled IOTA escrow at City National Bank of Florida, contradicting written instructions.
+* **Primary Concern:** Layering typology in real-estate money laundering—wire proceeds moved from Banesco USA escrow to attorney trust, then further distributed through related entities and accounts.
+
+### Key Exhibits
+| ID | Description |
+| --- | --- |
+| A | IC3 Complaint (case narrative and loss statement) |
+| A-1 | Trust Fund Misappropriation Summary |
+| A-1c | FinCEN SAR Annex covering Wire ZLG-070623-01 |
+| B | Important Closing Instructions (trustee directive) |
+| C | Advice of Debit – Bank Confidential |
+| D | Layering Activity Report |
+| E | Legal Claims Summary |
+
+### Entities of Interest
+* **Beneficiary:** N & S Holding LLC (Wyoming, operating in Florida)
+* **Trustee:** Land Trust Service Corporation / Florida Land Trust No. 2763-196
+* **Title Agent:** Nu World Title of Sunset LLC
+* **Receiving Attorney / IOTA:** Zeig Law Firm PLLC (Justin E. Zeig, signatory)
+* **Financial Institutions:** Banesco USA (originator) and City National Bank of Florida (beneficiary bank)
+* **Related Individuals:** Daniella & Zachary Eisenstein (recorded owners at 3049 Perriwinkle Cir), Yossef Ben-Hamo, Justin E. Zeig
+* **Related Entities:** YBH Holdings LLC (active), YBH Holdings 2948 LLC & 341 LLC (inactive), ZLG Consulting BVI, ZLG Holdings N.V.
+
+### Property References
+| Address | Status | Notes |
+| --- | --- | --- |
+| 2763 NW 196 Terrace, Miami Gardens, FL | confirmed_wire_event | Escrow diversion; proceeds intended for N & S Holding LLC |
+| 3049 Perriwinkle Circle, Davie, FL 33328 | record_title_confirmed_control_unverified | Recorded owners Daniella & Zachary Eisenstein; alleged control via YBH Holdings 234 LLC |
+| 2733 NW 198th Terrace | unverified_address | Linked to ZLG Holdings N.V.; pending corroboration |
+
+### Transaction Timeline
+| Date / Time (EST) | Amount (USD) | Origin → Destination | Reference / Status |
+| --- | --- | --- | --- |
+| 2023-01-11 17:09:50 | 206,693.68 | Banesco USA D/XXXXXX6842 (Nu World Title LLC) → City National Bank of Florida ABA 066004367 / Acct #2304977980 (Zeig Law Firm PLLC IOTA) | OBI “22S-213 SELLER PROCEEDS 2763 NW 196 TERR” (confirmed) |
+| 2023-02-09 | 10,000.00 | Banesco USA (Nu World Title of Sunset LLC) → City National Bank of Florida (Zeig Law IOTA) | Fedwire 20230209/MMQFMPDI/000127 (pending confirmation in annex; holdback release narrative) |
+
+### Indicators Highlighted
+1. Wire disbursement violated land-trust beneficiary instructions.
+2. Attorney IOTA escrow used to park proceeds owed to beneficiary.
+3. No 1099-S issued to rightful beneficiary.
+4. False justification citing a “future transaction.”
+5. Absence of corrective disbursement.
+6. Layering path: escrow → attorney trust → related/shell entities.
+7. Round-dollar and structured transfers in related accounts.
+8. Twin LLC pattern (YBH 2948/341) suggests rotating SPVs.
+9. Supplemental wire ZLG-070623-01 flagged for title timeline mismatch.
+
+### Law Enforcement Coordination
+| Agency | Program | Reference | Requested Action |
+| --- | --- | --- | --- |
+| FBI – Internet Crime Complaint Center (IC3) | Recovery Asset Team (RAT) | IC3 Submission ID 7065f60922b948a59af3a8654edb16dd | Initiate rapid asset freeze/trace with Banesco USA and City National Bank of Florida for 01/11/2023 wire |
+| FinCEN – BSA E-Filing | Suspicious Activity Report | SAR narrative supplement | Flag parties/accounts; share with task force partners (314(a)/(b)) |
+| IRS – Criminal Investigation | Fraud / Money Laundering Referral | Pending Form 3949-A supplement | Parallel financial tracing for tax evasion, unreported proceeds, nominee structures |
+
+_Summary prepared for quick reference; see original SAR XML and exhibits for full detail._
+
 ## Case Metadata
 | Field | Details |
 | --- | --- |
