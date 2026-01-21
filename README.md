@@ -4,9 +4,7 @@ from the City National Bank trust account controlled by Justin E. Zeig. See [ana
 for detailed background on the trust account activity, summaries of the shell entities involved,
 captured case metadata, identified red flags, an expanded forensic ledger exhibit (as of 24 August
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
-recovery and enforcement efforts. For an end-to-end view of how client submissions are validated
-and persisted, review the [request flow documentation](docs/request_flow.md) and its Mermaid-based
-sequence diagram.
+recovery and enforcement efforts.
 
 ## Windows NAS Bootstrap
 
