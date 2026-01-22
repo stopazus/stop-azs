@@ -6,6 +6,9 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+For extended operating procedures, escalation contacts, and dataset maintenance guidance, consult
+the supplemental [README_EXTRA.md](README_EXTRA.md).
+
 ## Windows NAS Bootstrap
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
@@ -33,3 +36,9 @@ highlights each security, validation, and persistence hop.
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## Repository Setup
+
+To link a cloned working copy to the GitHub repository, add the `origin` remote:
+
+git remote add origin <https://github.com/stopazus/gemini-chat.git>
