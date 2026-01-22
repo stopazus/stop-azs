@@ -1,0 +1,216 @@
+# Codex Suspicious Activity Report configuration for IC3 Submission ID 7065f60922b948a59af3a8654edb16dd
+
+title = "DOJ Seizure Report Packet: Zeig IOTA Escrow Fraud"
+
+[CodexSettings]
+requested_actions = [
+  "Maintain wire holds until DOJ seizure warrant is executed",
+  "Notify correspondent banks via 314(b) information sharing",
+  "Provide updated UETR once Banesco USA responds to subpoena"
+]
+
+[filing]
+type = "Initial"
+date = "2025-04-19T01:48:12-05:00"
+amendment_type = "None"
+document_control_number = ""
+victim_is_filer = true
+contact = { name = "Sharon Topaz", phone = "78657077111", email = "stopazus@icloud.com" }
+
+authorities = [
+  { agency = "FBI – Internet Crime Complaint Center (IC3)", program = "Recovery Asset Team (RAT)", reference = "IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd" },
+  { agency = "FinCEN – BSA E-Filing", program = "Suspicious Activity Report (SAR)" },
+  { agency = "IRS – Criminal Investigation (IRS-CI)", program = "Fraud / Money Laundering Referral" }
+]
+
+[filer]
+legal_name = "Your IC3 Complaint"
+business_name = "N & S Holding LLC"
+ein = ""
+lei = ""
+contact_person = "Sharon Topaz"
+contact_title = "Managing Member"
+contact_phone = "7867077111"
+contact_email = "stopazus@icloud.com"
+
+[filer.address]
+line1 = "251 174th St"
+line2 = "Apt 716"
+city = "Sunny Isles Beach"
+state = "FL"
+postal_code = "33160"
+country = "US"
+
+[filer.sam]
+uei = "QD5XW4H6MNX8"
+cage = "87AY0"
+
+[[subjects]]
+type = "Business"
+role = "Beneficiary"
+name = "YBH Holdings LLC"
+state_of_incorporation = "DE"
+notes = [
+  "Account opened 2022-05-04 at Banesco USA; onboarding flagged for complex ownership but override approved.",
+  "Benefited from misdirected escrow wire on 2023-02-09."
+]
+
+[[subjects.identifiers]]
+identifier_type = "EIN"
+identifier_value = "XX-XXX5531"
+
+[[subjects.accounts]]
+account_number = "2304977980"
+financial_institution = "Banesco USA"
+account_type = "Business checking"
+
+[[subjects]]
+type = "Business"
+role = "Beneficiary"
+name = "Eisenstein Buyers"
+notes = [
+  "Shell entity created one month prior to transaction.",
+  "Received partial escrow funds despite no contractual entitlement."
+]
+
+[[subjects.accounts]]
+account_number = "2000043165557"
+financial_institution = "Banco de Reservas (DOM)"
+account_type = "International correspondent"
+
+[[subjects]]
+type = "Business"
+role = "Originator"
+name = "Zeig IOTA Escrow"
+notes = [
+  "Legitimate escrow provider whose email account was compromised.",
+  "Funds redirected following business email compromise (BEC)."
+]
+
+[[subjects.accounts]]
+account_number = "901155839"
+financial_institution = "Zeig IOTA Escrow - Operating"
+account_type = "IOTA escrow trust"
+
+[[transactions]]
+transaction_id = "TX-20230209-001"
+date = "2023-02-09"
+method = "Wire"
+originating_account = { name = "Zeig IOTA Escrow", account_number = "901155839", financial_institution = "Banesco USA" }
+pass_through_accounts = [
+  { name = "YBH Holdings LLC", account_number = "2304977980", financial_institution = "Banesco USA" },
+  { name = "Layered Offshore Accounts", account_number = "2000043165557", financial_institution = "Banco de Reservas (DOM)" }
+]
+beneficiaries = [
+  { name = "YBH Holdings LLC", country = "US" },
+  { name = "Eisenstein Buyers", country = "DO" }
+]
+amount = { currency = "USD", value = 845000.00 }
+uetr = "Pending subpoena response"
+status = "Credit confirmed"
+red_flags = [
+  "Routing inconsistent with escrow instructions",
+  "Layered transfers through offshore correspondent",
+  "Rapid movement of funds upon receipt"
+]
+
+[suspicious_activity]
+activity_types = [
+  "Wire fraud - escrow diversion",
+  "Money laundering - layering",
+  "Structuring",
+  "Business Email Compromise (BEC)"
+]
+locations = [
+  "1040 Hsia Bitoon",
+  "Remote email compromise - presumed foreign host"
+]
+first_activity_date = "2023-02-09"
+last_activity_date = "2023-02-09"
+
+[suspicious_activity.indicators]
+transaction_pattern = "Victim escrow funds diverted through shell beneficiaries via layered correspondent accounts."
+source_detection = "IC3 complaint cross-referenced with internal transaction monitoring alert."
+loss_amount = { currency = "USD", value = 845000.00 }
+recovery_status = "Funds frozen pending DOJ seizure warrant."
+
+[narrative]
+summary = "This document supports seizure and enforcement actions in relation to a structured wire fraud involving a $845,000 transaction via compromised credentials. Funds were layered through a series of shell entities, escrow withdrawals, and property purchases tied to Zeig IOTA Escrow and the Eisenstein family."
+details = "Complaint submitted at https://complaint.ic3.gov on 2025-04-19T01:48:12 EST states that Zeig IOTA Escrow's email compromise rerouted USD 845,000. Investigation confirmed instructions sent from the compromised account directed Banesco USA to wire funds to YBH Holdings LLC and Eisenstein Buyers through account 2304977980 and correspondent account 2000043165557. Rapid withdrawals and layering attempts continue to be monitored while recovery asset actions are coordinated."
+requested_actions = [
+  "Maintain wire holds until DOJ seizure warrant is executed",
+  "Notify correspondent banks via 314(b) information sharing",
+  "Provide updated UETR once Banesco USA responds to subpoena"
+]
+
+disposition = { law_enforcement_contacted = true, consent_to_share = true }
+
+[timeline]
+april_10_2023 = "$250,000 escrow deposit and immediate withdrawal via Anywires"
+may_22_2023 = "$180,000 wire flow through BR Shell LLC (UK)"
+june_15_2023 = "$50,000 moved to offshore correspondent account"
+
+[entities]
+originator = "Zeig IOTA Escrow"
+beneficiaries = ["YBH Holdings 234 LLC", "Eisenstein Buyers"]
+key_accounts = ["CNB 2304977980", "Offshore Acct 2000043165557"]
+shell_entities = ["YBH Holdings 2948 LLC", "ZLG Holdings NV", "BR Shell LLC (UK)"]
+
+[visuals]
+description = "See attached diagrams for structured transaction flow and shell relationships."
+
+[[attachments]]
+file_name = "Consolidated_SAR_Report_IC3_7065f60922b948a59af3a8654edb16dd.pdf"
+description = "Annex supplement with transaction tables, flowchart, compliance recommendations, and embedded subpoena request."
+classification = "Confidential"
+
+[[attachments]]
+file_name = "DOJ_Seizure_Report_Packet_Zeig_IOTA_Escrow_Fraud.pdf"
+description = """
+DOJ Seizure Report Packet: Zeig IOTA Escrow Fraud
+Overview:
+This document supports seizure and enforcement actions in relation to a structured wire fraud involving a USD 845,000 transaction via compromised credentials. Funds were layered through a series of shell entities, escrow withdrawals, and property purchases tied to Zeig IOTA Escrow and the Eisenstein family.
+1. Transaction & Timeline Highlights
+- April 10, 2023: USD 250,000 escrow deposit and immediate withdrawal via Anywires
+- May 22, 2023: USD 180,000 wire flow through BR Shell LLC (UK)
+- June 15, 2023: USD 50,000 moved to offshore correspondent account
+2. Entities & Accounts Involved
+- Originator: Zeig IOTA Escrow
+- Beneficiaries: YBH Holdings 234 LLC, Eisenstein Buyers
+- Key Accounts: CNB 2304977980, Offshore Account 2000043165557
+- Shells: YBH Holdings 2948 LLC, ZLG Holdings NV, BR Shell LLC (UK)
+3. Visual Flow Map & Shell Entity Tree
+See attached diagrams for structured transaction flow and shell relationships.
+"""
+classification = "Law Enforcement Sensitive"
+
+[[attachments]]
+file_name = "Master_Forensic_Report_Zeig_IOTA_Escrow_and_YBH_Network.pdf"
+description = """
+Master Forensic Report: Zeig IOTA Escrow & YBH Network
+1. Case Context & Summary
+This report compiles forensic findings for a case involving diverted wire funds originally intended for Zeig IOTA Escrow. The investigation revealed layered fund movements, shell entities, offshore accounts, and property acquisitions designed to obfuscate the true flow of funds. Funds are currently frozen pending DOJ seizure, with this report forming part of the law enforcement support package.
+2. Key Entities & Accounts
+- Zeig IOTA Escrow (Originator)
+- YBH Holdings 234 LLC / 2948 LLC (Beneficiaries)
+- CNB Account 2304977980 (Transaction Hub)
+- Eisenstein Trust (Layered Withdrawal Route)
+- Offshore Account 2000043165557
+3. Shell Structure Summary
+Diagrammatically mapped: Eisenstein ➝ YBH Holdings ➝ Property at 3049 Perriwinkle ➝ USD 120K flow through escrow ➝ Same-day withdrawals.
+4. Timeline of Activity
+- April 10, 2023: USD 250,000 in/out via Anywires
+- May 22, 2023: USD 180,000 via BR Shell LLC (UK)
+- July 6, 2023: USD 206,693.68 wired out from Zeig escrow
+5. AML Typology Mapping
+Flagged patterns include structuring/layering, escrow diversion, shell company use, and offshore flow indicators.
+6. Risk Score Grid
+High-risk entries flagged above a score threshold of 4 are prioritized for SAR review and subpoena targeting.
+7. 314(b) Outreach Matches
+Bank-to-bank and agency correspondence confirmed for CNB, SunTrust, Banesco USA, and Zeig Law Group entities.
+8. Eisenstein Trust Activity
+July 2023 deposit/withdrawal pattern through SunTrust matches structured laundering profile.
+9. Visualizations
+Includes heatmap, shell entity tree, and red flag scoring for graphic representation of fund movement and risk exposure.
+"""
+classification = "Confidential"
