@@ -1,0 +1,8 @@
+{
+  "name": "stop-azs",
+  "packageManager": "yarn@4.9.2",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
+  }
+}
