@@ -43,7 +43,7 @@ VALID_SAR_XML = """\
       <Beneficiaries>
         <Beneficiary>Jane Smith</Beneficiary>
       </Beneficiaries>
-      <UETR>1234567890abcdef1234567890ABCDEF</UETR>
+      <UETR>12345678-90ab-cdef-1234-567890ABCDEF</UETR>
     </Transaction>
   </Transactions>
 </SAR>
@@ -53,6 +53,14 @@ VALID_SAR_XML = """\
 class ValidateStringTests(unittest.TestCase):
     def test_valid_document(self) -> None:
         result = validate_string(VALID_SAR_XML)
+        self.assertTrue(result.is_valid, result.errors)
+
+    def test_accepts_compact_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "12345678-90ab-cdef-1234-567890ABCDEF",
+            "1234567890ABCDEF1234567890ABCDEF",
+        )
+        result = validate_string(xml)
         self.assertTrue(result.is_valid, result.errors)
 
     def test_reports_missing_sections(self) -> None:
@@ -70,6 +78,45 @@ class ValidateStringTests(unittest.TestCase):
         self.assertFalse(result.is_valid)
         self.assertIn(
             "Amount must be provided instead of a placeholder.",
+            {error.message for error in result.errors},
+        )
+
+    def test_detects_missing_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace("      <UETR>12345678-90ab-cdef-1234-567890ABCDEF</UETR>\n", "")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Transaction is missing a <UETR> element.",
+            {error.message for error in result.errors},
+        )
+
+    def test_detects_placeholder_uetr(self) -> None:
+        xml = VALID_SAR_XML.replace("12345678-90ab-cdef-1234-567890ABCDEF", "PENDING")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be provided instead of a placeholder.",
+            {error.message for error in result.errors},
+        )
+
+    def test_detects_invalid_uetr_format(self) -> None:
+        xml = VALID_SAR_XML.replace("12345678-90ab-cdef-1234-567890ABCDEF", "1234")
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be a 32-character hexadecimal value (hyphenated UUIDs are allowed).",
+            {error.message for error in result.errors},
+        )
+
+    def test_detects_invalid_uetr_hyphen_layout(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "12345678-90ab-cdef-1234-567890ABCDEF",
+            "1234567-890ab-cdef-1234-567890ABCDEF",
+        )
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "UETR must be a 32-character hexadecimal value (hyphenated UUIDs are allowed).",
             {error.message for error in result.errors},
         )
 
