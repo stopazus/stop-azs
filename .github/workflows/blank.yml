@@ -34,3 +34,32 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  validate-windows-automation:
+    runs-on: windows-latest
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync manifest env vars (available to all later steps)
+        shell: pwsh
+        env:
+          MANIFEST_KEY_ID: ${{ secrets.MANIFEST_KEY_ID }}
+          MANIFEST_HMAC_KEY: ${{ secrets.MANIFEST_HMAC_KEY }}
+          MANIFEST_HMAC_KEY_IS_BASE64: ${{ secrets.MANIFEST_HMAC_KEY_IS_BASE64 }}
+        run: |
+          # Don't hard-fail here unless you want to require secrets for every PR.
+          pwsh -NoProfile -File .\Scripts\Automation\Set-ManifestEnv.ps1
+
+      - name: Validate central structure automation
+        shell: pwsh
+        run: |
+          $base = Join-Path $env:GITHUB_WORKSPACE "ci-root"
+          New-Item -ItemType Directory -Path $base -Force | Out-Null
+          pwsh -NoProfile -File .\Scripts\Automation\Setup-CentralStructure.ps1 -BasePath $base -ValidateOnly
+
+      - name: Validate Windows NAS bootstrap
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File .\windows-nas-bootstrap\Bootstrap.ps1 -ValidateOnly -FailIfIssues
