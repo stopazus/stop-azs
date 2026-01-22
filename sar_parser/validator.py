@@ -25,6 +25,7 @@ without additional packages.
 from __future__ import annotations
 
 import os
+import uuid
 
 from dataclasses import dataclass, field
 from typing import Iterable, Optional
@@ -37,6 +38,8 @@ PLACEHOLDER_VALUES = {
     "PENDING",
     "NOT APPLICABLE",
 }
+
+_HEX_DIGITS = set("0123456789abcdefABCDEF")
 
 
 @dataclass(slots=True)
@@ -75,6 +78,30 @@ def _normalise_text(value: Optional[str]) -> str:
 def _is_placeholder(value: Optional[str]) -> bool:
     normalised = _normalise_text(value)
     return normalised.upper() in PLACEHOLDER_VALUES
+
+
+def _is_valid_uetr(value: Optional[str]) -> bool:
+    normalised = _normalise_text(value)
+    if not normalised:
+        return False
+
+    if "-" in normalised:
+        parts = normalised.split("-")
+        if len(parts) != 5 or [len(part) for part in parts] != [8, 4, 4, 4, 12]:
+            return False
+        candidate = "".join(parts)
+    else:
+        candidate = normalised
+
+    if len(candidate) != 32 or any(char not in _HEX_DIGITS for char in candidate):
+        return False
+
+    try:
+        uuid.UUID(hex=candidate)
+    except ValueError:
+        return False
+
+    return True
 
 
 def validate_string(xml_text: str) -> ValidationResult:
@@ -155,6 +182,31 @@ def _validate_transactions(root: ET.Element, result: ValidationResult) -> None:
                 ValidationError(
                     "Amount must be provided instead of a placeholder.",
                     location=f"/SAR/Transactions/Transaction[{index}]/Amount",
+                )
+            )
+
+        uetr = transaction.find("UETR")
+        if uetr is None:
+            result.errors.append(
+                ValidationError(
+                    "Transaction is missing a <UETR> element.",
+                    location=f"/SAR/Transactions/Transaction[{index}]",
+                )
+            )
+            continue
+
+        if _is_placeholder(uetr.text):
+            result.errors.append(
+                ValidationError(
+                    "UETR must be provided instead of a placeholder.",
+                    location=f"/SAR/Transactions/Transaction[{index}]/UETR",
+                )
+            )
+        elif not _is_valid_uetr(uetr.text):
+            result.errors.append(
+                ValidationError(
+                    "UETR must be a 32-character hexadecimal value (hyphenated UUIDs are allowed).",
+                    location=f"/SAR/Transactions/Transaction[{index}]/UETR",
                 )
             )
 
