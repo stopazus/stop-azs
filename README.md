@@ -1,3 +1,9 @@
+[![CI](https://github.com/stop-azs/stop-azs/actions/workflows/ci.yml/badge.svg)](https://github.com/stop-azs/stop-azs/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/stop-azs/stop-azs)](https://github.com/stop-azs/stop-azs/releases)
+[![Code Coverage](https://codecov.io/gh/stop-azs/stop-azs/branch/main/graph/badge.svg)](https://codecov.io/gh/stop-azs/stop-azs)
+[![License](https://img.shields.io/github/license/stop-azs/stop-azs)](https://github.com/stop-azs/stop-azs/blob/main/LICENSE)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/stop-azs/stop-azs)](https://github.com/stop-azs/stop-azs/commits/main)
+
 # stop-azs
 This repository documents key allegations and participants in the alleged diversion of escrow funds
 from the City National Bank trust account controlled by Justin E. Zeig. See [analysis.md](analysis.md)
