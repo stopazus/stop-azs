@@ -41,14 +41,21 @@ Thanks for helping out! Do these one-time steps to get a clean local setup.
 - `shellcheck` (for lint) — macOS: `brew install shellcheck` · Ubuntu: `sudo apt-get install shellcheck`
 
 ### 2) Create a virtual environment
+Create a virtual environment using the interpreter available on your platform.
+
 ```sh
-python -m venv .venv
+# macOS/Linux
+python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 ```
 
-> **Windows PowerShell**: run `.\\.venv\\Scripts\\Activate.ps1` instead of the
-> `source` command shown above.
+```powershell
+# Windows PowerShell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+```
 
 ### 3) Install development dependencies
 Install the tools used during development (currently just `pytest`). Keeping
