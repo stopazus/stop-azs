@@ -33,3 +33,10 @@ highlights each security, validation, and persistence hop.
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## Network Allowlist
+
+For CI, developer workstations, and the Windows NAS bootstrap scripts we restrict outbound
+network traffic to vetted software distribution services. See
+[`docs/network_allowlist.md`](docs/network_allowlist.md) for the current list of approved
+domains along with guidance on how to request additions.
