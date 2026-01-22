@@ -9,6 +9,75 @@
 | Wire Reference | ZLG-070623-01 (identified in supporting wire records) |
 | Prepared For | IRS Criminal Investigation (IRS-CI) and FinCEN |
 
+## SAR Supplement Snapshot (2025-10-05)
+**Source File:** SARSupplement_NORMALIZED.xml (generated 2026-01-22T19:24:54.460227, America/New_York).  
+**Narrative Summary:** Diversion of escrowed sale proceeds owed to N & S Holding LLC (Florida Land Trust No. 2763-196). Despite written direction to pay the beneficiary, the title agent wired funds to an attorney IOTA escrow (Zeig Law Firm PLLC, CNB Florida) on 2023-01-11. Indicators include contradiction of closing instructions, lack of 1099-S to beneficiary, internal references to a never-executed “future transaction,” and unresolved funds consistent with layering typologies in real-estate money laundering.
+
+### Entities
+| Name | Role | Jurisdiction |
+| --- | --- | --- |
+| N & S Holding LLC | Complainant / Beneficiary | Wyoming (US), doing business in FL |
+| Land Trust Service Corporation / Florida Land Trust No. 2763-196 | Trustee / Land Trust | Florida |
+| Nu World Title of Sunset LLC | Originating Title Agent | Florida |
+| Zeig Law Firm PLLC | Receiving Attorney IOTA Escrow | Florida |
+| City National Bank of Florida | Receiving Bank | Florida |
+| Banesco USA | Originating Bank | Florida |
+| Daniella Eisenstein | Buyer (recorded owner at 3049 Perriwinkle Cir) | Florida |
+| Zachary Eisenstein | Buyer (recorded owner at 3049 Perriwinkle Cir) | Florida |
+| YBH Holdings LLC | Related Entity (active) | Florida |
+| YBH Holdings 2948 LLC | Related Entity (inactive) | Florida |
+| YBH Holdings 341 LLC | Related Entity (inactive) | Florida |
+| ZLG Consulting BVI | Related Offshore Entity | BVI |
+| ZLG Holdings N.V. | Related Offshore Entity | Netherlands Antilles / N.V. |
+| Yossef Ben-Hamo | Individual of interest (network mapping) | Florida / Israel |
+| Justin E. Zeig | Attorney / IOTA account signatory | Florida |
+
+### Property & Transaction Highlights
+| Address | Status | Notes |
+| --- | --- | --- |
+| 2763 NW 196 Terrace, Miami Gardens, FL | confirmed_wire_event | Escrow diversion tied to sale proceeds; beneficiary N & S Holding LLC per trust instruction. Wire on 2023-01-11 for $206,693.68 (USD) from Banesco USA D/XXXXXX6842 (Nu World Title of Sunset LLC) to City National Bank of Florida ABA 066004367 / Acct #2304977980 (Zeig Law Firm PLLC IOTA). |
+| 3049 Perriwinkle Circle, Davie, FL 33328 | record_title_confirmed_control_unverified | Recorded owners: Daniella Eisenstein, Zachary Eisenstein; alleged control entity YBH Holdings 234 LLC; purchase price $395,000.00. |
+| 2733 NW 198th Terrace | unverified_address | Recorded owner: ZLG Holdings N.V.; purchase price $275,000.00; address not corroborated in exhibits. |
+
+| DateTime | Amount | Currency | Origin | Destination | Reference | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2023-01-11T17:09:50-05:00 | 206,693.68 | USD | Banesco USA D/XXXXXX6842 (Nu World Title of Sunset LLC) | City National Bank of Florida ABA 066004367 / Acct #2304977980 (Zeig Law Firm PLLC IOTA) | 22S-213 SELLER PROCEEDS 2763 NW 196 TERR | Executed |
+| 2023-02-09T00:00:00-05:00 | — | USD | Banesco USA (per annex) | City National Bank of Florida (possible; per annex) | ZLG-070623-01 | Pending confirmation |
+| 2023-07-05T09:32:00-05:00 | 206,693.68 | USD | City National Bank of Florida Acct #2304977980 (Zeig Law Firm PLLC IOTA Escrow) | Unknown / Unverified Beneficiary Account | Withdrawal related to 22S-213 SELLER PROCEEDS 2763 NW 196 TERR | Executed |
+
+### Indicators
+* Wire disbursement contradicted written closing/beneficiary instructions (land-trust).
+* Use of attorney IOTA escrow (CNB Florida) to park sale proceeds owed to beneficiary.
+* Lack of 1099-S issuance to true beneficiary of sale proceeds.
+* Internal reference to a non-executed “future transaction” used to justify diversion.
+* Funds not returned or reconciled after request; absence of corrective disbursement.
+* Layering typology: escrow → attorney trust → related/shell entities → subsequent acquisition.
+* Round-dollar and structured transfers observed in related account activity (monitoring list).
+* Active/inactive twin LLC patterns (YBH 2948/341) suggesting SPV rotation for title/finance.
+* Supplemental wire ref ZLG-070623-01 flagged in FinCEN SAR Annex as timeline-inconsistent vs. recorded title.
+
+### Law Enforcement Contacts
+| Agency | Program | Reference | Requested Action |
+| --- | --- | --- | --- |
+| FBI – Internet Crime Complaint Center (IC3) | Recovery Asset Team (RAT) | IC3 Submission ID: 7065f60922b948a59af3a8654edb16dd | Initiate rapid asset freeze/trace; coordinate with CNB Florida and Banesco USA referencing 2023-01-11 $206,693.68 wire (OBI “22S-213 SELLER PROCEEDS 2763 NW 196 TERR”). |
+| FinCEN – BSA E-Filing | Suspicious Activity Report (SAR) | SAR narrative supplement and exhibits | Flag related parties and accounts; share with appropriate task force partners under 314(b)/(a) as applicable. |
+| IRS – Criminal Investigation (IRS-CI) | Fraud / Money Laundering Referral | Related 3949-A supplement planned | Parallel financial tracing for potential tax evasion, unreported proceeds, and nominee structures. |
+
+### Exhibits
+* IC3 Complaint.pdf
+* Exhibit_A1_Trust_Fund_Misappropriation_Summary.pdf
+* Important – Closing Instructions.pdf
+* ADVICE OF DEBIT - BANK CONFIDENTIAL.pdf
+* Layering_Activity.pdf
+* Legal Claims Summary.pdf
+* FinCEN_SAR_Annex_Wire_ZLG-070623-01.pdf
+
+### Derived Totals
+* Transactions: 3
+* Total USD: $413,387.36
+* Earliest transaction: 2023-01-11T17:09:50-05:00
+* Latest transaction: 2023-07-05T09:32:00-05:00
+
 ## Reporting Institution and Contacts
 | Field | Details |
 | --- | --- |
