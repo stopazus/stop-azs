@@ -1,0 +1,8 @@
+HTTP/1.1 403 Forbidden
+content-length: 16
+content-type: text/plain
+date: Tue, 18 Nov 2025 05:53:05 GMT
+server: envoy
+connection: close
+
+curl: (56) CONNECT tunnel failed, response 403
