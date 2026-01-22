@@ -24,11 +24,14 @@ without additional packages.
 
 from __future__ import annotations
 
+import logging
 import os
 
 from dataclasses import dataclass, field
 from typing import Iterable, Optional
 from xml.etree import ElementTree as ET
+
+from .instrumentation import MetricsRecorder, emit_log, emit_metric
 
 
 PLACEHOLDER_VALUES = {
@@ -77,10 +80,35 @@ def _is_placeholder(value: Optional[str]) -> bool:
     return normalised.upper() in PLACEHOLDER_VALUES
 
 
-def validate_string(xml_text: str) -> ValidationResult:
-    """Validate a SAR document stored in memory."""
+def validate_string(
+    xml_text: str,
+    *,
+    correlation_id: str | None = None,
+    logger: logging.Logger | None = None,
+    metrics: MetricsRecorder | None = None,
+) -> ValidationResult:
+    """Validate a SAR document stored in memory.
+
+    Structured logs and metrics are emitted when the caller provides the
+    relevant hooks, making it easier to stitch validation activity to the
+    request lifecycle upstream and downstream of this function.
+    """
 
     result = ValidationResult()
+
+    emit_log(
+        logger,
+        logging.INFO,
+        "sar_validation_started",
+        correlation_id=correlation_id,
+        stage="validation",
+    )
+    emit_metric(
+        metrics,
+        "sar.validation.started",
+        correlation_id=correlation_id,
+        stage="validation",
+    )
 
     try:
         root = ET.fromstring(xml_text)
@@ -91,6 +119,21 @@ def validate_string(xml_text: str) -> ValidationResult:
                 location="/",
             )
         )
+        emit_log(
+            logger,
+            logging.ERROR,
+            "sar_validation_xml_error",
+            correlation_id=correlation_id,
+            stage="validation",
+            reason="parse_error",
+        )
+        emit_metric(
+            metrics,
+            "sar.validation.failed",
+            correlation_id=correlation_id,
+            stage="validation",
+            reason="parse_error",
+        )
         return result
 
     if root.tag != "SAR":
@@ -100,10 +143,56 @@ def validate_string(xml_text: str) -> ValidationResult:
                 location=f"/{root.tag}",
             )
         )
+        emit_log(
+            logger,
+            logging.ERROR,
+            "sar_validation_root_error",
+            correlation_id=correlation_id,
+            stage="validation",
+            reason="wrong_root",
+        )
+        emit_metric(
+            metrics,
+            "sar.validation.failed",
+            correlation_id=correlation_id,
+            stage="validation",
+            reason="wrong_root",
+        )
         return result
 
     _validate_required_blocks(root, result)
     _validate_transactions(root, result)
+
+    if result.errors:
+        emit_log(
+            logger,
+            logging.WARNING,
+            "sar_validation_failed",
+            correlation_id=correlation_id,
+            stage="validation",
+            error_count=str(len(result.errors)),
+        )
+        emit_metric(
+            metrics,
+            "sar.validation.failed",
+            correlation_id=correlation_id,
+            stage="validation",
+            error_count=str(len(result.errors)),
+        )
+    else:
+        emit_log(
+            logger,
+            logging.INFO,
+            "sar_validation_passed",
+            correlation_id=correlation_id,
+            stage="validation",
+        )
+        emit_metric(
+            metrics,
+            "sar.validation.passed",
+            correlation_id=correlation_id,
+            stage="validation",
+        )
 
     return result
 
