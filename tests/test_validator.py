@@ -73,6 +73,29 @@ class ValidateStringTests(unittest.TestCase):
             {error.message for error in result.errors},
         )
 
+    def test_handles_default_namespace(self) -> None:
+        xml = VALID_SAR_XML.replace(
+            "<SAR>",
+            '<SAR xmlns="urn:fincen:objects:sar">',
+            1,
+        )
+        result = validate_string(xml)
+        self.assertTrue(result.is_valid, result.errors)
+
+    def test_rejects_unknown_currency(self) -> None:
+        xml = VALID_SAR_XML.replace('currency="USD"', 'currency="ZZZ"')
+        result = validate_string(xml)
+        self.assertFalse(result.is_valid)
+        self.assertIn(
+            "Currency code 'ZZZ' is not allowed.",
+            {error.message for error in result.errors},
+        )
+
+    def test_allows_custom_currency_whitelist(self) -> None:
+        xml = VALID_SAR_XML.replace('currency="USD"', 'currency="ZZZ"')
+        result = validate_string(xml, allowed_currencies={"USD", "ZZZ"})
+        self.assertTrue(result.is_valid, result.errors)
+
 
 class ValidateFileTests(unittest.TestCase):
     def test_reads_from_disk(self) -> None:
