@@ -18,8 +18,8 @@ list of :class:`ValidationError` instances.  Each error captures a human
 readable message, the XPath-like location of the problem, and an optional
 severity level.
 
-The module is intentionally dependency-free so it can run in automation
-without additional packages.
+The module keeps its core validation dependency-light while offering
+optional schema-backed validation when ``xmlschema`` is available.
 """
 
 from __future__ import annotations
@@ -27,9 +27,13 @@ from __future__ import annotations
 import os
 
 from dataclasses import dataclass, field
+from functools import lru_cache
+from pathlib import Path
 from typing import Iterable, Optional
 from xml.etree import ElementTree as ET
 
+
+SCHEMA_PATH = Path(__file__).parent / "schema" / "sar_schema.xsd"
 
 PLACEHOLDER_VALUES = {
     "",
@@ -108,6 +112,31 @@ def validate_string(xml_text: str) -> ValidationResult:
     return result
 
 
+def validate_sar_xml(xml_bytes: bytes) -> dict:
+    """
+    Validate SAR XML against FinCEN SAR schema.
+    Returns parsed dict if valid; raises xmlschema.validators.exceptions.XMLSchemaValidationError if not.
+    """
+
+    schema = _load_schema()
+    return schema.to_dict(xml_bytes)
+
+
+@lru_cache(maxsize=1)
+def _load_schema() -> "xmlschema.XMLSchema":
+    if not SCHEMA_PATH.exists():
+        raise FileNotFoundError(f"SAR schema not found at {SCHEMA_PATH}.")
+
+    try:
+        import xmlschema
+    except ImportError as exc:
+        raise ImportError(
+            "Schema validation requires the optional 'xmlschema' dependency."
+        ) from exc
+
+    return xmlschema.XMLSchema(str(SCHEMA_PATH))
+
+
 def validate_file(path: "str | os.PathLike[str] | os.PathLike[bytes] | int") -> ValidationResult:
     """Load a SAR document from disk and validate its contents."""
 
@@ -163,5 +192,6 @@ __all__ = [
     "ValidationError",
     "ValidationResult",
     "validate_file",
+    "validate_sar_xml",
     "validate_string",
 ]
