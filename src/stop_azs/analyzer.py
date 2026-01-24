@@ -96,13 +96,19 @@ class Transaction:
         for key, value in raw.items():
             if value is None:
                 continue
+            if isinstance(key, str):
+                cleaned_key = key.strip()
+            else:
+                cleaned_key = str(key)
+            if not cleaned_key:
+                continue
             if isinstance(value, str):
                 text = value.strip()
                 if not text:
                     continue
-                metadata[key] = text
+                metadata[cleaned_key] = text
             else:
-                metadata[key] = str(value)
+                metadata[cleaned_key] = str(value)
 
         return cls(
             reference=reference,

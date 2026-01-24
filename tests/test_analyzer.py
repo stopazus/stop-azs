@@ -100,7 +100,7 @@ def test_transaction_from_dict_trims_optional_fields_and_metadata():
             "date": " 2023-07-06 ",
             "invoice": "  INV-99  ",
             "destination_country": " gb ",
-            "note": "  urgent  ",
+            " note ": "  urgent  ",
         }
     )
     assert tx.reference == "REF-7"
