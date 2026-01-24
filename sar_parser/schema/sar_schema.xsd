@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="SAR">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FilingInformation" type="xs:anyType"/>
+        <xs:element name="FilerInformation" type="xs:anyType"/>
+        <xs:element name="Subjects">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Subject" type="xs:anyType" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Transactions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Transaction" type="xs:anyType" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
