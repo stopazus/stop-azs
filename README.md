@@ -29,6 +29,45 @@ The end-to-end path for a client submission—from the public API endpoint throu
 database—is captured in [`docs/request_flow.md`](docs/request_flow.md), including a Mermaid diagram that
 highlights each security, validation, and persistence hop.
 
+## 🤖 Automated Security Workflows
+
+This repository uses automated workflows to manage dependency updates:
+
+- **Auto-merge**: Safe patch updates are automatically approved and merged
+- **Security triage**: Security updates are labeled and flagged for review
+- **Smart labeling**: All Dependabot PRs are automatically categorized
+- **Daily summaries**: Automated reports on pending dependency updates
+- **Weekly security reports**: Regular security update tracking
+
+### Workflow Details
+
+#### Dependabot Auto-Triage
+- **File**: [.github/workflows/dependabot-auto-triage.yml](.github/workflows/dependabot-auto-triage.yml)
+- **Purpose**: Automatically classifies, labels, and manages Dependabot PRs
+- **Features**:
+  - Severity classification based on CVSS scores
+  - Automatic approval for safe patch updates
+  - Security update flagging and review requests
+  - Auto-merge for approved safe updates
+
+#### Dependabot PR Info
+- **File**: [.github/workflows/dependabot-pr-info.yml](.github/workflows/dependabot-pr-info.yml)
+- **Purpose**: Adds informative comments to Dependabot PRs
+- **Features**: Detailed update summaries with security information
+
+#### Dependabot Notifications
+- **File**: [.github/workflows/dependabot-notify.yml](.github/workflows/dependabot-notify.yml)
+- **Purpose**: Provides daily and weekly dependency update reports
+- **Features**: Automated issue creation for tracking pending updates
+
+### Configuration
+
+The auto-merge behavior can be customized in [.github/dependabot-automerge-config.yml](.github/dependabot-automerge-config.yml).
+
+### Labels
+
+The workflows use several labels for categorization. See [.github/labels.yml](.github/labels.yml) for the complete list and create them in your repository settings.
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero

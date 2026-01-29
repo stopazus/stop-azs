@@ -1,0 +1,48 @@
+# GitHub Labels for Dependabot Auto-Triage
+# This file documents the labels used by the Dependabot workflows
+# Create these labels in your repository settings
+
+labels:
+  - name: "security-critical"
+    color: "b60205"
+    description: "Critical security vulnerability (CVSS >= 9.0)"
+  
+  - name: "security-high"
+    color: "d93f0b"
+    description: "High severity security issue (CVSS >= 7.0)"
+  
+  - name: "security-medium"
+    color: "fbca04"
+    description: "Medium severity security issue (CVSS >= 4.0)"
+  
+  - name: "security-low"
+    color: "0e8a16"
+    description: "Low severity security issue"
+  
+  - name: "dependencies-patch"
+    color: "e99695"
+    description: "Patch version dependency update"
+  
+  - name: "dependencies-minor"
+    color: "f9d0c4"
+    description: "Minor version dependency update"
+  
+  - name: "dependencies-major"
+    color: "d73a4a"
+    description: "Major version dependency update"
+  
+  - name: "auto-merge-candidate"
+    color: "128a0c"
+    description: "Safe for automatic merge"
+  
+  - name: "breaking-changes"
+    color: "d4c5f9"
+    description: "May contain breaking changes"
+
+  - name: "dependencies"
+    color: "0366d6"
+    description: "Pull requests that update a dependency file"
+  
+  - name: "automation"
+    color: "ededed"
+    description: "Automated processes and workflows"

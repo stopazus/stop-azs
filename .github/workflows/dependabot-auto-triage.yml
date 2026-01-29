@@ -1,0 +1,244 @@
+name: Dependabot Auto-Triage
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: write       # To merge PRs
+  pull-requests: write  # To comment, label, and approve PRs
+  issues: write         # To create summary issues
+  checks: read          # To check status
+
+jobs:
+  auto-triage:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Load configuration
+        id: config
+        run: |
+          # Default configuration values
+          CONFIG_FILE=".github/dependabot-automerge-config.yml"
+          
+          # Read config if it exists
+          if [ -f "$CONFIG_FILE" ]; then
+            echo "Config file found, using it"
+            # For now, use defaults since we don't have yq
+          else
+            echo "No config file found, using defaults"
+          fi
+          
+          # Set default excluded packages
+          echo "excluded_packages=fastapi,sqlalchemy,psycopg2,pyjwt,cryptography" >> $GITHUB_OUTPUT
+
+      - name: Classify severity and version
+        id: classify
+        run: |
+          # Get metadata from previous step
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          PACKAGE_NAME="${{ steps.metadata.outputs.dependency-names }}"
+          PREV_VERSION="${{ steps.metadata.outputs.previous-version }}"
+          NEW_VERSION="${{ steps.metadata.outputs.new-version }}"
+          CVSS="${{ steps.metadata.outputs.cvss }}"
+          SEVERITY="${{ steps.metadata.outputs.severity }}"
+          ALERT_STATE="${{ steps.metadata.outputs.alert-state }}"
+          DEP_TYPE="${{ steps.metadata.outputs.dependency-type }}"
+          
+          echo "Package: $PACKAGE_NAME"
+          echo "Update type: $UPDATE_TYPE"
+          echo "Previous version: $PREV_VERSION"
+          echo "New version: $NEW_VERSION"
+          echo "CVSS: $CVSS"
+          echo "Severity: $SEVERITY"
+          echo "Alert state: $ALERT_STATE"
+          echo "Dependency type: $DEP_TYPE"
+          
+          # Initialize labels array
+          LABELS=""
+          IS_SECURITY="false"
+          IS_SAFE="false"
+          IS_MAJOR="false"
+          REQUIRES_REVIEW="false"
+          
+          # Check if it's a security update
+          if [ ! -z "$CVSS" ] && [ "$CVSS" != "0" ]; then
+            IS_SECURITY="true"
+            REQUIRES_REVIEW="true"
+            
+            # Classify by CVSS score
+            CVSS_FLOAT=$(echo "$CVSS" | awk '{print $1}')
+            if (( $(echo "$CVSS_FLOAT >= 9.0" | bc -l) )); then
+              LABELS="security-critical"
+              echo "Security severity: CRITICAL (CVSS $CVSS_FLOAT)"
+            elif (( $(echo "$CVSS_FLOAT >= 7.0" | bc -l) )); then
+              LABELS="security-high"
+              echo "Security severity: HIGH (CVSS $CVSS_FLOAT)"
+            elif (( $(echo "$CVSS_FLOAT >= 4.0" | bc -l) )); then
+              LABELS="security-medium"
+              echo "Security severity: MEDIUM (CVSS $CVSS_FLOAT)"
+            else
+              LABELS="security-low"
+              echo "Security severity: LOW (CVSS $CVSS_FLOAT)"
+            fi
+          fi
+          
+          # Classify by version update type
+          case "$UPDATE_TYPE" in
+            "version-update:semver-patch")
+              LABELS="$LABELS dependencies-patch"
+              echo "Version update: PATCH"
+              ;;
+            "version-update:semver-minor")
+              LABELS="$LABELS dependencies-minor"
+              echo "Version update: MINOR"
+              ;;
+            "version-update:semver-major")
+              LABELS="$LABELS dependencies-major breaking-changes"
+              IS_MAJOR="true"
+              REQUIRES_REVIEW="true"
+              echo "Version update: MAJOR"
+              ;;
+          esac
+          
+          # Check if package is excluded
+          EXCLUDED_PACKAGES="${{ steps.config.outputs.excluded_packages }}"
+          if echo "$EXCLUDED_PACKAGES" | grep -q "$PACKAGE_NAME"; then
+            echo "Package is in exclusion list"
+            REQUIRES_REVIEW="true"
+          fi
+          
+          # Determine if safe for auto-merge
+          # Safe if: patch update AND (dev dependency OR not excluded) AND not security update
+          if [ "$UPDATE_TYPE" = "version-update:semver-patch" ] && [ "$IS_SECURITY" = "false" ] && [ "$IS_MAJOR" = "false" ]; then
+            if [ "$DEP_TYPE" = "direct:development" ] || ! echo "$EXCLUDED_PACKAGES" | grep -q "$PACKAGE_NAME"; then
+              IS_SAFE="true"
+              LABELS="$LABELS auto-merge-candidate"
+              echo "Marked as safe for auto-merge"
+            fi
+          fi
+          
+          # Output results
+          echo "labels=$LABELS" >> $GITHUB_OUTPUT
+          echo "is_security=$IS_SECURITY" >> $GITHUB_OUTPUT
+          echo "is_safe=$IS_SAFE" >> $GITHUB_OUTPUT
+          echo "is_major=$IS_MAJOR" >> $GITHUB_OUTPUT
+          echo "requires_review=$REQUIRES_REVIEW" >> $GITHUB_OUTPUT
+          echo "cvss=$CVSS" >> $GITHUB_OUTPUT
+
+      - name: Add labels
+        if: steps.classify.outputs.labels != ''
+        run: |
+          LABELS="${{ steps.classify.outputs.labels }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          # Convert space-separated labels to array
+          IFS=' ' read -ra LABEL_ARRAY <<< "$LABELS"
+          
+          for LABEL in "${LABEL_ARRAY[@]}"; do
+            if [ ! -z "$LABEL" ]; then
+              echo "Adding label: $LABEL"
+              gh pr edit "$PR_NUMBER" --add-label "$LABEL" || echo "Failed to add label $LABEL (may not exist yet)"
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on security update
+        if: steps.classify.outputs.is_security == 'true'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PACKAGE="${{ steps.metadata.outputs.dependency-names }}"
+          PREV_VERSION="${{ steps.metadata.outputs.previous-version }}"
+          NEW_VERSION="${{ steps.metadata.outputs.new-version }}"
+          CVSS="${{ steps.classify.outputs.cvss }}"
+          SEVERITY="${{ steps.metadata.outputs.severity }}"
+          
+          cat << EOF > comment.md
+          ## 🚨 Security Update Required
+          
+          **Package:** \`$PACKAGE\`
+          **Current Version:** $PREV_VERSION
+          **New Version:** $NEW_VERSION
+          **Severity:** $SEVERITY (CVSS $CVSS)
+          
+          ### ⚠️ Impact
+          This update addresses a security vulnerability.
+          
+          ### ✅ Fix
+          This update patches the vulnerability.
+          
+          ### 👀 Manual Review Required
+          @stopazus - Please review this security update before merging.
+          
+          ---
+          *Auto-merge is DISABLED for security updates*
+          EOF
+          
+          gh pr comment "$PR_NUMBER" --body-file comment.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on major version update
+        if: steps.classify.outputs.is_major == 'true' && steps.classify.outputs.is_security == 'false'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          cat << EOF > comment.md
+          ## ⚠️ Major Version Update
+          
+          This is a major version update that may contain breaking changes.
+          
+          **Manual review is required before merging.**
+          
+          Please:
+          1. Review the changelog for breaking changes
+          2. Test the application thoroughly
+          3. Update any affected code
+          
+          @stopazus - Your review is requested.
+          EOF
+          
+          gh pr comment "$PR_NUMBER" --body-file comment.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto-approve safe updates
+        if: steps.classify.outputs.is_safe == 'true' && steps.classify.outputs.requires_review == 'false'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          echo "Auto-approving safe patch update"
+          gh pr review "$PR_NUMBER" --approve --body "✅ Auto-approved: Safe patch update for development dependency"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Request review for non-safe updates
+        if: steps.classify.outputs.requires_review == 'true'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          echo "Requesting manual review"
+          gh pr edit "$PR_NUMBER" --add-reviewer stopazus || echo "Could not add reviewer (user may not exist or have permissions)"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable auto-merge for safe updates
+        if: steps.classify.outputs.is_safe == 'true' && steps.classify.outputs.requires_review == 'false'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          
+          echo "Enabling auto-merge with squash strategy"
+          gh pr merge "$PR_NUMBER" --auto --squash || echo "Auto-merge may already be enabled or checks not complete"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

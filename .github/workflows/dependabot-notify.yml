@@ -1,0 +1,211 @@
+name: Dependabot Notifications
+
+on:
+  schedule:
+    # Daily summary at 9 AM UTC
+    - cron: '0 9 * * *'
+    # Weekly security report on Monday at 10 AM UTC
+    - cron: '0 10 * * 1'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  daily-summary:
+    if: github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get pending Dependabot PRs
+        id: get-prs
+        run: |
+          echo "Fetching open Dependabot PRs..."
+          
+          # Get all open PRs created by Dependabot
+          PENDING_PRS=$(gh pr list \
+            --author "dependabot[bot]" \
+            --state open \
+            --json number,title,labels,createdAt \
+            --limit 100)
+          
+          echo "Found PRs:"
+          echo "$PENDING_PRS" | jq '.'
+          
+          # Count PRs by category
+          TOTAL=$(echo "$PENDING_PRS" | jq 'length')
+          SECURITY=$(echo "$PENDING_PRS" | jq '[.[] | select(.labels[].name | startswith("security-"))] | length')
+          PATCH=$(echo "$PENDING_PRS" | jq '[.[] | select(.labels[].name == "dependencies-patch")] | length')
+          MINOR=$(echo "$PENDING_PRS" | jq '[.[] | select(.labels[].name == "dependencies-minor")] | length')
+          MAJOR=$(echo "$PENDING_PRS" | jq '[.[] | select(.labels[].name == "dependencies-major")] | length')
+          
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "security=$SECURITY" >> $GITHUB_OUTPUT
+          echo "patch=$PATCH" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "prs=$PENDING_PRS" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+
+      - name: Create daily summary issue
+        if: steps.get-prs.outputs.total > 0
+        run: |
+          TOTAL="${{ steps.get-prs.outputs.total }}"
+          SECURITY="${{ steps.get-prs.outputs.security }}"
+          PATCH="${{ steps.get-prs.outputs.patch }}"
+          MINOR="${{ steps.get-prs.outputs.minor }}"
+          MAJOR="${{ steps.get-prs.outputs.major }}"
+          
+          DATE=$(date +"%Y-%m-%d")
+          
+          cat << EOF > summary.md
+          # 🤖 Dependabot Daily Summary - $DATE
+          
+          ## 📊 Overview
+          - **Total Pending PRs:** $TOTAL
+          - **Security Updates:** $SECURITY
+          - **Patch Updates:** $PATCH
+          - **Minor Updates:** $MINOR
+          - **Major Updates:** $MAJOR
+          
+          ## 🚨 Action Required
+          EOF
+          
+          if [ "$SECURITY" -gt 0 ]; then
+            cat << EOF >> summary.md
+          
+          ### Security Updates
+          Please review and merge security updates as soon as possible.
+          
+          EOF
+            gh pr list --author "dependabot[bot]" --label "security-critical,security-high,security-medium,security-low" --state open >> summary.md
+          fi
+          
+          if [ "$MAJOR" -gt 0 ]; then
+            cat << EOF >> summary.md
+          
+          ### Major Updates
+          These updates may contain breaking changes and require manual review.
+          
+          EOF
+            gh pr list --author "dependabot[bot]" --label "dependencies-major" --state open >> summary.md
+          fi
+          
+          cat << EOF >> summary.md
+          
+          ## 📝 All Pending PRs
+          EOF
+          gh pr list --author "dependabot[bot]" --state open >> summary.md
+          
+          cat << EOF >> summary.md
+          
+          ---
+          *Generated automatically by Dependabot Notifications workflow*
+          EOF
+          
+          # Create issue with summary
+          gh issue create \
+            --title "📊 Dependabot Summary - $DATE" \
+            --body-file summary.md \
+            --label "dependencies,automation"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+
+  weekly-security-report:
+    if: github.event_name == 'schedule' && github.event.schedule == '0 10 * * 1'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get security updates
+        id: get-security
+        run: |
+          echo "Fetching security-related Dependabot PRs..."
+          
+          # Get security PRs from the last week
+          WEEK_AGO=$(date -d '7 days ago' +%Y-%m-%d)
+          
+          SECURITY_PRS=$(gh pr list \
+            --author "dependabot[bot]" \
+            --label "security-critical,security-high,security-medium,security-low" \
+            --state all \
+            --search "created:>=$WEEK_AGO" \
+            --json number,title,state,labels,createdAt,closedAt \
+            --limit 100)
+          
+          echo "Security PRs found:"
+          echo "$SECURITY_PRS" | jq '.'
+          
+          CRITICAL=$(echo "$SECURITY_PRS" | jq '[.[] | select(.labels[].name == "security-critical")] | length')
+          HIGH=$(echo "$SECURITY_PRS" | jq '[.[] | select(.labels[].name == "security-high")] | length')
+          MEDIUM=$(echo "$SECURITY_PRS" | jq '[.[] | select(.labels[].name == "security-medium")] | length')
+          LOW=$(echo "$SECURITY_PRS" | jq '[.[] | select(.labels[].name == "security-low")] | length')
+          TOTAL=$(echo "$SECURITY_PRS" | jq 'length')
+          
+          echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high=$HIGH" >> $GITHUB_OUTPUT
+          echo "medium=$MEDIUM" >> $GITHUB_OUTPUT
+          echo "low=$LOW" >> $GITHUB_OUTPUT
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+
+      - name: Create weekly security report
+        if: steps.get-security.outputs.total > 0
+        run: |
+          CRITICAL="${{ steps.get-security.outputs.critical }}"
+          HIGH="${{ steps.get-security.outputs.high }}"
+          MEDIUM="${{ steps.get-security.outputs.medium }}"
+          LOW="${{ steps.get-security.outputs.low }}"
+          TOTAL="${{ steps.get-security.outputs.total }}"
+          
+          WEEK=$(date +"%Y-W%V")
+          
+          cat << EOF > report.md
+          # 🔒 Weekly Security Update Report - $WEEK
+          
+          ## 📊 Summary
+          This week, Dependabot identified **$TOTAL** security updates:
+          
+          - 🔴 **Critical:** $CRITICAL
+          - 🟠 **High:** $HIGH
+          - 🟡 **Medium:** $MEDIUM
+          - 🟢 **Low:** $LOW
+          
+          ## 🚨 Critical & High Priority
+          EOF
+          
+          if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
+            gh pr list --author "dependabot[bot]" --label "security-critical,security-high" --state all --search "created:>=7.days.ago" >> report.md
+          else
+            echo "No critical or high severity updates this week. ✅" >> report.md
+          fi
+          
+          cat << EOF >> report.md
+          
+          ## 📋 All Security Updates
+          EOF
+          gh pr list --author "dependabot[bot]" --label "security-critical,security-high,security-medium,security-low" --state all --search "created:>=7.days.ago" >> report.md
+          
+          cat << EOF >> report.md
+          
+          ## 📈 Trends
+          Keep your dependencies up to date to minimize security risks.
+          
+          ---
+          *Generated automatically by Dependabot Notifications workflow*
+          *Next report: $(date -d '+7 days' +"%Y-%m-%d")*
+          EOF
+          
+          # Create issue
+          gh issue create \
+            --title "🔒 Weekly Security Report - $WEEK" \
+            --body-file report.md \
+            --label "security,dependencies,automation"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}

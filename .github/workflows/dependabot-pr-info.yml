@@ -1,0 +1,144 @@
+name: Dependabot PR Info
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  enrich-pr:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Add informative comment
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PACKAGE="${{ steps.metadata.outputs.dependency-names }}"
+          PREV_VERSION="${{ steps.metadata.outputs.previous-version }}"
+          NEW_VERSION="${{ steps.metadata.outputs.new-version }}"
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          CVSS="${{ steps.metadata.outputs.cvss }}"
+          SEVERITY="${{ steps.metadata.outputs.severity }}"
+          PACKAGE_ECOSYSTEM="${{ steps.metadata.outputs.package-ecosystem }}"
+          
+          # Determine update type label
+          case "$UPDATE_TYPE" in
+            "version-update:semver-patch")
+              UPDATE_LABEL="Patch"
+              UPDATE_ICON="✅"
+              ;;
+            "version-update:semver-minor")
+              UPDATE_LABEL="Minor"
+              UPDATE_ICON="⬆️"
+              ;;
+            "version-update:semver-major")
+              UPDATE_LABEL="Major"
+              UPDATE_ICON="⚠️"
+              ;;
+            *)
+              UPDATE_LABEL="Unknown"
+              UPDATE_ICON="❓"
+              ;;
+          esac
+          
+          # Check if security update
+          if [ ! -z "$CVSS" ] && [ "$CVSS" != "0" ]; then
+            # Security update comment
+            cat << EOF > comment.md
+          ## 🚨 Security Update Summary
+          
+          **Package:** \`$PACKAGE\`
+          **Ecosystem:** $PACKAGE_ECOSYSTEM
+          **Current Version:** $PREV_VERSION
+          **New Version:** $NEW_VERSION
+          **Update Type:** $UPDATE_LABEL
+          
+          ### 🔒 Security Information
+          - **Severity:** $SEVERITY
+          - **CVSS Score:** $CVSS
+          
+          ### 📊 Analysis
+          - 🚨 Security vulnerability detected
+          - ⚠️ Manual review required
+          - ❌ Auto-merge disabled
+          
+          ### 👀 Next Steps
+          1. Review the security advisory details
+          2. Check for breaking changes in release notes
+          3. Approve and merge after review
+          
+          ---
+          *This PR requires manual review due to security implications*
+          EOF
+          else
+            # Regular update comment
+            cat << EOF > comment.md
+          ## 🤖 Dependabot Update Summary
+          
+          **Package:** \`$PACKAGE\`
+          **Ecosystem:** $PACKAGE_ECOSYSTEM
+          **Current Version:** $PREV_VERSION
+          **New Version:** $NEW_VERSION
+          **Update Type:** $UPDATE_ICON $UPDATE_LABEL
+          
+          ### 📊 Analysis
+          EOF
+            
+            # Add specific analysis based on update type
+            case "$UPDATE_TYPE" in
+              "version-update:semver-patch")
+                cat << EOF >> comment.md
+          - ✅ Safe patch update
+          - ✅ No breaking changes expected
+          - ✅ Auto-merge candidate
+          EOF
+                ;;
+              "version-update:semver-minor")
+                cat << EOF >> comment.md
+          - ⬆️ Minor version update
+          - ✅ Backward compatible
+          - ℹ️ May include new features
+          EOF
+                ;;
+              "version-update:semver-major")
+                cat << EOF >> comment.md
+          - ⚠️ Major version update
+          - ⚠️ May contain breaking changes
+          - 🔍 Manual review required
+          EOF
+                ;;
+            esac
+            
+            cat << EOF >> comment.md
+          
+          ### 🔒 Security
+          - ✅ No known vulnerabilities
+          - CVSS Score: N/A
+          
+          ### 📝 Release Information
+          Check the [release notes](https://github.com/${{ github.repository }}/pulls/$PR_NUMBER) for detailed changes.
+          
+          ---
+          EOF
+            
+            # Add footer based on auto-merge eligibility
+            if [ "$UPDATE_TYPE" = "version-update:semver-patch" ]; then
+              echo "*This PR may be automatically merged once all checks pass.*" >> comment.md
+            else
+              echo "*Manual review recommended before merging.*" >> comment.md
+            fi
+          fi
+          
+          # Post comment
+          gh pr comment "$PR_NUMBER" --body-file comment.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

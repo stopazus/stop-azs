@@ -1,0 +1,31 @@
+# Dependabot Auto-Merge Configuration
+
+# Package ecosystems to enable auto-merge
+enabled_ecosystems:
+  - pip
+  - npm
+  - github-actions
+
+# Version bump types to auto-merge (only for non-security updates)
+auto_merge_update_types:
+  - "version-update:semver-patch"  # 1.0.0 -> 1.0.1
+
+# Never auto-merge these packages (require manual review)
+exclude_packages:
+  - fastapi  # Core API framework
+  - sqlalchemy  # Database ORM
+  - psycopg2  # PostgreSQL driver
+  - pyjwt  # Authentication
+  - cryptography  # Security library
+
+# Auto-merge dev dependencies (testing, linting, etc.)
+auto_merge_dev_dependencies: true
+
+# Security thresholds
+security:
+  critical_cvss: 9.0
+  high_cvss: 7.0
+  medium_cvss: 4.0
+  
+  # Always require review for security updates
+  require_review_for_security: true
