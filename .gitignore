@@ -40,7 +40,7 @@ pip-delete-this-directory.txt
 venv/
 env/
 ENV/
-.venv
+.venv/
 
 # ============================================
 # Testing & Coverage
@@ -168,7 +168,6 @@ docker-compose.override.yml
 # ============================================
 
 .ipynb_checkpoints
-*.ipynb_checkpoints/
 
 # ============================================
 # Type Checking
