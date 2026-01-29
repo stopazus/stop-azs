@@ -71,6 +71,17 @@
 | IRS – Criminal Investigation (IRS-CI) | Fraud / Money Laundering Referral | Related 3949-A supplement planned | Parallel financial tracing for potential tax evasion, unreported proceeds, and nominee structures. |
 
 ### Exhibits
+
+A structured Master Exhibit Index is maintained in [`master_exhibit_index.json`](master_exhibit_index.json) with complete metadata, Bates numbering, and filing status. See [`docs/master_exhibit_index.md`](docs/master_exhibit_index.md) for details.
+
+**Filed Exhibits:**
+* **Exhibit A**: IC3 Complaint and Supporting Evidence (NST-A-0001 → NST-A-0015)
+* **Exhibit B**: Legal Claims Summary and Property Ownership Timeline (NST-B-0001 → NST-B-0006)
+* **Exhibit C**: Advice of Debit – Bank Confidential and Escrow Instructions (NST-C-0001 → NST-C-0004)
+* **Exhibit D**: Layering Activity and SAR Narrative Report (NST-D-0001 → NST-D-0005)
+* **Exhibit E-1**: Wire Disbursement TX10002 (OptimumBank → CNB / Zeig Law PLLC IOTA) (NST-E1-0001 → NST-E1-0003)
+
+**Legacy Exhibit References:**
 * IC3 Complaint.pdf
 * Exhibit_A1_Trust_Fund_Misappropriation_Summary.pdf
 * Important – Closing Instructions.pdf

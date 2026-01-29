@@ -1,0 +1,39 @@
+{
+    "Master_Exhibit_Index": [
+        {
+            "exhibit_id": "A",
+            "title": "IC3 Complaint and Supporting Evidence",
+            "status": "Filed",
+            "bates_range": "NST-A-0001 → NST-A-0015"
+        },
+        {
+            "exhibit_id": "B",
+            "title": "Legal Claims Summary and Property Ownership Timeline",
+            "status": "Filed",
+            "bates_range": "NST-B-0001 → NST-B-0006"
+        },
+        {
+            "exhibit_id": "C",
+            "title": "Advice of Debit – Bank Confidential and Escrow Instructions",
+            "status": "Filed",
+            "bates_range": "NST-C-0001 → NST-C-0004"
+        },
+        {
+            "exhibit_id": "D",
+            "title": "Layering Activity and SAR Narrative Report",
+            "status": "Filed",
+            "bates_range": "NST-D-0001 → NST-D-0005"
+        },
+        {
+            "exhibit_id": "E-1",
+            "title": "Wire Disbursement TX10002 (OptimumBank → CNB / Zeig Law PLLC IOTA)",
+            "bates_range": "NST-E1-0001 → NST-E1-0003",
+            "file_name": "Exhibit_E1_Wire_Disbursement_TX10002_Bates.pdf",
+            "sha256_hash": "44015903de5e37fd918a474aad22fcce8bcb455c7d2caa7259d792cacf4cdf91",
+            "prepared_by": "N & S Holding LLC",
+            "prepared_date": "2025-10-20",
+            "status": "Verified / Filed",
+            "notes": "Disbursement per FILE‑24‑981 instruction, verified compliance and sanctions screening passed."
+        }
+    ]
+}

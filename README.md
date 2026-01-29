@@ -6,6 +6,13 @@ captured case metadata, identified red flags, an expanded forensic ledger exhibi
 2025), and a concluding synthesis that ties the observed pass-through behavior to the ongoing
 recovery and enforcement efforts.
 
+## Master Exhibit Index
+
+A structured registry of all legal exhibits filed with law enforcement agencies (FBI IC3, FinCEN, IRS-CI)
+is maintained in [master_exhibit_index.json](master_exhibit_index.json). The index provides Bates numbering,
+filing status, cryptographic hashes, and metadata for each exhibit. See 
+[docs/master_exhibit_index.md](docs/master_exhibit_index.md) for documentation and usage examples.
+
 ## Windows NAS Bootstrap
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
@@ -31,5 +38,8 @@ highlights each security, validation, and persistence hop.
 
 ## Testing
 
-The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
-collected tests, confirming that no executable checks are defined yet.
+The project includes automated tests for key components:
+* `tests/test_validator.py` - SAR XML validation tests
+* `tests/test_exhibit_index.py` - Master Exhibit Index data structure tests
+
+Run tests with: `python3 tests/test_validator.py` or `python3 tests/test_exhibit_index.py`
