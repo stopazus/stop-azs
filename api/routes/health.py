@@ -1,0 +1,78 @@
+"""Health and readiness check endpoints."""
+
+from datetime import datetime
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+import structlog
+import redis
+
+from api.config import settings
+from api.models.schemas import HealthResponse, ReadinessResponse
+
+logger = structlog.get_logger()
+router = APIRouter(prefix="/health", tags=["Health"])
+
+
+# Database session dependency (will be properly imported from main.py)
+def get_db():
+    """Placeholder for database session dependency."""
+    pass
+
+
+@router.get("/", response_model=HealthResponse)
+async def health_check():
+    """
+    Basic health check endpoint.
+    
+    Returns basic application status without checking dependencies.
+    """
+    return HealthResponse(
+        status="healthy",
+        timestamp=datetime.utcnow(),
+        version=settings.APP_VERSION
+    )
+
+
+@router.get("/ready", response_model=ReadinessResponse)
+async def readiness_check(db: Session = Depends(get_db)):
+    """
+    Readiness check with dependency verification.
+    
+    Checks database and Redis connectivity.
+    """
+    db_status = "unknown"
+    redis_status = "unknown"
+    
+    # Check database connectivity
+    try:
+        db.execute(text("SELECT 1"))
+        db_status = "connected"
+    except Exception as e:
+        logger.error("database_health_check_failed", error=str(e))
+        db_status = "disconnected"
+    
+    # Check Redis connectivity
+    try:
+        r = redis.from_url(settings.REDIS_URL)
+        r.ping()
+        redis_status = "connected"
+    except Exception as e:
+        logger.error("redis_health_check_failed", error=str(e))
+        redis_status = "disconnected"
+    
+    # Overall status
+    overall_status = "ready" if (db_status == "connected" and redis_status == "connected") else "not_ready"
+    
+    if overall_status != "ready":
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Service not ready"
+        )
+    
+    return ReadinessResponse(
+        status=overall_status,
+        timestamp=datetime.utcnow(),
+        database=db_status,
+        redis=redis_status
+    )
