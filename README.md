@@ -29,6 +29,13 @@ The end-to-end path for a client submission—from the public API endpoint throu
 database—is captured in [`docs/request_flow.md`](docs/request_flow.md), including a Mermaid diagram that
 highlights each security, validation, and persistence hop.
 
+## Commit Verification
+
+Guidelines for commit signature verification and vigilant mode are documented in
+[`docs/commit_verification.md`](docs/commit_verification.md). This includes information about the three
+verification statuses (Verified, Partially Verified, Unverified) and supported signature methods
+(GPG, SSH, S/MIME).
+
 ## Testing
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
