@@ -16,7 +16,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-  
+
   # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
