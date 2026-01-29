@@ -33,9 +33,9 @@ If you believe:
 
 **DO NOT** create a public issue. Instead:
 
-1. Email stopazus directly (see contact in docs/involved_parties.md)
+1. Email stopazus directly at GitHub (@stopazus)
 2. Use GitHub's private vulnerability reporting feature
-3. Contact via encrypted channel
+3. Open a security advisory on GitHub
 
 ### Key Management
 
