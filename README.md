@@ -10,7 +10,7 @@ recovery and enforcement efforts.
 
 The [windows-nas-bootstrap](windows-nas-bootstrap/) directory contains a Windows automation bundle that:
 - Installs essential applications via winget (Python 3.12, Git, rclone, VS Code, 7-Zip, VLC, WinSCP, PuTTY)
-- Configures rclone to sync with G:\My Drive\AICD
+
 - Performs optional network speed tests
 
 See [windows-nas-bootstrap/README.md](windows-nas-bootstrap/README.md) for usage instructions.
