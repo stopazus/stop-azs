@@ -1,0 +1,83 @@
+# ============================================
+# Git-Crypt Encryption Configuration
+# ============================================
+# Files matching these patterns are transparently
+# encrypted when committed and decrypted when
+# checked out by authorized users.
+#
+# CRITICAL: This does NOT encrypt git history.
+# Files committed before git-crypt was enabled
+# remain unencrypted in old commits.
+#
+# See: docs/GIT_CRYPT_SETUP.md for setup
+# ============================================
+
+# ============================================
+# Investigation Files (SENSITIVE - HIGH PRIORITY)
+# ============================================
+
+# Investigation documentation
+docs/involved_parties.md filter=git-crypt diff=git-crypt
+
+# Case evidence directories
+evidence/** filter=git-crypt diff=git-crypt
+case_files/** filter=git-crypt diff=git-crypt
+investigation/** filter=git-crypt diff=git-crypt
+
+# ============================================
+# Wildcard Sensitive Files
+# ============================================
+
+*.sensitive filter=git-crypt diff=git-crypt
+*.confidential filter=git-crypt diff=git-crypt
+*.private filter=git-crypt diff=git-crypt
+*.classified filter=git-crypt diff=git-crypt
+
+# ============================================
+# Credentials & Secrets (CRITICAL)
+# ============================================
+
+# Secret directories
+secrets/** filter=git-crypt diff=git-crypt
+credentials/** filter=git-crypt diff=git-crypt
+.secrets/** filter=git-crypt diff=git-crypt
+
+# Environment files with credentials
+.env.production filter=git-crypt diff=git-crypt
+.env.staging filter=git-crypt diff=git-crypt
+.env.secret filter=git-crypt diff=git-crypt
+
+# ============================================
+# SSL Certificates & Private Keys
+# ============================================
+
+*.pem filter=git-crypt diff=git-crypt
+*.key filter=git-crypt diff=git-crypt
+*.crt filter=git-crypt diff=git-crypt
+*.p12 filter=git-crypt diff=git-crypt
+*.pfx filter=git-crypt diff=git-crypt
+*.cer filter=git-crypt diff=git-crypt
+
+# ============================================
+# Database Files with Sensitive Data
+# ============================================
+
+evidence.db filter=git-crypt diff=git-crypt
+investigation.sqlite filter=git-crypt diff=git-crypt
+case_data.sqlite3 filter=git-crypt diff=git-crypt
+*_sensitive.db filter=git-crypt diff=git-crypt
+
+# ============================================
+# SAR Files (May Contain PII)
+# ============================================
+
+data/sar/*.xml filter=git-crypt diff=git-crypt
+exports/*.sar filter=git-crypt diff=git-crypt
+sar_exports/** filter=git-crypt diff=git-crypt
+
+# ============================================
+# Backup Files
+# ============================================
+
+*.backup.sensitive filter=git-crypt diff=git-crypt
+backups/sensitive/** filter=git-crypt diff=git-crypt
