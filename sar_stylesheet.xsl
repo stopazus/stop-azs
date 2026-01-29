@@ -273,7 +273,15 @@
                   </xsl:if>
                   <xsl:value-of select="ReceivingAccount/AccountHolder"/>
                 </td>
-                <td><xsl:value-of select="Reference"/></td>
+                <td>
+                  <xsl:value-of select="Reference"/>
+                  <xsl:if test="PropertyAddress">
+                    <br/><strong>Property:</strong> <xsl:value-of select="PropertyAddress"/>
+                  </xsl:if>
+                  <xsl:if test="Notes">
+                    <br/><em><xsl:value-of select="Notes"/></em>
+                  </xsl:if>
+                </td>
                 <td>
                   <xsl:attribute name="class">
                     <xsl:choose>
