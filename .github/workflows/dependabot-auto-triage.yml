@@ -121,10 +121,14 @@ jobs:
           # Determine if safe for auto-merge
           # Safe if: patch update AND (dev dependency OR not excluded) AND not security update
           if [ "$UPDATE_TYPE" = "version-update:semver-patch" ] && [ "$IS_SECURITY" = "false" ] && [ "$IS_MAJOR" = "false" ]; then
-            if [ "$DEP_TYPE" = "direct:development" ] || ! echo "$EXCLUDED_PACKAGES" | grep -q "$PACKAGE_NAME"; then
+            if [ "$DEP_TYPE" = "direct:development" ]; then
               IS_SAFE="true"
               LABELS="$LABELS auto-merge-candidate"
-              echo "Marked as safe for auto-merge"
+              echo "Marked as safe for auto-merge (dev dependency)"
+            elif ! echo "$EXCLUDED_PACKAGES" | grep -q "$PACKAGE_NAME"; then
+              IS_SAFE="true"
+              LABELS="$LABELS auto-merge-candidate"
+              echo "Marked as safe for auto-merge (not excluded)"
             fi
           fi
           
@@ -179,7 +183,7 @@ jobs:
           This update patches the vulnerability.
           
           ### 👀 Manual Review Required
-          @stopazus - Please review this security update before merging.
+          @${{ github.repository_owner }} - Please review this security update before merging.
           
           ---
           *Auto-merge is DISABLED for security updates*
@@ -206,7 +210,7 @@ jobs:
           2. Test the application thoroughly
           3. Update any affected code
           
-          @stopazus - Your review is requested.
+          @${{ github.repository_owner }} - Your review is requested.
           EOF
           
           gh pr comment "$PR_NUMBER" --body-file comment.md
@@ -227,9 +231,10 @@ jobs:
         if: steps.classify.outputs.requires_review == 'true'
         run: |
           PR_NUMBER="${{ github.event.pull_request.number }}"
+          REVIEWER="${{ github.repository_owner }}"
           
-          echo "Requesting manual review"
-          gh pr edit "$PR_NUMBER" --add-reviewer stopazus || echo "Could not add reviewer (user may not exist or have permissions)"
+          echo "Requesting manual review from $REVIEWER"
+          gh pr edit "$PR_NUMBER" --add-reviewer "$REVIEWER" || echo "Could not add reviewer (user may not exist or have permissions)"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

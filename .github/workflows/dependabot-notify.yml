@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   daily-summary:
-    if: github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'schedule' && github.event.schedule == '0 9 * * *') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     
     steps:
@@ -126,6 +126,7 @@ jobs:
           echo "Fetching security-related Dependabot PRs..."
           
           # Get security PRs from the last week
+          # Use GNU date (available in ubuntu-latest runner)
           WEEK_AGO=$(date -d '7 days ago' +%Y-%m-%d)
           
           SECURITY_PRS=$(gh pr list \

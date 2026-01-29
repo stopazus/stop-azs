@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to create all required labels for Dependabot auto-triage workflows
-# Usage: ./create-labels.sh
+# Usage: ./create-dependabot-labels.sh
 
 set -e
 

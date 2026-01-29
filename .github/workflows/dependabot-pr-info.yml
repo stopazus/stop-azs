@@ -125,7 +125,7 @@ jobs:
           - CVSS Score: N/A
           
           ### 📝 Release Information
-          Check the [release notes](https://github.com/${{ github.repository }}/pulls/$PR_NUMBER) for detailed changes.
+          Check the [pull request details](https://github.com/${{ github.repository }}/pull/$PR_NUMBER) for more information.
           
           ---
           EOF
