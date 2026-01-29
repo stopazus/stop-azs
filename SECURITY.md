@@ -19,3 +19,26 @@ Use this section to tell people how to report a vulnerability.
 Tell them where to go, how often they can expect to get an update on a
 reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
+
+## Encrypted Files
+
+This repository uses git-crypt to protect sensitive investigation data.
+
+### Reporting Issues with Encrypted Files
+
+If you believe:
+- A file should be encrypted but isn't
+- The encryption key has been compromised
+- You've found encrypted data in plaintext in git history
+
+**DO NOT** create a public issue. Instead:
+
+1. Email stopazus directly (see contact in docs/involved_parties.md)
+2. Use GitHub's private vulnerability reporting feature
+3. Contact via encrypted channel
+
+### Key Management
+
+- Encryption keys are NEVER committed to the repository
+- Keys are backed up in secure, encrypted locations
+- Keys are rotated when team members leave or if compromised

@@ -33,3 +33,61 @@ highlights each security, validation, and persistence hop.
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## 🔒 Encrypted Files
+
+This repository uses [git-crypt](https://github.com/AGWA/git-crypt) to encrypt sensitive investigation files.
+
+### Encrypted Content
+
+The following files and directories are automatically encrypted:
+- 📄 `docs/involved_parties.md` - Investigation participant details
+- 📁 `evidence/` - Case evidence files
+- 📁 `case_files/` - Investigation data
+- 📁 `secrets/`, `credentials/` - Authentication data
+- 🔑 SSL certificates (`.pem`, `.key`, `.crt`)
+- 🔧 Production environment files (`.env.production`)
+- 📋 Files marked `*.sensitive`, `*.confidential`
+
+### For Collaborators
+
+**To access encrypted files:**
+
+1. **Install git-crypt:**
+   ```bash
+   # macOS
+   brew install git-crypt
+   
+   # Ubuntu/Debian
+   sudo apt-get install git-crypt
+   ```
+
+2. **Obtain encryption key** from @stopazus (via secure channel)
+
+3. **Unlock the repository:**
+   ```bash
+   git-crypt unlock /path/to/key
+   ```
+
+4. **Verify access:**
+   ```bash
+   ./scripts/check-encryption.sh
+   ```
+
+**Full documentation:** See [docs/GIT_CRYPT_SETUP.md](docs/GIT_CRYPT_SETUP.md)
+
+### Verification
+
+Check encryption status:
+```bash
+# Quick check
+git-crypt status
+
+# Detailed verification
+./scripts/check-encryption.sh
+
+# Verify remote encryption
+./scripts/verify-encryption-remote.sh
+```
+
+⚠️ **Security Note:** Git-crypt encrypts file *contents* but not file names, directory structure, or git history. Never commit sensitive data in commit messages or file paths.
