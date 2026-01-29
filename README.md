@@ -31,5 +31,18 @@ highlights each security, validation, and persistence hop.
 
 ## Testing
 
-The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
-collected tests, confirming that no executable checks are defined yet.
+The project includes automated unit tests in the `tests/` directory. Tests are written using Python's
+`unittest` framework and can be run with pytest:
+
+```bash
+# Run all tests
+pytest
+
+# Run with verbose output
+pytest -v
+
+# Run with quiet mode
+pytest -q
+```
+
+Tests run automatically via GitHub Actions on every push and pull request.
