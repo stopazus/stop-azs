@@ -47,6 +47,7 @@ class ExhibitPacket:
     network_profile: NetworkProfile
     capture_context: CaptureContext
     generated_at: str
+    approval_mode: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -111,6 +112,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Do not print rendered output to stdout.",
     )
+    parser.add_argument(
+        "--approval-mode",
+        choices=("manual", "full-auto"),
+        default="manual",
+        help="Approval mode for the exhibit (default: manual).",
+    )
     return parser.parse_args()
 
 
@@ -154,6 +161,7 @@ def build_packet(args: argparse.Namespace) -> ExhibitPacket:
         network_profile=network,
         capture_context=capture,
         generated_at=generated_at,
+        approval_mode=args.approval_mode,
     )
 
 
@@ -171,6 +179,7 @@ def render_markdown(packet: ExhibitPacket) -> str:
     lines.append(f"**Packet ID:** {packet.packet_id}")
     lines.append(f"**Scheme:** {packet.scheme}")
     lines.append(f"**Generated At:** {packet.generated_at}")
+    lines.append(f"**Approval Mode:** {packet.approval_mode}")
     lines.append("")
 
     lines.append("## Network Profile")
