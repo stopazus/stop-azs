@@ -18,7 +18,7 @@ However, you can give other users increased confidence in the identity attribute
 - The commit or tag is signed and the signature is successfully verified, but:
   - The commit has at least one author who is not the committer and who has enabled vigilant mode
 - In other words, the commit was co-authored, or the author and committer are different—and at least one has vigilant mode on
-- The commit signature doesn't guarantee the consent of all authors, so it's only "Partially verified"
+- The commit signature doesn't guarantee the consent of all authors, so it's only "Partially Verified"
 
 ### 3. Unverified
 - Any of the following conditions:
