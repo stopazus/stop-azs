@@ -16,8 +16,45 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID, JSONB, INET
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
+from sqlalchemy.types import TypeDecorator, CHAR
 
 Base = declarative_base()
+
+
+# UUID type that works with both PostgreSQL and SQLite
+class GUID(TypeDecorator):
+    """Platform-independent GUID type.
+    
+    Uses PostgreSQL's UUID type, otherwise uses CHAR(36), storing as stringified hex values.
+    """
+    impl = CHAR
+    cache_ok = True
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == 'postgresql':
+            return dialect.type_descriptor(UUID(as_uuid=True))
+        else:
+            return dialect.type_descriptor(CHAR(36))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        elif dialect.name == 'postgresql':
+            return value
+        else:
+            if isinstance(value, uuid.UUID):
+                return str(value)
+            else:
+                return str(uuid.UUID(value))
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        else:
+            if isinstance(value, uuid.UUID):
+                return value
+            else:
+                return uuid.UUID(value)
 
 
 class SARRecord(Base):
@@ -27,25 +64,24 @@ class SARRecord(Base):
     
     # Primary key
     id = Column(
-        UUID(as_uuid=True),
+        GUID,
         primary_key=True,
         default=uuid.uuid4,
-        server_default=text("gen_random_uuid()")
     )
     
     # Request metadata
     request_id = Column(String(64), nullable=False, unique=True, index=True)
     submitter_identity = Column(String(255), nullable=False, index=True)
     submitted_at = Column(
-        TIMESTAMP(timezone=True),
+        DateTime(timezone=True),
         nullable=False,
-        server_default=func.now()
+        default=datetime.utcnow
     )
-    client_ip = Column(INET, nullable=True)
+    client_ip = Column(String(45), nullable=True)  # Changed from INET for SQLite compatibility
     
     # SAR content
     sar_xml = Column(Text, nullable=False)
-    normalized_payload = Column(JSONB, nullable=False)
+    normalized_payload = Column(Text, nullable=False)  # JSON as Text for SQLite compatibility
     
     # Evidence & audit
     content_hash = Column(String(64), nullable=False)
@@ -53,29 +89,24 @@ class SARRecord(Base):
     
     # Validation metadata
     validation_status = Column(String(20), nullable=False, default="valid")
-    validation_errors = Column(JSONB, nullable=True)
+    validation_errors = Column(Text, nullable=True)  # JSON as Text for SQLite compatibility
     
     # Timestamps
     created_at = Column(
-        TIMESTAMP(timezone=True),
+        DateTime(timezone=True),
         nullable=False,
-        server_default=func.now()
+        default=datetime.utcnow
     )
     updated_at = Column(
-        TIMESTAMP(timezone=True),
+        DateTime(timezone=True),
         nullable=False,
-        server_default=func.now(),
-        onupdate=func.now()
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
     )
     
     __table_args__ = (
         Index("idx_sar_records_submitted_at", "submitted_at"),
         Index("idx_sar_records_submitter", "submitter_identity"),
-        Index(
-            "idx_sar_records_idempotency",
-            "idempotency_key",
-            postgresql_where=text("idempotency_key IS NOT NULL")
-        ),
     )
     
     def __repr__(self) -> str:

@@ -27,10 +27,8 @@ logger = structlog.get_logger()
 router = APIRouter(prefix="/api", tags=["SAR Records"])
 
 
-# Database session dependency (will be properly set in main.py)
-def get_db():
-    """Placeholder for database session dependency."""
-    pass
+# Import get_db from main module (will be set properly when app is initialized)
+from api.main import get_db
 
 
 @router.post(

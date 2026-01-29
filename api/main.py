@@ -13,9 +13,20 @@ from api.config import settings
 from api.middleware.logging import RequestLoggingMiddleware
 from api.middleware.rate_limit import limiter, rate_limit_exceeded_handler
 from api.models.database import Base
-from api.routes import health, sar_records
 
 # Configure structured logging
+import logging
+
+# Map log level string to logging module constant
+log_level_map = {
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARNING": logging.WARNING,
+    "ERROR": logging.ERROR,
+    "CRITICAL": logging.CRITICAL,
+}
+log_level = log_level_map.get(settings.LOG_LEVEL.upper(), logging.INFO)
+
 structlog.configure(
     processors=[
         structlog.processors.TimeStamper(fmt="iso"),
@@ -24,9 +35,7 @@ structlog.configure(
         structlog.processors.format_exc_info,
         structlog.processors.JSONRenderer()
     ],
-    wrapper_class=structlog.make_filtering_bound_logger(
-        getattr(structlog.stdlib, settings.LOG_LEVEL.upper(), structlog.INFO)
-    ),
+    wrapper_class=structlog.make_filtering_bound_logger(log_level),
     context_class=dict,
     logger_factory=structlog.PrintLoggerFactory(),
     cache_logger_on_first_use=True,
@@ -43,6 +52,21 @@ engine = create_engine(
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+# Database dependency (must be defined before importing routes)
+def get_db() -> Session:
+    """
+    Provide database session for dependency injection.
+    
+    Yields:
+        SQLAlchemy session
+    """
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @asynccontextmanager
@@ -81,29 +105,17 @@ app = FastAPI(
 # Add middleware
 app.add_middleware(RequestLoggingMiddleware)
 
-# Configure rate limiting
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
+# Configure rate limiting only if Redis is available
+try:
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
+    logger.info("rate_limiting_enabled")
+except Exception as e:
+    logger.warning("rate_limiting_disabled", error=str(e))
 
 
-# Database dependency
-def get_db() -> Session:
-    """
-    Provide database session for dependency injection.
-    
-    Yields:
-        SQLAlchemy session
-    """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-# Update route dependencies with actual get_db
-health.get_db = get_db
-sar_records.get_db = get_db
+# Import routes after get_db is defined
+from api.routes import health, sar_records
 
 # Include routers
 app.include_router(health.router)

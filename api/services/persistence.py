@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from typing import Optional
+import json
 import structlog
 
 from sqlalchemy.orm import Session
@@ -78,17 +79,21 @@ class SARRecordRepository:
                 )
                 return existing
         
+        # Serialize JSON fields to string for storage
+        normalized_payload_json = json.dumps(normalized_payload)
+        validation_errors_json = json.dumps(validation_errors) if validation_errors else None
+        
         # Create new record
         record = SARRecord(
             request_id=request_id,
             submitter_identity=submitter,
             sar_xml=sar_xml,
-            normalized_payload=normalized_payload,
+            normalized_payload=normalized_payload_json,
             content_hash=content_hash,
             client_ip=client_ip,
             idempotency_key=idempotency_key,
             validation_status=validation_status,
-            validation_errors=validation_errors,
+            validation_errors=validation_errors_json,
             submitted_at=datetime.utcnow(),
         )
         
