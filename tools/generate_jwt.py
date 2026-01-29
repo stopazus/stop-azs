@@ -4,7 +4,7 @@
 import argparse
 import jwt
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 
 def generate_token(
@@ -30,8 +30,8 @@ def generate_token(
     payload = {
         "sub": subject,
         "scope": scope,
-        "exp": datetime.utcnow() + timedelta(hours=hours),
-        "iat": datetime.utcnow()
+        "exp": datetime.now(timezone.utc) + timedelta(hours=hours),
+        "iat": datetime.now(timezone.utc)
     }
     
     token = jwt.encode(payload, secret, algorithm=algorithm)

@@ -1,6 +1,6 @@
 """Persistence service using repository pattern."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 import json
 import structlog
@@ -79,7 +79,7 @@ class SARRecordRepository:
                 )
                 return existing
         
-        # Serialize JSON fields to string for storage
+        # Serialize JSON fields to string for storage (SQLite compatibility)
         normalized_payload_json = json.dumps(normalized_payload)
         validation_errors_json = json.dumps(validation_errors) if validation_errors else None
         
@@ -94,7 +94,7 @@ class SARRecordRepository:
             idempotency_key=idempotency_key,
             validation_status=validation_status,
             validation_errors=validation_errors_json,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
         )
         
         try:

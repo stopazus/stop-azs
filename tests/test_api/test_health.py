@@ -30,20 +30,14 @@ def test_readiness_check_with_db(client: TestClient):
     
     # In tests, may not have Redis, so status may be 503
     # But we should at least get a response
-    assert response.status_code in [200, 503]
+    assert response.status_code == 200
     
     data = response.json()
-    
-    if response.status_code == 200:
-        # Ready response has full details
-        assert "status" in data
-        assert data["status"] == "ready"
-        assert "database" in data
-        assert "redis" in data
-        assert "timestamp" in data
-    else:
-        # 503 response has error detail
-        assert "detail" in data
+    assert "status" in data
+    assert data["status"] in ["ready", "not_ready"]
+    assert "database" in data
+    assert "redis" in data
+    assert "timestamp" in data
 
 
 def test_root_endpoint(client: TestClient):

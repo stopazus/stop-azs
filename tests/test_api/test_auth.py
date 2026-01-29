@@ -2,7 +2,7 @@
 
 import pytest
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
 
 from api.config import settings
@@ -85,8 +85,8 @@ def test_token_with_additional_scopes(client: TestClient, valid_sar_payload: dic
     payload = {
         "sub": "test-user@example.com",
         "scope": "sar:write sar:read admin",  # Multiple scopes
-        "exp": datetime.utcnow() + timedelta(hours=1),
-        "iat": datetime.utcnow()
+        "exp": datetime.now(timezone.utc) + timedelta(hours=1),
+        "iat": datetime.now(timezone.utc)
     }
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
     

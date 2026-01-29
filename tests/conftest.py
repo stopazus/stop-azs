@@ -14,7 +14,7 @@ os.environ['REDIS_URL'] = 'redis://fake-redis-for-tests:6379/0'
 
 import pytest
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Generator
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -83,8 +83,8 @@ def valid_jwt_token() -> str:
     payload = {
         "sub": "test-user@example.com",
         "scope": "sar:write",
-        "exp": datetime.utcnow() + timedelta(hours=1),
-        "iat": datetime.utcnow()
+        "exp": datetime.now(timezone.utc) + timedelta(hours=1),
+        "iat": datetime.now(timezone.utc)
     }
     return jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
 
@@ -95,8 +95,8 @@ def expired_jwt_token() -> str:
     payload = {
         "sub": "test-user@example.com",
         "scope": "sar:write",
-        "exp": datetime.utcnow() - timedelta(hours=1),
-        "iat": datetime.utcnow() - timedelta(hours=2)
+        "exp": datetime.now(timezone.utc) - timedelta(hours=1),
+        "iat": datetime.now(timezone.utc) - timedelta(hours=2)
     }
     return jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
 
@@ -107,8 +107,8 @@ def insufficient_scope_token() -> str:
     payload = {
         "sub": "test-user@example.com",
         "scope": "read:only",
-        "exp": datetime.utcnow() + timedelta(hours=1),
-        "iat": datetime.utcnow()
+        "exp": datetime.now(timezone.utc) + timedelta(hours=1),
+        "iat": datetime.now(timezone.utc)
     }
     return jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
 

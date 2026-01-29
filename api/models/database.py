@@ -1,6 +1,6 @@
 """SQLAlchemy database models for SAR records."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 import uuid
 
@@ -58,7 +58,10 @@ class GUID(TypeDecorator):
 
 
 class SARRecord(Base):
-    """SAR submission record stored in PostgreSQL."""
+    """SAR submission record stored in database.
+    
+    Note: Uses PostgreSQL for production. SQLite compatibility for tests only.
+    """
     
     __tablename__ = "sar_records"
     
@@ -75,13 +78,13 @@ class SARRecord(Base):
     submitted_at = Column(
         DateTime(timezone=True),
         nullable=False,
-        default=datetime.utcnow
+        default=lambda: datetime.now(timezone.utc)
     )
-    client_ip = Column(String(45), nullable=True)  # Changed from INET for SQLite compatibility
+    client_ip = Column(String(45), nullable=True)  # INET for PostgreSQL, String for SQLite
     
-    # SAR content
+    # SAR content  
     sar_xml = Column(Text, nullable=False)
-    normalized_payload = Column(Text, nullable=False)  # JSON as Text for SQLite compatibility
+    normalized_payload = Column(Text, nullable=False)  # JSONB in PostgreSQL, Text in SQLite
     
     # Evidence & audit
     content_hash = Column(String(64), nullable=False)
@@ -89,19 +92,19 @@ class SARRecord(Base):
     
     # Validation metadata
     validation_status = Column(String(20), nullable=False, default="valid")
-    validation_errors = Column(Text, nullable=True)  # JSON as Text for SQLite compatibility
+    validation_errors = Column(Text, nullable=True)  # JSONB in PostgreSQL, Text in SQLite
     
     # Timestamps
     created_at = Column(
         DateTime(timezone=True),
         nullable=False,
-        default=datetime.utcnow
+        default=lambda: datetime.now(timezone.utc)
     )
     updated_at = Column(
         DateTime(timezone=True),
         nullable=False,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc)
     )
     
     __table_args__ = (

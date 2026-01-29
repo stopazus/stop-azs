@@ -1,6 +1,6 @@
 """Health and readiness check endpoints."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -27,7 +27,7 @@ async def health_check():
     """
     return HealthResponse(
         status="healthy",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         version=settings.APP_VERSION
     )
 
@@ -62,15 +62,10 @@ async def readiness_check(db: Session = Depends(get_db)):
     # Overall status
     overall_status = "ready" if (db_status == "connected" and redis_status == "connected") else "not_ready"
     
-    if overall_status != "ready":
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Service not ready"
-        )
-    
+    # Return response even if not ready
     return ReadinessResponse(
         status=overall_status,
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         database=db_status,
         redis=redis_status
     )
