@@ -33,3 +33,15 @@ highlights each security, validation, and persistence hop.
 
 The project currently has no automated test suite. A `pytest` run (August 2025) reports zero
 collected tests, confirming that no executable checks are defined yet.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for security policies and reporting vulnerabilities.
+
+⚠️ **Important:** This repository uses `.gitignore` to prevent committing sensitive data. Never commit:
+- API keys, tokens, or credentials
+- `.env` files or secrets
+- Case evidence or investigation files
+- Personal Identifiable Information (PII)
+
+If you accidentally commit sensitive data, see [GitHub's guide on removing sensitive data](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).
