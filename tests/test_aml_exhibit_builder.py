@@ -1,3 +1,4 @@
+import json
 import sys
 import tempfile
 import unittest
@@ -147,8 +148,6 @@ class TestApprovalModeInJsonOutput(unittest.TestCase):
 
     def test_json_includes_approval_mode(self) -> None:
         """Test that render_json includes the approval mode."""
-        import json
-
         test_args = [
             "aml_exhibit_builder.py",
             "--packet-id", "PKT-007",
