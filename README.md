@@ -105,4 +105,4 @@ pytest -v
 
 ## Contact
 
-For questions or concerns about this case, refer to the contact information in [docs/involved_parties.md](docs/involved_parties.md).
+For questions or concerns about this case, refer to [docs/involved_parties.md](docs/involved_parties.md) for information on key actors and law enforcement contacts.
