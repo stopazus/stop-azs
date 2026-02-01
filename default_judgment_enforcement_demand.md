@@ -120,3 +120,4 @@ Defendant is legally obligated to turn over diverted trust assets, provide all r
 
 - Action run -AutoRun -autolive
 - open
+- "approval_mode": "full-auto"
