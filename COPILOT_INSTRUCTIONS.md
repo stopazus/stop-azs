@@ -6,33 +6,38 @@
 
 ## Validation Commands
 Please ensure to run the following commands to validate:
-- `yarn lint`
-- `yarn test`
+- `python -m py_compile sar_parser/*.py tests/*.py`
+- `python tests/test_validator.py`
 
 ## CI Snippet for GitHub Actions
 ```yaml
-name: CI
+name: Python CI
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
       - name: Run validation commands
         run: |
-          yarn lint
-          yarn test
+          python -m py_compile sar_parser/*.py tests/*.py
+          python tests/test_validator.py
 ```
 
 ## Owner Contact
